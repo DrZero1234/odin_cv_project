@@ -7,6 +7,24 @@ import React, {Component} from "react";
 class Personal extends Component {
   constructor() {
     super()
+    /*
+    this.state = {
+      User_cv: {
+        name: "",
+        age: "",
+        birth_date: "",
+        phone: "",
+        email: "",
+        education: [
+  
+        ],
+        work: [
+
+        ],
+      }
+    
+    }
+    */
   }
 
   render() {
@@ -32,14 +50,16 @@ class Personal extends Component {
 }
 
 class Education extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
 
 
 
   render() {
 
+    const past_education = this.props.list
+  
     const school_types = [
       {
         label: "Primary School",
@@ -89,7 +109,33 @@ class Education extends Component {
 
             <label htmlFor="school-end">Email:</label>
             <input type="date" id="school-end" required></input>
+            <button>+Add</button>
+
+                <div id="education-list">
+                  <table>
+                    <tr>
+                      <th>School name</th>
+                      <th>School type</th>
+                      <th>Course</th>
+                      <th>Start-date</th>
+                      <th>End-date</th>
+                    </tr>
+                    
+                    {past_education.map((education) => (
+                      <tr>
+                        <td>{education.name}</td>
+                        <td>{education.type}</td>
+                        <td>{education.course}</td>
+                        <td>{education.start_date}</td>
+                        <td>{education.end_date}</td>
+                                          </tr>
+                    ))}
+
+                  </table>
+
+          </div>
           </fieldset>
+
         </div>
     )}
 }
@@ -102,6 +148,9 @@ class Work extends Component {
 
 
   render() {
+
+      const wokrplaces = this.props.list;
+
 
       return(
         <div>
@@ -120,7 +169,34 @@ class Work extends Component {
             <input type="date" id="work-end" required></input>
 
             <label htmlFor="work-desc">Description</label>
-            <textarea id="work-desc">   </textarea>
+            <textarea id="work-desc" />
+            <button>+Add</button>
+
+                <div id="education-list">
+                  <table>
+                    <tr>
+                      <th>Workplace name</th>
+                      <th>Position</th>
+                      <th>Start-date</th>
+                      <th>End-date</th>
+                      <th>Description</th>
+
+                    </tr>
+                    
+                    {wokrplaces.map((workplace) => (
+                      <tr>
+                        <td>{workplace.name}</td>
+                        <td>{workplace.position}</td>
+                        
+                        <td>{workplace.start_date}</td>
+                        <td>{workplace.end_date}</td>
+                        <td>{workplace.description}</td>
+                      </tr>
+                    ))}
+
+                  </table>
+
+          </div>
             </fieldset>
       </div>
     )}
@@ -134,18 +210,53 @@ class App extends Component {
   }
 
   render() {
+
+
+      const EDUCATION_MOCK = [
+        {
+          name: "Name1",
+          type: "highschool",
+          course: "electornics",
+          start_date: "2004.08.12",
+          end_date: "2008.06.30",
+        },
+        {
+          name: "Name2",
+          type: "College",
+          course: "electornics",
+          start_date: "2004.08.12",
+          end_date: "2008.06.30",
+        },
+      ]
+
+            const WORK_MOCK = [
+        {
+          name: "Example Bar",
+          position: "Bartender",
+          start_date: "2010.06.21",
+          end_date: "2012.02.04",
+          description: "",
+        },
+        {
+          name: "Example Bar",
+          position: "Bartender",
+          start_date: "2010.06.21",
+          end_date: "2012.02.04",
+          description: "unnecessarily long description testing: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 
+        }
+      ]
     return(
-      <div>
+      <div className = "main-wrapper">
         <form id="cv-form">
-          <div id="personal" class = "cv-section">
+          <div id="personal" className = "cv-section">
             <Personal />
           </div>
-          <div id="education" class = "cv-section">
-            <Education />
+          <div id="education" className = "cv-section">
+            <Education list = {EDUCATION_MOCK}/>
           </div>
-          <div id="work" class="cv-section">
-            <Work />
-          /</div>
+          <div id="work" className="cv-section">
+            <Work list = {WORK_MOCK}/>
+          </div>
           <input type="submit"></input>
         </form>
       </div>

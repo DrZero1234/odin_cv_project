@@ -132,6 +132,7 @@ class Work extends Component {
 
   render() {
 
+      const changeEvent = this.props.changeEvent
       const work_state = this.props.work;
       const workplaces = this.props.list;
 
@@ -140,10 +141,10 @@ class Work extends Component {
           <fieldset>
             <legend>Work Experience</legend>
             <label htmlFor="work-name">Company name:</label>
-            <input type="text" id="work-name" required data-state = "work" value={work_state.name}></input>
+            <input type="text" id="work-name" name="name" required data-state = "work" value={work_state.name} onChange = {changeEvent}></input>
 
             <label htmlFor="work-position">Position:</label>
-            <input type="text" id="work-position" required data-state = "work"></input>
+            <input type="text" id="work-position" required data-state = "work" onChange={changeEvent}></input>
 
             <label htmlFor="work-start">Start date:</label>
             <input type="date" id="work-start" required data-state = "work"></input>
@@ -186,16 +187,20 @@ class Work extends Component {
 }
 
 class App extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+
+    this.changeWork = this.changeWork.bind(this);
      
     this.state = {
         id : uniqid(),
-        name: "",
-        birth_date: "",
-        phone: "",
-        email: "",
-
+        personal:  {
+          name: "",
+          birth_date: "",
+          phone: "",
+          email: "",
+        },
+        
         education: {
           name: "",
           type: "",
@@ -214,28 +219,20 @@ class App extends Component {
 
         educations: [],
         works: []
-      }
-    
-
-      
+      }  
     }
 
-    handleChange(event) {
-      let html_state;
-      switch(event.target.dataset.state) {
-        case "education":
-          html_state = "education";
-          break;
-        case "work":
-          html_state = "work";
-          break
-        default:
-          html_state = "personal"
-      }
-      this.setState({
+    changeWork(event)  {
+      const {name,value} = event.target
+      const {state} = event.target.dataset;
 
+      this.setState({
+        work: {
+          [name]: value,
+        }
       })
-  }
+      console.log(this.state)
+    }
 
   render() {
 
@@ -283,7 +280,7 @@ class App extends Component {
             <Education list = {EDUCATION_MOCK}/>
           </div>
           <div id="work" className="cv-section">
-            <Work list = {WORK_MOCK} work = {this.state.work}/>
+            <Work list = {WORK_MOCK} work = {this.state.work} changeEvent = {this.changeWork}/>
           </div>
           <input type="submit"></input>
         </form>

@@ -1,5 +1,6 @@
 import "./styles/App.css"
 import React, {Component} from "react";
+import uniqid from "uniqid";
 
 
 
@@ -7,24 +8,6 @@ import React, {Component} from "react";
 class Personal extends Component {
   constructor() {
     super()
-    /*
-    this.state = {
-      User_cv: {
-        name: "",
-        age: "",
-        birth_date: "",
-        phone: "",
-        email: "",
-        education: [
-  
-        ],
-        work: [
-
-        ],
-      }
-    
-    }
-    */
   }
 
   render() {
@@ -33,16 +16,16 @@ class Personal extends Component {
         <fieldset>
           <legend>Personal Information</legend>
           <label htmlFor="person-name">Name:</label>
-          <input type="text" id="person-name" required></input>
+          <input type="text" id="person-name" name="name" required data-state = "personal"></input>
 
           <label htmlFor="person-birthdate">Date of Birth:</label>
-          <input type="date" id="person-birthdate" required></input>
+          <input type="date" id="person-birthdate" name="birth_date" required data-state = "personal"></input>
 
           <label htmlFor="person-phone">Phone number:</label>
-          <input type="tel" id="person-phone" required></input>
+          <input type="tel" id="person-phone" name="phone" required data-state = "personal"></input>
 
           <label htmlFor="person-email">Email:</label>
-          <input type="email" id="person-email" required></input>
+          <input type="email" id="person-email" name="email" required data-state = "personal"></input>
         </fieldset>
       </div>
     )
@@ -92,23 +75,23 @@ class Education extends Component {
           <fieldset>
             <legend>Education</legend>
             <label htmlFor="school-name">School name: </label>
-            <input type="text" id="school-name" required></input>
+            <input type="text" id="school-name" required data-state = "education"></input>
 
             <label htmlFor="school-type">School type:</label>
-            <select name="school-type" id="school-type" form = "cv-form">
+            <select name="school-type" id="school-type" form = "cv-form" data-state = "education">
               {school_types.map((school) => (
                 <option value={school.value}>{school.label}</option>
               ))}
             </select>
 
             <label htmlFor="school-name">Course type: </label>
-            <input type="text" id="course-name" required></input>
+            <input type="text" id="course-name" required data-state = "education"></input>
 
             <label htmlFor="school-start">Start date:</label>
-            <input type="date" id="school-start" required></input>
+            <input type="date" id="school-start" required data-state = "education"></input>
 
             <label htmlFor="school-end">Email:</label>
-            <input type="date" id="school-end" required></input>
+            <input type="date" id="school-end" required data-state = "education"></input>
             <button>+Add</button>
 
                 <div id="education-list">
@@ -141,35 +124,35 @@ class Education extends Component {
 }
 
 class Work extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
 
 
 
   render() {
 
-      const wokrplaces = this.props.list;
-
+      const work_state = this.props.work;
+      const workplaces = this.props.list;
 
       return(
         <div>
           <fieldset>
             <legend>Work Experience</legend>
             <label htmlFor="work-name">Company name:</label>
-            <input type="text" id="work-name" required></input>
+            <input type="text" id="work-name" required data-state = "work" value={work_state.name}></input>
 
             <label htmlFor="work-position">Position:</label>
-            <input type="text" id="work-position" required></input>
+            <input type="text" id="work-position" required data-state = "work"></input>
 
             <label htmlFor="work-start">Start date:</label>
-            <input type="date" id="work-start" required></input>
+            <input type="date" id="work-start" required data-state = "work"></input>
 
             <label htmlFor="work-end">End date:</label>
-            <input type="date" id="work-end" required></input>
+            <input type="date" id="work-end" required data-state = "work"></input>
 
             <label htmlFor="work-desc">Description</label>
-            <textarea id="work-desc" />
+            <textarea id="work-desc" data-state = "work" />
             <button>+Add</button>
 
                 <div id="education-list">
@@ -183,7 +166,7 @@ class Work extends Component {
 
                     </tr>
                     
-                    {wokrplaces.map((workplace) => (
+                    {workplaces.map((workplace) => (
                       <tr>
                         <td>{workplace.name}</td>
                         <td>{workplace.position}</td>
@@ -205,8 +188,53 @@ class Work extends Component {
 class App extends Component {
   constructor() {
     super()
+     
+    this.state = {
+        id : uniqid(),
+        name: "",
+        birth_date: "",
+        phone: "",
+        email: "",
 
+        education: {
+          name: "",
+          type: "",
+          course: "",
+          start_date: "",
+          end_date: "",
+        },
 
+        work: {
+          name: "",
+          position: "",
+          start_date : "",
+          end_date : "",
+          description: "",
+        },
+
+        educations: [],
+        works: []
+      }
+    
+
+      
+    }
+
+    handleChange(event) {
+      let html_state;
+      switch(event.target.dataset.state) {
+        case "education":
+          html_state = "education";
+          break;
+        case "work":
+          html_state = "work";
+          break
+        default:
+          html_state = "personal"
+      }
+      this.setState({
+
+      })
   }
 
   render() {
@@ -255,7 +283,7 @@ class App extends Component {
             <Education list = {EDUCATION_MOCK}/>
           </div>
           <div id="work" className="cv-section">
-            <Work list = {WORK_MOCK}/>
+            <Work list = {WORK_MOCK} work = {this.state.work}/>
           </div>
           <input type="submit"></input>
         </form>

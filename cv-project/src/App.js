@@ -2,6 +2,8 @@ import "./styles/App.css"
 import React, {Component} from "react";
 import uniqid from "uniqid";
 
+import Work from "./components/Work"
+
 
 
 
@@ -10,22 +12,29 @@ class Personal extends Component {
     super()
   }
 
+  
+
+
   render() {
+
+    const state = this.props.personal;
+    const changeEvent = this.props.changeEvent;
+
     return(
       <div>
         <fieldset>
           <legend>Personal Information</legend>
           <label htmlFor="person-name">Name:</label>
-          <input type="text" id="person-name" name="name" required data-state = "personal"></input>
+          <input type="text" id="person-name" name="name" value={state.name} required data-html_state = "personal" onChange={changeEvent}></input>
 
           <label htmlFor="person-birthdate">Date of Birth:</label>
-          <input type="date" id="person-birthdate" name="birth_date" required data-state = "personal"></input>
+          <input type="date" id="person-birthdate" name="birth_date" value={state.birth_date} required data-html_state = "personal" onChange={changeEvent}></input>
 
           <label htmlFor="person-phone">Phone number:</label>
-          <input type="tel" id="person-phone" name="phone" required data-state = "personal"></input>
+          <input type="tel" id="person-phone" name="phone" value={state.phone} required data-html_state = "personal" onChange={changeEvent}></input>
 
           <label htmlFor="person-email">Email:</label>
-          <input type="email" id="person-email" name="email" required data-state = "personal"></input>
+          <input type="email" id="person-email" name="email" value={state.email} required data-html_state = "personal" onChange={changeEvent}></input>
         </fieldset>
       </div>
     )
@@ -87,13 +96,13 @@ class Education extends Component {
             </select>
 
             <label htmlFor="school-name">Course type: </label>
-            <input type="text" id="course-name" required data-html_state = "education"></input>
+            <input type="text" id="course-name" value = {state.course} name="course"  required data-html_state = "education" onChange={changeEvent}></input>
 
             <label htmlFor="school-start">Start date:</label>
-            <input type="date" id="school-start" required data-html_state = "education"></input>
+            <input type="date" id="school-start" value = {state.start_date} name="start_date" required data-html_state = "education" onChange={changeEvent}></input>
 
-            <label htmlFor="school-end">Email:</label>
-            <input type="date" id="school-end" required data-html_state = "education"></input>
+            <label htmlFor="school-end">End Date:</label>
+            <input type="date" id="school-end" name="end_date" value={state.end_date} required data-html_state = "education" onChange={changeEvent}></input>
             <button>+Add</button>
 
                 <div id="education-list">
@@ -122,69 +131,6 @@ class Education extends Component {
           </fieldset>
 
         </div>
-    )}
-}
-
-class Work extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-
-
-  render() {
-
-      const changeEvent = this.props.changeEvent;
-      const work_state = this.props.work;
-      const workplaces = this.props.list;
-
-      return(
-        <div>
-          <fieldset>
-            <legend>Work Experience</legend>
-            <label htmlFor="work-name">Company name:</label>
-            <input type="text" id="work-name" name="name" required data-html_state = "work" value={work_state.name} onChange = {changeEvent}></input>
-
-            <label htmlFor="work-position">Position:</label>
-            <input type="text" id="work-position" name="position" value={work_state.position} required data-html_state = "work" onChange={changeEvent}></input>
-
-            <label htmlFor="work-start">Start date:</label>
-            <input type="date" id="work-start" name="start_date" value={work_state.start_date} required data-html_state = "work" onChange={changeEvent}></input>
-
-            <label htmlFor="work-end">End date:</label>
-            <input type="date" id="work-end" name="end_date" value={work_state.end_date} required data-html_state = "work" onChange={changeEvent}></input>
-
-            <label htmlFor="work-desc">Description</label>
-            <textarea id="work-desc" name="description" value={work_state.description} data-html_state = "work" onChange={changeEvent} />
-            <button>+Add</button>
-
-                <div id="education-list">
-                  <table>
-                    <tr>
-                      <th>Workplace name</th>
-                      <th>Position</th>
-                      <th>Start-date</th>
-                      <th>End-date</th>
-                      <th>Description</th>
-
-                    </tr>
-                    
-                    {workplaces.map((workplace) => (
-                      <tr>
-                        <td>{workplace.name}</td>
-                        <td>{workplace.position}</td>
-                        
-                        <td>{workplace.start_date}</td>
-                        <td>{workplace.end_date}</td>
-                        <td>{workplace.description}</td>
-                      </tr>
-                    ))}
-
-                  </table>
-
-          </div>
-            </fieldset>
-      </div>
     )}
 }
 
@@ -227,8 +173,8 @@ class App extends Component {
     // Handles the changes in the form
      handleChange(event) {
 
-      const name_html = event.target.name.toString();
-      const value_html = event.target.value.toString()
+      const name_html = event.target.name
+      const value_html = event.target.value
       const html_state = event.target.dataset.html_state.toString();
 
       this.setState({
@@ -246,7 +192,7 @@ class App extends Component {
       console.log(`Html State: ${html_state}`)
       console.log(name_html)
       console.log(value_html)
-      console.log(this.state[html_state])
+      console.log(this.state)
       
 
      }
@@ -290,14 +236,14 @@ class App extends Component {
     return(
       <div className = "main-wrapper">
         <form id="cv-form">
-          <div id="personal" className = "cv-section">
-            <Personal />
+          <div id="personal"  className = "cv-section">
+            <Personal personal = {this.state} changeEvent = {this.handleChange} />
           </div>
           <div id="education" className = "cv-section">
-            <Education list = {EDUCATION_MOCK} education = {this.state.education} changeEvent = {this.handleChange}/>
+            <Education list = {EDUCATION_MOCK} education = {this.state} changeEvent = {this.handleChange}/>
           </div>
           <div id="work" className="cv-section">
-            <Work list = {WORK_MOCK} work = {this.state.work} changeEvent = {this.handleChange}/>
+            <Work list = {this.state.works} work = {this.state} changeEvent = {this.handleChange}/>
           </div>
           <input type="submit"></input>
         </form>

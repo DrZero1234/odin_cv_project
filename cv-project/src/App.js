@@ -3,142 +3,17 @@ import React, {Component} from "react";
 import uniqid from "uniqid";
 
 import Work from "./components/Work"
+import Education from "./components/Education";
+import Personal from "./components/Personal";
 
-
-
-
-class Personal extends Component {
-  constructor() {
-    super()
-  }
-
-  
-
-
-  render() {
-
-    const state = this.props.personal;
-    const changeEvent = this.props.changeEvent;
-
-    return(
-      <div>
-        <fieldset>
-          <legend>Personal Information</legend>
-          <label htmlFor="person-name">Name:</label>
-          <input type="text" id="person-name" name="name" value={state.name} required data-html_state = "personal" onChange={changeEvent}></input>
-
-          <label htmlFor="person-birthdate">Date of Birth:</label>
-          <input type="date" id="person-birthdate" name="birth_date" value={state.birth_date} required data-html_state = "personal" onChange={changeEvent}></input>
-
-          <label htmlFor="person-phone">Phone number:</label>
-          <input type="tel" id="person-phone" name="phone" value={state.phone} required data-html_state = "personal" onChange={changeEvent}></input>
-
-          <label htmlFor="person-email">Email:</label>
-          <input type="email" id="person-email" name="email" value={state.email} required data-html_state = "personal" onChange={changeEvent}></input>
-        </fieldset>
-      </div>
-    )
-  }
-}
-
-class Education extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-
-
-  render() {
-
-    const past_education = this.props.list
-    const state = this.props.education
-    const changeEvent = this.props.changeEvent
-  
-    const school_types = [
-      {
-        label: "Primary School",
-        value: "primary"
-      },
-    
-      {
-        label: "High School",
-        value: "highschool",
-      },
-    
-      {
-        label: "College",
-        value: "college",
-      },
-    
-      {
-        label: "University",
-        value: "university",
-      },
-    
-      {
-        label: "Other",
-        value: "other",
-      },
-    ]
-
-      return(
-        <div>
-          <fieldset>
-            <legend>Education</legend>
-            <label htmlFor="school-name">School name: </label>
-            <input type="text" id="school-name" required name="name" value={state.name} data-html_state = "education" onChange={changeEvent}></input>
-
-            <label htmlFor="school-type">School type:</label>
-            <select name="type" id="school-type"  value={state.type} form = "cv-form" data-html_state = "education" onChange={changeEvent}>
-              {school_types.map((school) => (
-                <option value={school.value}>{school.label}</option>
-              ))}
-            </select>
-
-            <label htmlFor="school-name">Course type: </label>
-            <input type="text" id="course-name" value = {state.course} name="course"  required data-html_state = "education" onChange={changeEvent}></input>
-
-            <label htmlFor="school-start">Start date:</label>
-            <input type="date" id="school-start" value = {state.start_date} name="start_date" required data-html_state = "education" onChange={changeEvent}></input>
-
-            <label htmlFor="school-end">End Date:</label>
-            <input type="date" id="school-end" name="end_date" value={state.end_date} required data-html_state = "education" onChange={changeEvent}></input>
-            <button>+Add</button>
-
-                <div id="education-list">
-                  <table>
-                    <tr>
-                      <th>School name</th>
-                      <th>School type</th>
-                      <th>Course</th>
-                      <th>Start-date</th>
-                      <th>End-date</th>
-                    </tr>
-                    
-                    {past_education.map((education) => (
-                      <tr>
-                        <td>{education.name}</td>
-                        <td>{education.type}</td>
-                        <td>{education.course}</td>
-                        <td>{education.start_date}</td>
-                        <td>{education.end_date}</td>
-                                          </tr>
-                    ))}
-
-                  </table>
-
-          </div>
-          </fieldset>
-
-        </div>
-    )}
-}
 
 class App extends Component {
   constructor(props) {
     super(props)
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
+    this.clearStateObject = this.clearStateObject.bind(this);
      
     this.state = {
         id : uniqid(),
@@ -166,17 +41,65 @@ class App extends Component {
         },
 
         educations: [],
-        works: []
+        works: [],
       }  
     }
 
+    clearStateObject(name) {
+      const state_obj = this.state.name;
+      for (const key in state_obj) {
+        state_obj[key] = "";
+      }
+      return state_obj
+    }
+
+    handleAdd(event) {
+      event.preventDefault();
+      let new_obj
+      const html_state = event.target.dataset.html_state;
+      switch(html_state) {
+        case "education":
+          new_obj = {
+          name: "",
+          type: "",
+          course: "",
+          start_date: "",
+          end_date: "",
+        };
+        break;
+        case "work":
+          new_obj = {
+          name: "",
+          position: "",
+          start_date: "",
+          end_date: "",
+          description: "",
+        };
+        break;
+        default:
+          new_obj = "lel";
+      };
+      const array_state = event.target.dataset.state_array;
+      let new_arr = [...this.state[array_state],this.state[html_state]];
+      this.setState({
+        [event.target.dataset.state_array]: new_arr,
+        [html_state]: new_obj
+
+      })
+      console.log(html_state)
+      console.log(this.state[array_state])
+      console.log(this.state)
+
+      
+    }
+
     // Handles the changes in the form
-     handleChange(event) {
+    handleChange(event) {
 
       const name_html = event.target.name
       const value_html = event.target.value
-      const html_state = event.target.dataset.html_state.toString();
-
+      const html_state = event.target.dataset.html_state;
+      
       this.setState({
         // Changes the id of the CV after each change
         id: uniqid(),
@@ -185,65 +108,53 @@ class App extends Component {
           // Inserts the last saved state
           ...this.state[html_state],
           // Updates it with the new value typed in the form
-          [name_html]: value_html,
-          
+          [name_html]: value_html, 
         }
-})
-      console.log(`Html State: ${html_state}`)
-      console.log(name_html)
-      console.log(value_html)
-      console.log(this.state)
-      
-
+    })
+    console.log(this.state)
      }
 
   render() {
 
-
-      const EDUCATION_MOCK = [
-        {
-          name: "Name1",
-          type: "highschool",
-          course: "electornics",
-          start_date: "2004.08.12",
-          end_date: "2008.06.30",
-        },
-        {
-          name: "Name2",
-          type: "College",
-          course: "electornics",
-          start_date: "2004.08.12",
-          end_date: "2008.06.30",
-        },
-      ]
-
-            const WORK_MOCK = [
-        {
-          name: "Example Bar",
-          position: "Bartender",
-          start_date: "2010.06.21",
-          end_date: "2012.02.04",
-          description: "",
-        },
-        {
-          name: "Example Bar",
-          position: "Bartender",
-          start_date: "2010.06.21",
-          end_date: "2012.02.04",
-          description: "unnecessarily long description testing: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 
-        }
-      ]
+      const {personal,education,work,educations,works} = this.state;
+      const school_types = [
+      {
+        label: "Primary School",
+        value: "primary"
+      },
+    
+      {
+        label: "High School",
+        value: "highschool",
+      },
+    
+      {
+        label: "College",
+        value: "college",
+      },
+    
+      {
+        label: "University",
+        value: "university",
+      },
+    
+      {
+        label: "Other",
+        value: "other",
+      },
+    ]
+    
     return(
       <div className = "main-wrapper">
         <form id="cv-form">
           <div id="personal"  className = "cv-section">
-            <Personal personal = {this.state} changeEvent = {this.handleChange} />
+            <Personal personal = {personal} changeEvent = {this.handleChange} />
           </div>
           <div id="education" className = "cv-section">
-            <Education list = {EDUCATION_MOCK} education = {this.state} changeEvent = {this.handleChange}/>
+            <Education list = {educations} education = {education} changeEvent = {this.handleChange} addEvent = {this.handleAdd} schoolTypes = {school_types}/>
           </div>
           <div id="work" className="cv-section">
-            <Work list = {this.state.works} work = {this.state} changeEvent = {this.handleChange}/>
+            <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd}/>
           </div>
           <input type="submit"></input>
         </form>

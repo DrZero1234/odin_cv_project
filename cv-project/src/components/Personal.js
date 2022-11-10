@@ -15,11 +15,11 @@ class Personal extends Component {
     const changeEvent = this.props.changeEvent;
 
     return(
-      <div>
+      <div class = "section-wrapper">
         <fieldset>
           <legend>Personal Information</legend>
           <label htmlFor="person-name">Name:</label>
-          <input type="text" id="person-name" name="name" value={state.name} required data-html_state = "personal" onChange={changeEvent}></input>
+          <input type="text" id="person-name" name="name" value={state.name} required data-html_state = "personal" onChange={(e) => changeEvent(e)}></input>
 
           <label htmlFor="person-birthdate">Date of Birth:</label>
           <input type="date" id="person-birthdate" name="birth_date" value={state.birth_date} required data-html_state = "personal" onChange={changeEvent}></input>

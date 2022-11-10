@@ -20,7 +20,7 @@ class Education extends Component {
 
 
       return(
-        <div>
+        <div class = "section-wrapper">
           <fieldset>
             <legend>Education</legend>
             <div id = "education-wrapper" class = "hidden">
@@ -45,7 +45,7 @@ class Education extends Component {
             </div>
             <button type = "button" data-html_state = "education" data-state_array = "educations" onClick = {addEvent}>+Add</button>
 
-                <div id="education-list">
+                <div id="education-list" class = "cv-table">
                   <table>
                     <tr>
                       <th>School name</th>

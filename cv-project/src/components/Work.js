@@ -16,6 +16,19 @@ class Work extends Component {
       const workplaces = this.props.list;
       const addEvent = this.props.addEvent;
 
+      const workplace_list = workplaces.map((workplace) => {
+        const description_text = workplace ? workplace.description : "-";
+        <div key = {workplace.id} class = "workplace-item" id = {workplace.id}>
+          <span class = "work-detail">{workplace.name}</span>
+          <span class = "work-detail">{workplace.position}</span>
+          <span class = "work-detail">{workplace.start_date}</span>
+          <span class = "work-detail">{workplace.end_date}</span>
+          <span class = "work-detail">{description_text}</span>
+          <button data-worplace-id = {workplace.id}>Edit</button>
+          <button data-workplace-id = {workplace.id}>Delete</button>
+        </div>
+      }) 
+
       return(
         <div>
           <fieldset>
@@ -37,8 +50,8 @@ class Work extends Component {
               <textarea id="work-desc" name="description" value={work_state.description} data-html_state = "work" onChange={changeEvent} />
             </div>
             <button type = "button" data-html_state = "work" data-state_array = "works" onClick={addEvent}>+Add</button>
-
-                <div id="education-list"> 
+                <div id="work-list" class = "cv-table">
+                  
                   <table>
                     <tr>
                       <th>Workplace name</th>
@@ -46,24 +59,23 @@ class Work extends Component {
                       <th>Start-date</th>
                       <th>End-date</th>
                       <th>Description</th>
-
+                      <td></td>
+                      <td></td>
                     </tr>
-                    
-                    {workplaces.map((workplace) => (
-                      <tr>
-                        <td key = {workplace.id}>{workplace.name}</td>
-                        <td key = {workplace.id}>{workplace.position}</td>
-                        <td key = {workplace.id}>{workplace.start_date}</td>
-                        <td key = {workplace.id}>{workplace.end_date}</td>
-                        <td key = {workplace.id}>{workplace.description}</td>
-                        <button data-worplace-id = {workplace.id}>Edit</button>
-                        <button data-workplace-id = {workplace.id}>Delete</button>
+                    {workplaces.map((workplace) => (
+                      <tr key  = {workplace.id}>
+                        <td>{workplace.name}</td>
+                        <td>{workplace.position}</td>
+                        <td>{workplace.start_date}</td>
+                        <td >{workplace.end_date}</td>
+                        <td>{workplace.description}</td>
+                        <td><button data-worplace-id = {workplace.id}>Edit</button></td>
+                        <td><button data-workplace-id = {workplace.id}>Delete</button></td>
                       </tr>
-                    ))}
+      ))}
+                </table>
+                </div>
 
-                  </table>
-
-          </div>
             </fieldset>
       </div>
     )}

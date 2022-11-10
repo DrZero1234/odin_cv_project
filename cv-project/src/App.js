@@ -13,7 +13,7 @@ class App extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
-    this.clearStateObject = this.clearStateObject.bind(this);
+    this.validateSubmit = this.validateSubmit.bind(this)
      
     this.state = {
         id : uniqid(),
@@ -45,13 +45,7 @@ class App extends Component {
       }  
     }
 
-    clearStateObject(name) {
-      const state_obj = this.state.name;
-      for (const key in state_obj) {
-        state_obj[key] = "";
-      }
-      return state_obj
-    }
+
 
     handleAdd(event) {
       event.preventDefault();
@@ -81,14 +75,12 @@ class App extends Component {
       };
       const array_state = event.target.dataset.state_array;
       let new_arr = [...this.state[array_state],this.state[html_state]];
-      this.setState({
+      this.setState(
+        prevState => ({
         [event.target.dataset.state_array]: new_arr,
         [html_state]: new_obj
 
-      })
-      console.log(html_state)
-      console.log(this.state[array_state])
-      console.log(this.state)
+      }),console.log(this.state.works))
 
       
     }
@@ -100,19 +92,33 @@ class App extends Component {
       const value_html = event.target.value
       const html_state = event.target.dataset.html_state;
       
-      this.setState({
+      this.setState(
+        prevState =>({
         // Changes the id of the CV after each change
         id: uniqid(),
         // Grabs 3 of the main state object (Work, Personal or Experience)
         [html_state] : {
           // Inserts the last saved state
-          ...this.state[html_state],
+          ...prevState[html_state],
           // Updates it with the new value typed in the form
           [name_html]: value_html, 
         }
-    })
-    console.log(this.state)
+    }),() =>   this.validateSubmit(this.state)
+    )
+
      }
+
+    validateSubmit(state) {
+      const submit_btn = document.getElementById("submit-form");
+      console.log(submit_btn)
+      if (state.personal.name && state.personal.birth_date && state.personal.phone && state.personal.email && state.works.length > 0 && state.educations.length > 0) {
+        submit_btn.disabled = false
+        submit_btn.className = "active"
+      } else {
+        submit_btn.disabled = true;
+        submit_btn.className = "inactive"
+      }
+    }
 
   render() {
 
@@ -145,7 +151,7 @@ class App extends Component {
     ]
     
     return(
-      <div className = "main-wrapper">
+      <div className = "container">
         <form id="cv-form">
           <div id="personal"  className = "cv-section">
             <Personal personal = {personal} changeEvent = {this.handleChange} />
@@ -156,7 +162,7 @@ class App extends Component {
           <div id="work" className="cv-section">
             <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd}/>
           </div>
-          <input type="submit"></input>
+          <input type="submit" id="submit-form" disabled></input>
         </form>
       </div>
     )

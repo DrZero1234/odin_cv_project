@@ -62,8 +62,8 @@ class Education extends Component {
                         <td key = {uniqid()}>{education.course}</td>
                         <td key = {uniqid()}>{education.start_date}</td>
                         <td key = {uniqid()}>{education.end_date}</td>
-                        <button>Edit</button>
-                        <button>Delete</button>
+                        <td><button type="button" data-state_id = {education.id} data-state_array = "educations">Edit</button></td>
+                        <td><button type = "button" data-state_id = {education.id} data-state_array = "educations">Delete</button></td>
                     </tr>
                     ))}
 

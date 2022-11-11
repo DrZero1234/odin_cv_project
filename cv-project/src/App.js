@@ -14,6 +14,8 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.validateSubmit = this.validateSubmit.bind(this)
+    this.getStateItem = this.getStateItem.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
      
     this.state = {
         id : uniqid(),
@@ -25,6 +27,7 @@ class App extends Component {
         },
         
         education: {
+          id : uniqid(),
           name: "",
           type: "",
           course: "",
@@ -33,6 +36,7 @@ class App extends Component {
         },
 
         work: {
+          id : uniqid(),
           name: "",
           position: "",
           start_date : "",
@@ -54,6 +58,7 @@ class App extends Component {
       switch(html_state) {
         case "education":
           new_obj = {
+          id: uniqid(),
           name: "",
           type: "",
           course: "",
@@ -63,6 +68,7 @@ class App extends Component {
         break;
         case "work":
           new_obj = {
+          id: uniqid(),
           name: "",
           position: "",
           start_date: "",
@@ -74,13 +80,13 @@ class App extends Component {
           new_obj = "lel";
       };
       const array_state = event.target.dataset.state_array;
-      let new_arr = [...this.state[array_state],this.state[html_state]];
+      //let new_arr = [...this.state[array_state],this.state[html_state]];
       this.setState(
         prevState => ({
-        [event.target.dataset.state_array]: new_arr,
+        [event.target.dataset.state_array]: [...prevState[array_state],prevState[html_state]],
         [html_state]: new_obj
 
-      }),console.log(this.state.works))
+      }),() => this.validateSubmit(this.state))
 
       
     }
@@ -101,10 +107,12 @@ class App extends Component {
           // Inserts the last saved state
           ...prevState[html_state],
           // Updates it with the new value typed in the form
+          id: uniqid(),
           [name_html]: value_html, 
         }
     }),() =>   this.validateSubmit(this.state)
     )
+    console.log(this.state)
 
      }
 
@@ -118,6 +126,37 @@ class App extends Component {
         submit_btn.disabled = true;
         submit_btn.className = "inactive"
       }
+    }
+
+    handleDelete(event) {
+      const array = event.target.dataset.state_array;
+      const id = event.target.dataset.state_id;
+
+      const new_array = this.state[array].filter((item) => item.id != id)
+
+      this.setState(
+        prevState => ({
+        [array]: new_array
+      }), console.log(this.state[array])
+      )
+
+
+    }
+
+    getStateItem(type,id) {
+      let state_item;
+
+      switch (type){
+        case "educations":
+          state_item = this.state.educations.filter((item) => item.id !== id)
+          break;
+        case "works":
+          state_item = this.state.works.filter((item) => item.id !== id)
+          break;
+      }
+
+      return state_item
+
     }
 
   render() {
@@ -160,7 +199,7 @@ class App extends Component {
             <Education list = {educations} education = {education} changeEvent = {this.handleChange} addEvent = {this.handleAdd} schoolTypes = {school_types}/>
           </div>
           <div id="work" className="cv-section">
-            <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd}/>
+            <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd} deleteEvent = {this.handleDelete}/>
           </div>
           <input type="submit" id="submit-form" disabled></input>
         </form>

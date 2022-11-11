@@ -24,8 +24,8 @@ class Work extends Component {
           <span class = "work-detail">{workplace.start_date}</span>
           <span class = "work-detail">{workplace.end_date}</span>
           <span class = "work-detail">{description_text}</span>
-          <button data-worplace-id = {workplace.id}>Edit</button>
-          <button data-workplace-id = {workplace.id}>Delete</button>
+          <button data-state-id = {workplace.id} type="button">Edit</button>
+          <button data-state-id = {workplace.id} type="button">Delete</button>
         </div>
       }) 
 
@@ -69,8 +69,8 @@ class Work extends Component {
                         <td>{workplace.start_date}</td>
                         <td >{workplace.end_date}</td>
                         <td>{workplace.description}</td>
-                        <td><button data-worplace-id = {workplace.id}>Edit</button></td>
-                        <td><button data-workplace-id = {workplace.id}>Delete</button></td>
+                        <td><button data-state-id = {workplace.id} type="button">Edit</button></td>
+                        <td><button data-state-id = {workplace.id} type="button">Delete</button></td>
                       </tr>
       ))}
                 </table>

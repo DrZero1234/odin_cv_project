@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="test.css">
+    <title>Document</title>
+</head>
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+        <div class="container">
+            <nav class="navbar">
+                <div class="page-title">
+                    <div id = "cv-builder-title">CV Builder</div>
+                </div>
+            </nav>
+            <form id="cv-form">
+                <div id="personal" class="cv-section">
+                    <div class="section-wrapper">
+                        <fieldset>
+                            <legend>Personal Information</legend><label for="person-name">Name:</label><input
+                                type="text" id="person-name" name="name" required="" data-html_state="personal"
+                                value=""><label for="person-birthdate">Date of Birth:</label><input type="date"
+                                id="person-birthdate" name="birth_date" required="" data-html_state="personal"
+                                value=""><label for="person-phone">Phone number:</label><input type="tel"
+                                id="person-phone" name="phone" required="" data-html_state="personal" value=""><label
+                                for="person-email">Email:</label><input type="email" id="person-email" name="email"
+                                required="" data-html_state="personal" value="">
+                        </fieldset>
+                    </div>
+                </div>
+                <div id="education" class="cv-section">
+                    <div class="section-wrapper">
+                        <fieldset>
+                            <legend>Education</legend>
+                            <div id="education-wrapper" class="hidden"><label for="school-name">School name:
+                                </label><input type="text" id="school-name" required="" name="name"
+                                    data-html_state="education" value=""><label for="school-type">School
+                                    type:</label>
+                                    <div id="school-type-wrapper">
+                                        <select name="type" id="school-type" form="cv-form" data-html_state="education">
+                                            <option value="primary">Primary School</option>
+                                            <option value="highschool">High School</option>
+                                            <option value="college">College</option>
+                                            <option value="university">University</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                        <label for="school-name">Course type: </label><input type="text"
+                                    id="course-name" name="course" required="" data-html_state="education"
+                                    value=""><label for="school-start">Start date:</label><input type="date"
+                                    id="school-start" name="start_date" required="" data-html_state="education"
+                                    value=""><label for="school-end">End Date:</label><input type="date" id="school-end"
+                                    name="end_date" required="" data-html_state="education" value=""></div><button
+                                type="button" data-html_state="education" data-state_array="educations">+Add</button>
+                            <div id="education-list" class="cv-table">
+                                <table>
+                                    <tr>
+                                        <th>School name</th>
+                                        <th>School type</th>
+                                        <th>Course</th>
+                                        <th>Start-date</th>
+                                        <th>End-date</th>
+                                    </tr>
+                                    <tr>
+                                        <td>test education</td>
+                                        <td>college</td>
+                                        <td>gdsgdfsg</td>
+                                        <td>2022-11-15</td>
+                                        <td>2022-11-30</td><button>Edit</button><button>Delete</button>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td><button>Edit</button><button>Delete</button>
+                                    </tr>
+                                    <tr>
+                                        <td>test education</td>
+                                        <td>college</td>
+                                        <td> gdsgdfsg</td>
+                                        <td>2022-11-02</td>
+                                        <td>2022-11-16</td><button>Edit</button><button>Delete</button>
+                                    </tr>
+                                </table>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div id="work" class="cv-section">
+                    <div class="section-wrapper">
+                        <fieldset>
+                            <legend>Work Experience</legend>
+
+                                                            <div id="work-wrapper" class="hidden"><label for="work-name">Company name:</label><input type="text" id="work-name"
+                                                                    name="name" required="" data-html_state="work" value=""><label for="work-position">Position:</label><input
+                                                                    type="text" id="work-position" name="position" required="" data-html_state="work" value=""><label
+                                                                    for="work-start">Start date:</label><input type="date" id="work-start" name="start_date" required=""
+                                                                    data-html_state="work" value=""><label for="work-end">End date:</label><input type="date" id="work-end"
+                                                                    name="end_date" required="" data-html_state="work" value=""><label for="work-desc">Description</label><textarea
+                                                                    id="work-desc" name="description" data-html_state="work"></textarea></div><button type="button"
+                                                                data-html_state="work" data-state_array="works">+Add</button>
+                                                            <div id="work-list" class="cv-table">
+                                                                <table>
+                                                                    <tr>
+                                                                        <th>Workplace name</th>
+                                                                        <th>Position</th>
+                                                                        <th>Start-date</th>
+                                                                        <th>End-date</th>
+                                                                        <th>Description</th>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Test work</td>
+                                                                        <td>Test position</td>
+                                                                        <td>2022-11-29</td>
+                                                                        <td>2022-11-17</td>
+                                                                        <td>lel</td>
+                                                                        <td><button>Edit</button></td>
+                                                                        <td><button>Delete</button></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Test position 2</td>
+                                                                        <td>gdsf</td>
+                                                                        <td>2022-11-16</td>
+                                                                        <td>2022-11-17</td>
+                                                                        <td>kek
+                                                                        </td>
+                                                                        <td><button>Edit</button></td>
+                                                                        <td><button>Delete</button></td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                                                                                        <input type="submit">
+                                                            </fieldset>
+
+                                                            </div>
+                                                                                                        
+                            </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+
+
+</body>
+</html>
+

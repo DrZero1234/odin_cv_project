@@ -5,6 +5,7 @@ import uniqid from "uniqid";
 import Work from "./components/Work"
 import Education from "./components/Education";
 import Personal from "./components/Personal";
+import EditPopup from "./components/editPopUp";
 
 
 class App extends Component {
@@ -34,7 +35,7 @@ class App extends Component {
           course: "",
           start_date: "",
           end_date: "",
-          seen: "false",
+          seen: false,
         },
 
         work: {
@@ -44,7 +45,7 @@ class App extends Component {
           start_date : "",
           end_date : "",
           description: "",
-          seen: "false",
+          seen: false,
         },
 
         educations: [],
@@ -67,7 +68,7 @@ class App extends Component {
           course: "",
           start_date: "",
           end_date: "",
-          seen: "false",
+          seen: false,
         };
         break;
         case "work":
@@ -78,7 +79,7 @@ class App extends Component {
           start_date: "",
           end_date: "",
           description: "",
-          seen: "false",
+          seen: false,
         };
         break;
         default:
@@ -179,12 +180,13 @@ class App extends Component {
       edited_item.seen = !this.state[state_array][index].seen;
 
       ret[index] = edited_item;
+      console.log(ret)
 
       this.setState({
         [state_array]: ret,
       })
 
-      console.log(this.state[state_array])
+      console.log(this.state)
     }
 
 
@@ -228,7 +230,7 @@ class App extends Component {
             <Education list = {educations} education = {education} changeEvent = {this.handleChange} addEvent = {this.handleAdd} schoolTypes = {school_types}/>
           </div>
           <div id="work" className="cv-section">
-            <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd} deleteEvent = {this.handleDelete} togglePop = {this.togglePop}/>
+            <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd} deleteEvent = {this.handleDelete} togglePop = {this.togglePop} />
           </div>
           <input type="submit" id="submit-form" disabled></input>
         </form>

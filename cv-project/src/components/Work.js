@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import uniqid from "uniqid";
 
+import EditPopup from "./editPopUp";
+
 class Work extends Component {
   constructor(props) {
     super(props)
@@ -71,6 +73,7 @@ class Work extends Component {
                         <td>{workplace.description}</td>
                         <td><button data-state_id = {workplace.id} type="button" data-state_array = "works" onClick={togglePop}>Edit</button></td>
                         <td><button data-state_id = {workplace.id} type="button" data-state_array = "works" onClick = {deleteEvent}>Delete</button></td>
+                        {workplace.seen ? <EditPopup closePopup={togglePop} /> : null}
                       </tr>
       ))}
                 </table>

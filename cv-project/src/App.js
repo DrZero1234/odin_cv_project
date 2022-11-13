@@ -16,6 +16,7 @@ class App extends Component {
     this.validateSubmit = this.validateSubmit.bind(this)
     this.getStateItem = this.getStateItem.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.togglePop = this.togglePop.bind(this);
      
     this.state = {
         id : uniqid(),
@@ -33,6 +34,7 @@ class App extends Component {
           course: "",
           start_date: "",
           end_date: "",
+          seen: "false",
         },
 
         work: {
@@ -42,6 +44,7 @@ class App extends Component {
           start_date : "",
           end_date : "",
           description: "",
+          seen: "false",
         },
 
         educations: [],
@@ -64,6 +67,7 @@ class App extends Component {
           course: "",
           start_date: "",
           end_date: "",
+          seen: "false",
         };
         break;
         case "work":
@@ -74,10 +78,11 @@ class App extends Component {
           start_date: "",
           end_date: "",
           description: "",
+          seen: "false",
         };
         break;
         default:
-          new_obj = "lel";
+          return false
       };
       const array_state = event.target.dataset.state_array;
       //let new_arr = [...this.state[array_state],this.state[html_state]];
@@ -112,13 +117,11 @@ class App extends Component {
         }
     }),() =>   this.validateSubmit(this.state)
     )
-    console.log(this.state)
 
      }
 
     validateSubmit(state) {
       const submit_btn = document.getElementById("submit-form");
-      console.log(submit_btn)
       if (state.personal.name && state.personal.birth_date && state.personal.phone && state.personal.email && state.works.length > 0 && state.educations.length > 0) {
         submit_btn.disabled = false
         submit_btn.className = "active"
@@ -139,8 +142,14 @@ class App extends Component {
         [array]: new_array
       }), console.log(this.state[array])
       )
+    }
+
+    handleEdit(event) {
+      const array = event.target.dataset.state_array;
+      const id = event.target.dataset.state_id;
 
 
+      const edited_item = this.getStateItem(array,id);
     }
 
     getStateItem(type,id) {
@@ -148,16 +157,36 @@ class App extends Component {
 
       switch (type){
         case "educations":
-          state_item = this.state.educations.filter((item) => item.id !== id)
+          state_item = this.state.educations.find((item) => item.id === id)
           break;
         case "works":
-          state_item = this.state.works.filter((item) => item.id !== id)
+          state_item = this.state.works.find((item) => item.id === id)
           break;
       }
-
       return state_item
-
     }
+
+
+    // Changes the seen state
+    togglePop(event) {
+
+      const {state_id,state_array} = event.target.dataset;
+
+      const edited_item = this.getStateItem(state_array,state_id);
+
+      const index = this.state[state_array].indexOf(edited_item)
+      const ret = this.state[state_array].slice(0);
+      edited_item.seen = !this.state[state_array][index].seen;
+
+      ret[index] = edited_item;
+
+      this.setState({
+        [state_array]: ret,
+      })
+
+      console.log(this.state[state_array])
+    }
+
 
   render() {
 
@@ -199,7 +228,7 @@ class App extends Component {
             <Education list = {educations} education = {education} changeEvent = {this.handleChange} addEvent = {this.handleAdd} schoolTypes = {school_types}/>
           </div>
           <div id="work" className="cv-section">
-            <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd} deleteEvent = {this.handleDelete}/>
+            <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd} deleteEvent = {this.handleDelete} togglePop = {this.togglePop}/>
           </div>
           <input type="submit" id="submit-form" disabled></input>
         </form>

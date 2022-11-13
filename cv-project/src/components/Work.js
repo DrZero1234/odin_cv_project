@@ -11,11 +11,10 @@ class Work extends Component {
 
   render() {
 
-      const changeEvent = this.props.changeEvent;
+
+      const {changeEvent,addEvent,deleteEvent,togglePop} = this.props;
       const work_state = this.props.work;
       const workplaces = this.props.list;
-      const addEvent = this.props.addEvent;
-      const deleteEvent = this.props.deleteEvent;
 
       const workplace_list = workplaces.map((workplace) => {
         const description_text = workplace ? workplace.description : "-";
@@ -70,7 +69,7 @@ class Work extends Component {
                         <td>{workplace.start_date}</td>
                         <td >{workplace.end_date}</td>
                         <td>{workplace.description}</td>
-                        <td><button data-state_id = {workplace.id} type="button" data-state_array = "works">Edit</button></td>
+                        <td><button data-state_id = {workplace.id} type="button" data-state_array = "works" onClick={togglePop}>Edit</button></td>
                         <td><button data-state_id = {workplace.id} type="button" data-state_array = "works" onClick = {deleteEvent}>Delete</button></td>
                       </tr>
       ))}

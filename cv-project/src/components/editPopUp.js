@@ -18,7 +18,7 @@ export default class EditPopup extends Component {
                     <span className="close" onClick={closePopup}>&times;</span>
                     <form>
                         <label htmlFor="work-name-edit">Company name:</label>
-                        <input type="text" id="work-name-edit" name="name"  data-html_state = "work" value={stateItem.name} onChange = {changeEvent}>{stateItem.name}</input>
+                        <input type="text" id="work-name-edit" name="name"  data-html_state = "work" value={stateItem.name} onChange = {changeEvent}></input>
 
                         <label htmlFor="work-position-edit">Position:</label>
                         <input type="text" id="work-position-edit" name="position" value={stateItem.position}  data-html_state = "work" onChange = {changeEvent}></input>

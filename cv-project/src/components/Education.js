@@ -5,45 +5,89 @@ import uniqid from "uniqid";
 class Education extends Component {
   constructor(props) {
     super(props)
+
+    this.handleChange = this.handleChange.bind(this);
+
+    this.state = {
+      id : uniqid(),
+      name: "",
+      type: "",
+      course: "",
+      start_date: "",
+      end_date: "",
+      edit: false
+    }
+
+  }
+
+  handleChange(event) {
+    const {name,value} = event.target;
+    this.setState(prevState => ({
+        ...prevState,
+        [name]: value 
+    }),console.log(this.state))
   }
 
 
 
   render() {
 
-    const past_education = this.props.list;
-    const state = this.props.education;
-    const changeEvent = this.props.changeEvent;
-    const addEvent = this.props.addEvent;
-    const school_types = this.props.schoolTypes;
+    const {handleChange} = this;
+
+    const school_list = this.props.school_list
+
+    const school_types = [
+      {
+        label: "Primary School",
+        value: "primary"
+      },
+    
+      {
+        label: "High School",
+        value: "highschool",
+      },
+    
+      {
+        label: "College",
+        value: "college",
+      },
+    
+      {
+        label: "University",
+        value: "university",
+      },
+    
+      {
+        label: "Other",
+        value: "other",
+      },
+    ]
   
-
-
       return(
         <div class = "section-wrapper" id="work-wapper">
           <fieldset>
             <legend>Education</legend>
             <div id = "education-wrapper" class = "hidden">
                 <label htmlFor="school-name">School name: </label>
-                <input type="text" id="school-name" required name="name" value={state.name} data-html_state = "education" onChange={changeEvent}></input>
+                <input type="text" id="school-name" required name="name" onChange={handleChange}></input>
 
                 <label htmlFor="school-type">School type:</label>
-                <select name="type" id="school-type"  value={state.type} form = "cv-form" data-html_state = "education" onChange={changeEvent}>
+                <select name="type" id="school-type" onChange={handleChange}>
                 {school_types.map((school) => (
                     <option value={school.value}>{school.label}</option>
                 ))}
                 </select>
 
                 <label htmlFor="school-name">Course type: </label>
-                <input type="text" id="course-name" value = {state.course} name="course"  required data-html_state = "education" onChange={changeEvent}></input>
+                <input type="text" name="course" onChange={handleChange}></input>
 
                 <label htmlFor="school-start">Start date:</label>
-                <input type="date" id="school-start" value = {state.start_date} name="start_date" required data-html_state = "education" onChange={changeEvent}></input>
+                <input type="date"  name="start_date" onChange={handleChange}></input>
 
                 <label htmlFor="school-end">End Date:</label>
-                <input type="date" id="school-end" name="end_date" value={state.end_date} required data-html_state = "education" onChange={changeEvent}></input>
+                <input type="date"name="end_date" onChange={handleChange}></input>
             </div>
-            <button type = "button" data-html_state = "education" data-state_array = "educations" onClick = {addEvent}>+Add</button>
+            <button type = "button">+Add</button>
 
                 <div id="education-list" class = "cv-table">
                   <table>
@@ -54,18 +98,8 @@ class Education extends Component {
                       <th>Start-date</th>
                       <th>End-date</th>
                     </tr>
-                    
-                    {past_education.map((education) => (
-                      <tr>
-                        <td key = {uniqid()}>{education.name}</td>
-                        <td key = {uniqid()}>{education.type}</td>
-                        <td key = {uniqid()}>{education.course}</td>
-                        <td key = {uniqid()}>{education.start_date}</td>
-                        <td key = {uniqid()}>{education.end_date}</td>
-                        <td><button type="button" data-state_id = {education.id} data-state_array = "educations">Edit</button></td>
-                        <td><button type = "button" data-state_id = {education.id} data-state_array = "educations">Delete</button></td>
-                    </tr>
-                    ))}
+
+                   {/*Get through the educations array*/}
 
                   </table>
 

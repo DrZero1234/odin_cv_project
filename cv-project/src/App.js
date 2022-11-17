@@ -20,42 +20,12 @@ class App extends Component {
     this.togglePop = this.togglePop.bind(this);
      
     this.state = {
-        id : uniqid(),
         personal:  {
           name: "",
           birth_date: "",
           phone: "",
           email: "",
         },
-        
-        education: {
-          id : uniqid(),
-          name: "",
-          type: "",
-          course: "",
-          start_date: "",
-          end_date: "",
-          seen: false,
-        },
-
-        work: {
-          id : uniqid(),
-          name: "",
-          position: "",
-          start_date : "",
-          end_date : "",
-          description: "",
-          seen: false,
-        },
-
-        workEdit: {
-          name: "",
-          position: "",
-          start_date : "",
-          end_date : "",
-          description: "",
-        },
-
         educations: [],
         works: [],
       }  
@@ -149,7 +119,7 @@ class App extends Component {
       this.setState(
         prevState => ({
         [array]: new_array
-      }), console.log(this.state[array])
+      }), this.validateSubmit(this.state)
       )
     }
 
@@ -230,7 +200,7 @@ class App extends Component {
             <Personal personal = {personal} changeEvent = {this.handleChange} />
           </div>
           <div id="education" className = "cv-section">
-            <Education list = {educations} education = {education} changeEvent = {this.handleChange} addEvent = {this.handleAdd} schoolTypes = {school_types}/>
+            <Education school_list = {this.state.educations}/>
           </div>
           <div id="work" className="cv-section">
             <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd} deleteEvent = {this.handleDelete} togglePop = {this.togglePop}  />

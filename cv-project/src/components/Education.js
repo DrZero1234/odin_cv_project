@@ -20,7 +20,7 @@ class Education extends Component {
 
 
       return(
-        <div class = "section-wrapper">
+        <div class = "section-wrapper" id="work-wapper">
           <fieldset>
             <legend>Education</legend>
             <div id = "education-wrapper" class = "hidden">

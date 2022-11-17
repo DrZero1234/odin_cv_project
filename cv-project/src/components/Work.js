@@ -14,7 +14,7 @@ class Work extends Component {
   render() {
 
 
-      const {changeEvent,addEvent,deleteEvent,togglePop} = this.props;
+      const {changeEvent,addEvent,deleteEvent,togglePop,getStateItem} = this.props;
       const work_state = this.props.work;
       const workplaces = this.props.list;
 
@@ -65,15 +65,15 @@ class Work extends Component {
                       <td></td>
                     </tr>
                     {workplaces.map((workplace) => (
-                      <tr key  = {workplace.id}>
+                      <tr key  = {workplace.id} id={workplace.id}>
                         <td>{workplace.name}</td>
                         <td>{workplace.position}</td>
                         <td>{workplace.start_date}</td>
                         <td >{workplace.end_date}</td>
                         <td>{workplace.description}</td>
-                        <td><button data-state_id = {workplace.id} type="button" data-state_array = "works" onClick={togglePop}>Edit</button></td>
+                        <td><button data-state_id = {workplace.id} type="button" data-state_array = "works" onClick={(e) => togglePop(workplace.id,"works")}>Edit</button></td>
                         <td><button data-state_id = {workplace.id} type="button" data-state_array = "works" onClick = {deleteEvent}>Delete</button></td>
-                        {workplace.seen ? <EditPopup closePopup={togglePop} /> : null}
+                        {workplace.seen ? <EditPopup closePopup={(e) => togglePop(workplace.id,"works")} stateItem ={workplace} addEvent = {addEvent} changeEvent = {changeEvent} /> : null}
                       </tr>
       ))}
                 </table>

@@ -48,6 +48,14 @@ class App extends Component {
           seen: false,
         },
 
+        workEdit: {
+          name: "",
+          position: "",
+          start_date : "",
+          end_date : "",
+          description: "",
+        },
+
         educations: [],
         works: [],
       }  
@@ -169,24 +177,19 @@ class App extends Component {
 
 
     // Changes the seen state
-    togglePop(event) {
+    togglePop(id,array) {
 
-      const {state_id,state_array} = event.target.dataset;
+      const edited_item = this.getStateItem(array,id);
 
-      const edited_item = this.getStateItem(state_array,state_id);
-
-      const index = this.state[state_array].indexOf(edited_item)
-      const ret = this.state[state_array].slice(0);
-      edited_item.seen = !this.state[state_array][index].seen;
+      const index = this.state[array].indexOf(edited_item)
+      const ret = this.state[array].slice(0);
+      edited_item.seen = !this.state[array][index].seen;
 
       ret[index] = edited_item;
-      console.log(ret)
 
       this.setState({
-        [state_array]: ret,
+        [array]: ret,
       })
-
-      console.log(this.state)
     }
 
 
@@ -230,7 +233,7 @@ class App extends Component {
             <Education list = {educations} education = {education} changeEvent = {this.handleChange} addEvent = {this.handleAdd} schoolTypes = {school_types}/>
           </div>
           <div id="work" className="cv-section">
-            <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd} deleteEvent = {this.handleDelete} togglePop = {this.togglePop} />
+            <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd} deleteEvent = {this.handleDelete} togglePop = {this.togglePop}  />
           </div>
           <input type="submit" id="submit-form" disabled></input>
         </form>

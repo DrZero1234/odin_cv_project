@@ -45,14 +45,16 @@ tr:nth-child(even) {
 
 .modal {
     position: fixed;
+    width: 100vw;
+    height: 100vh;
     top: 50%;
-    right: 50%;
+    left: 50%;
     transform: translate(-50%,-50%);
-    z-index: 1;
+    z-index: 99;
     background-color: rgba(0, 0, 0, 0.25);
   }
   
-  .modal_content {
+  .modal-content {
     background-color: white;
     position: absolute;
     top: 20%;

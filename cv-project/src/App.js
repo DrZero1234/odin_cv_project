@@ -6,6 +6,7 @@ import Work from "./components/Work"
 import Education from "./components/Education";
 import Personal from "./components/Personal";
 import EditPopup from "./components/editPopUp";
+import CvPdf from "./components/CvPdf";
 
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.togglePop = this.togglePop.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.getPdfPage = this.getPdfPage
      
     this.state = {
         id : uniqid(),
@@ -49,17 +51,17 @@ class App extends Component {
           seen: false,
         },
 
-        workEdit: {
-          name: "",
-          position: "",
-          start_date : "",
-          end_date : "",
-          description: "",
-        },
-
         educations: [],
         works: [],
+        ShowComponent: false,
       }  
+    }
+
+    getPdfPage(event) {
+      event.preventDefault();
+      this.setState({
+        ShowComponent: !this.state.ShowComponent,
+      })
     }
 
 
@@ -227,6 +229,13 @@ class App extends Component {
         value: "other",
       },
     ]
+
+    if (this.state.ShowComponent) {
+      return(
+        <CvPdf state = {this.state} />
+      )
+
+    }
     
     return(
       <div className = "container">
@@ -235,12 +244,12 @@ class App extends Component {
             <Personal personal = {personal} changeEvent = {this.handleChange} />
           </div>
           <div id="education" className = "cv-section">
-            <Education list = {educations} education = {education} changeEvent = {this.handleChange} addEvent = {this.handleAdd} schoolTypes = {school_types} togglePop = {this.togglePop} editEvent = {this.editEvent}/>
+            <Education list = {educations} education = {education} changeEvent = {this.handleChange} addEvent = {this.handleAdd} schoolTypes = {school_types} togglePop = {this.togglePop} editEvent = {this.handleEdit}/>
           </div>
           <div id="work" className="cv-section">
             <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd} deleteEvent = {this.handleDelete} togglePop = {this.togglePop} editEvent = {this.handleEdit}  />
           </div>
-          <input type="submit" id="submit-form" disabled></input>
+          <input type="submit" id="submit-form" disabled onSubmit = {(e) => this.getPdfPage}></input>
         </form>
       </div>
     )

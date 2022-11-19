@@ -26,7 +26,7 @@ class Education extends Component {
             <legend>Education</legend>
             <div id = "education-wrapper" class = "hidden">
                 <label htmlFor="school-name">School name: </label>
-                <input type="text" id="school-name" required name="name" value={state.name} data-html_state = "education" onChange={changeEvent}></input>
+                <input type="text" id="school-name"  name="name" value={state.name} data-html_state = "education" onChange={changeEvent}></input>
 
                 <label htmlFor="school-type">School type:</label>
                 <select name="type" id="school-type"  value={state.type} form = "cv-form" data-html_state = "education" onChange={changeEvent}>
@@ -36,13 +36,13 @@ class Education extends Component {
                 </select>
 
                 <label htmlFor="school-name">Course type: </label>
-                <input type="text" id="course-name" value = {state.course} name="course"  required data-html_state = "education" onChange={changeEvent}></input>
+                <input type="text" id="course-name" value = {state.course} name="course"   data-html_state = "education" onChange={changeEvent}></input>
 
                 <label htmlFor="school-start">Start date:</label>
-                <input type="date" id="school-start" value = {state.start_date} name="start_date" required data-html_state = "education" onChange={changeEvent}></input>
+                <input type="date" id="school-start" value = {state.start_date} name="start_date"  data-html_state = "education" onChange={changeEvent}></input>
 
                 <label htmlFor="school-end">End Date:</label>
-                <input type="date" id="school-end" name="end_date" value={state.end_date} required data-html_state = "education" onChange={changeEvent}></input>
+                <input type="date" id="school-end" name="end_date" value={state.end_date}  data-html_state = "education" onChange={changeEvent}></input>
             </div>
             <button type = "button" data-html_state = "education" data-state_array = "educations" onClick = {addEvent}>+Add</button>
 
@@ -65,7 +65,7 @@ class Education extends Component {
                         <td>{education.end_date}</td>
                         <td><button type="button" data-state_id = {education.id} data-state_array = "educations" onClick={(e) => togglePop(education.id,"educations")}>Edit</button></td>
                         <td><button type = "button" data-state_id = {education.id} data-state_array = "educations">Delete</button></td>
-                        {education.seen ? <EditPopup closePopup={(e) => togglePop(education.id,"educations")} stateItem ={education} addEvent = {addEvent} changeEvent = {changeEvent} toggleEvent = {togglePop} handleEdit = {editEvent} mode = "education" /> : null}
+                        {education.seen ? <EditPopup closePopup={(e) => togglePop(education.id,"educations")} stateItem ={education} addEvent = {addEvent} toggleEvent = {togglePop} handleEdit = {editEvent} mode = "education" /> : null}
                     </tr>
                     ))}
 

@@ -20,7 +20,7 @@ export default class EditPopup extends Component {
 
     render() {
         const state = this.state
-        const {closePopup,stateItem,addEvent,changeEvent,toggleEvent,handleEdit,mode} = this.props;
+        const {closePopup,stateItem,addEvent,toggleEvent,handleEdit,mode} = this.props;
 
          const school_types = [
       {
@@ -89,14 +89,14 @@ export default class EditPopup extends Component {
                         <label htmlFor="school-name-edit">School name:</label>
                         <input type="text" id="school-name-edit" name="name"  data-html_state = "education" value={state.name} onChange = {this.handleChange}></input>
 
-                        <select name="type" id="school-type"  value={state.type} form = "cv-form" data-html_state = "education" onChange={changeEvent}>
+                        <select name="type" id="school-type"  value={state.type} form = "cv-form" data-html_state = "education" onChange={this.handleChange}>
                             {school_types.map((school) => (
                                 <option value={school.value}>{school.label}</option>
                             ))}
                         </select>
                         
                          <label htmlFor="education-course-edit">Course:</label>
-                        <input type="text" id="education-course-edit" name="course"  data-html_state = "education" value={state.name} onChange = {this.handleChange}></input>
+                        <input type="text" id="education-course-edit" name="course"  data-html_state = "education" value={state.course} onChange = {this.handleChange}></input>
 
 
                         <label htmlFor="education-start-edit">Start date:</label>

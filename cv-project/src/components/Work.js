@@ -37,16 +37,16 @@ class Work extends Component {
             <legend>Work Experience</legend>
             <div id = "work-wrapper" class = "hidden">
               <label htmlFor="work-name">Company name:</label>
-              <input type="text" id="work-name" name="name" required data-html_state = "work" value={work_state.name} onChange = {changeEvent}></input>
+              <input type="text" id="work-name" name="name"  data-html_state = "work" value={work_state.name} onChange = {changeEvent}></input>
 
               <label htmlFor="work-position">Position:</label>
-              <input type="text" id="work-position" name="position" value={work_state.position} required data-html_state = "work" onChange={changeEvent}></input>
+              <input type="text" id="work-position" name="position" value={work_state.position}  data-html_state = "work" onChange={changeEvent}></input>
 
               <label htmlFor="work-start">Start date:</label>
-              <input type="date" id="work-start" name="start_date" value={work_state.start_date} required data-html_state = "work" onChange={changeEvent}></input>
+              <input type="date" id="work-start" name="start_date" value={work_state.start_date}  data-html_state = "work" onChange={changeEvent}></input>
 
               <label htmlFor="work-end">End date:</label>
-              <input type="date" id="work-end" name="end_date" value={work_state.end_date} required data-html_state = "work" onChange={changeEvent}></input>
+              <input type="date" id="work-end" name="end_date" value={work_state.end_date}  data-html_state = "work" onChange={changeEvent}></input>
 
               <label htmlFor="work-desc">Description</label>
               <textarea id="work-desc" name="description" value={work_state.description} data-html_state = "work" onChange={changeEvent} />
@@ -73,7 +73,7 @@ class Work extends Component {
                         <td>{workplace.description}</td>
                         <td><button data-state_id = {workplace.id} type="button" data-state_array = "works" onClick={(e) => togglePop(workplace.id,"works")}>Edit</button></td>
                         <td><button data-state_id = {workplace.id} type="button" data-state_array = "works" onClick = {deleteEvent}>Delete</button></td>
-                        {workplace.seen ? <EditPopup closePopup={(e) => togglePop(workplace.id,"works")} stateItem ={workplace} addEvent = {addEvent} changeEvent = {changeEvent} toggleEvent = {togglePop} handleEdit = {editEvent} mode = "work" /> : null}
+                        {workplace.seen ? <EditPopup closePopup={(e) => togglePop(workplace.id,"works")} stateItem ={workplace} addEvent = {addEvent}  toggleEvent = {togglePop} handleEdit = {editEvent} mode = "work" /> : null}
                       </tr>
       ))}
                 </table>

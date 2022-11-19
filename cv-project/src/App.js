@@ -18,6 +18,7 @@ class App extends Component {
     this.getStateItem = this.getStateItem.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.togglePop = this.togglePop.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
      
     this.state = {
         id : uniqid(),
@@ -153,12 +154,16 @@ class App extends Component {
       )
     }
 
-    handleEdit(event) {
-      const array = event.target.dataset.state_array;
-      const id = event.target.dataset.state_id;
+    handleEdit(old_state,new_state,type) {
+      const old_state_index = this.state[type].indexOf(this.getStateItem(type,old_state.id));
+      const array_copy = this.state[type].slice(0);
+      array_copy[old_state_index] = new_state;
+      array_copy[old_state_index].seen = !array_copy[old_state_index].seen 
+      this.setState({
+        [type]: array_copy
+      })
+      console.log(this.state[type])
 
-
-      const edited_item = this.getStateItem(array,id);
     }
 
     getStateItem(type,id) {
@@ -233,7 +238,7 @@ class App extends Component {
             <Education list = {educations} education = {education} changeEvent = {this.handleChange} addEvent = {this.handleAdd} schoolTypes = {school_types}/>
           </div>
           <div id="work" className="cv-section">
-            <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd} deleteEvent = {this.handleDelete} togglePop = {this.togglePop}  />
+            <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd} deleteEvent = {this.handleDelete} togglePop = {this.togglePop} editEvent = {this.handleEdit}  />
           </div>
           <input type="submit" id="submit-form" disabled></input>
         </form>

@@ -36,6 +36,7 @@
     ]
   },
   "devDependencies": {
+    "html-react-parser": "^3.0.4",
     "uniqid": "^5.4.0"
   }
 }

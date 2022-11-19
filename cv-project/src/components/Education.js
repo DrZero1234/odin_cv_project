@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import uniqid from "uniqid";
+import EditPopup from "./editPopUp";
 
 class Education extends Component {
   constructor(props) {
@@ -11,10 +12,10 @@ class Education extends Component {
 
   render() {
 
+    const {changeEvent,addEvent,deleteEvent,togglePop,getStateItem,editEvent} = this.props;
+
     const past_education = this.props.list;
     const state = this.props.education;
-    const changeEvent = this.props.changeEvent;
-    const addEvent = this.props.addEvent;
     const school_types = this.props.schoolTypes;
   
 
@@ -57,13 +58,14 @@ class Education extends Component {
                     
                     {past_education.map((education) => (
                       <tr>
-                        <td key = {uniqid()}>{education.name}</td>
-                        <td key = {uniqid()}>{education.type}</td>
-                        <td key = {uniqid()}>{education.course}</td>
-                        <td key = {uniqid()}>{education.start_date}</td>
-                        <td key = {uniqid()}>{education.end_date}</td>
-                        <td><button type="button" data-state_id = {education.id} data-state_array = "educations">Edit</button></td>
+                        <td>{education.name}</td>
+                        <td>{education.type}</td>
+                        <td>{education.course}</td>
+                        <td>{education.start_date}</td>
+                        <td>{education.end_date}</td>
+                        <td><button type="button" data-state_id = {education.id} data-state_array = "educations" onClick={(e) => togglePop(education.id,"educations")}>Edit</button></td>
                         <td><button type = "button" data-state_id = {education.id} data-state_array = "educations">Delete</button></td>
+                        {education.seen ? <EditPopup closePopup={(e) => togglePop(education.id,"educations")} stateItem ={education} addEvent = {addEvent} changeEvent = {changeEvent} toggleEvent = {togglePop} handleEdit = {editEvent} mode = "education" /> : null}
                     </tr>
                     ))}
 

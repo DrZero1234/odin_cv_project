@@ -235,7 +235,7 @@ class App extends Component {
             <Personal personal = {personal} changeEvent = {this.handleChange} />
           </div>
           <div id="education" className = "cv-section">
-            <Education list = {educations} education = {education} changeEvent = {this.handleChange} addEvent = {this.handleAdd} schoolTypes = {school_types}/>
+            <Education list = {educations} education = {education} changeEvent = {this.handleChange} addEvent = {this.handleAdd} schoolTypes = {school_types} togglePop = {this.togglePop} editEvent = {this.editEvent}/>
           </div>
           <div id="work" className="cv-section">
             <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd} deleteEvent = {this.handleDelete} togglePop = {this.togglePop} editEvent = {this.handleEdit}  />

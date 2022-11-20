@@ -1,17 +1,43 @@
 import React,{Component} from "react";
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import ReactPDF, { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import { PDFViewer } from "@react-pdf/renderer";
 
-export default class CvPdf extends Component{
-    constructor(props) {
-        super(props)
-    }
 
-    render() {
-        return(
-            <div>
-                <h1>Your CV is ready!</h1>
-                <button>Get PDF file</button>
-            </div>
-        )
+const styles = StyleSheet.create({
+    page:{
+        flexDirection: "row",
+        backgroundColor: '#E4E4E4',
+    },
+
+    section: {
+        margin: 10,
+        padding: 10,
+        flexGrow: 1,
     }
+})
+
+
+const MyDocument = (props) => (
+    <Document>
+        <Page size="A4" style={styles.page}>
+            <View style={styles.section}>
+                <Text>Section #1</Text>
+            </View>
+
+            <View style={styles.section}>
+                <Text>Section #2</Text>
+            </View>
+        </Page>
+    </Document>
+);
+
+const CvApp = () => {
+    <PDFViewer>
+        <MyDocument />
+    </PDFViewer>
 }
+
+
+ReactPDF.render(<CvApp />, document.getElementById("root"))
+
+export default CvApp

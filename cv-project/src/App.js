@@ -6,7 +6,7 @@ import Work from "./components/Work"
 import Education from "./components/Education";
 import Personal from "./components/Personal";
 import EditPopup from "./components/editPopUp";
-import CvPdf from "./components/CvPdf";
+import CvApp from "./components/CvPdf";
 
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.togglePop = this.togglePop.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
-    this.getPdfPage = this.getPdfPage
+    this.getPdfPage = this.getPdfPage.bind(this);
      
     this.state = {
         id : uniqid(),
@@ -164,7 +164,7 @@ class App extends Component {
       this.setState({
         [type]: array_copy
       })
-      console.log(this.state[type])
+      console.log(this.state)
 
     }
 
@@ -232,14 +232,14 @@ class App extends Component {
 
     if (this.state.ShowComponent) {
       return(
-        <CvPdf state = {this.state} />
+        <CvApp state = {this.state} />
       )
 
     }
     
     return(
       <div className = "container">
-        <form id="cv-form">
+        <form id="cv-form" onSubmit = {this.getPdfPage}>
           <div id="personal"  className = "cv-section">
             <Personal personal = {personal} changeEvent = {this.handleChange} />
           </div>
@@ -249,7 +249,7 @@ class App extends Component {
           <div id="work" className="cv-section">
             <Work list = {works} work = {work} changeEvent = {this.handleChange} addEvent = {this.handleAdd} deleteEvent = {this.handleDelete} togglePop = {this.togglePop} editEvent = {this.handleEdit}  />
           </div>
-          <input type="submit" id="submit-form" disabled onSubmit = {(e) => this.getPdfPage}></input>
+          <input type="submit" id="submit-form" disabled ></input>
         </form>
       </div>
     )

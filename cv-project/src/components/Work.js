@@ -16,9 +16,20 @@ const Work = (props) => {
           seen: false,
     },
   )
-  const workplaces = props.workplaces
 
-  console.log(props.workplaces)
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setWork((prevState) => ({
+      ...prevState,
+      [name]: value
+    }), console.log(work))
+  }
+
+  const addWorkplace = (state,e) =>  {
+    
+  }
+
+  const workplaces = props.workplaces
 
         return(
         <div>
@@ -26,19 +37,19 @@ const Work = (props) => {
             <legend>Work Experience</legend>
             <div id = "work-wrapper" class = "hidden">
               <label htmlFor="work-name">Company name:</label>
-              <input type="text" id="work-name" name="name"></input>
+              <input type="text" id="work-name" name="name" value={work.name} onChange={handleChange}></input>
 
               <label htmlFor="work-position">Position:</label>
-              <input type="text" id="work-position" name="position"></input>
+              <input type="text" id="work-position" name="position" value={work.position} onChange = {handleChange}></input>
 
               <label htmlFor="work-start">Start date:</label>
-              <input type="date" id="work-start" name="start_date"></input>
+              <input type="date" id="work-start" name="start_date" value={work.start_date} onChange = {handleChange}></input>
 
               <label htmlFor="work-end">End date:</label>
-              <input type="date" id="work-end" name="end_date"></input>
+              <input type="date" id="work-end" name="end_date" value={work.end_date} onChange = {handleChange}></input>
 
               <label htmlFor="work-desc">Description</label>
-              <textarea id="work-desc" name="description"  />
+              <textarea id="work-desc" name="description" value={work.description} onChange = {handleChange}  />
             </div>
             <button type = "button" >+Add</button>
                 <div id="work-list" class = "cv-table">

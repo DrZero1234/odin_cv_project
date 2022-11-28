@@ -12,21 +12,29 @@ const Personal = (props) => {
       },
   )
 
+  const handleChange = (e) => {
+    const {name,value} = e.target;
+    setPersonal((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }),console.log([personal[name]]))
+  }
+
     return(
       <div class = "section-wrapper">
         <fieldset>
           <legend>Personal Information</legend>
           <label htmlFor="person-name">Name:</label>
-          <input type="text" id="person-name" name="name"></input>
+          <input type="text" id="person-name" name="name" value={personal.name} onChange = {handleChange}></input>
 
           <label htmlFor="person-birthdate">Date of Birth:</label>
-          <input type="date" id="person-birthdate" name="birth_date"></input>
+          <input type="date" id="person-birthdate" name="birth_date" value={personal.birth_date} onChange = {handleChange}></input>
 
           <label htmlFor="person-phone">Phone number:</label>
-          <input type="tel" id="person-phone" name="phone"></input>
+          <input type="tel" id="person-phone" name="phone" value={personal.phone} onChange = {handleChange}></input>
 
           <label htmlFor="person-email">Email:</label>
-          <input type="email" id="person-email" name="email"></input>
+          <input type="email" id="person-email" name="email" value={personal.email} onChange = {handleChange}></input>
         </fieldset>
       </div>
     )

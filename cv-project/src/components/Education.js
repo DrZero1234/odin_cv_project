@@ -45,7 +45,17 @@ const Education = (props) => {
         },
   )
 
+    const handleChange = (e) => {
+    const {name,value} = e.target;
+    setEducation((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }),console.log([education[name]]))
+  }
+
   const past_education = props.educations
+
+
 
    return(
         <div class = "section-wrapper" id="work-wapper">
@@ -53,22 +63,22 @@ const Education = (props) => {
             <legend>Education</legend>
             <div id = "education-wrapper" class = "hidden">
                 <label htmlFor="school-name">School name: </label>
-                <input type="text" id="school-name"  name="name"></input>
+                <input type="text" id="school-name"  name="name" value={education.name} onChange = {handleChange}></input>
                 <label htmlFor="school-type">School type:</label>
-                <select name="type" id="school-type">
+                <select name="type" id="school-type" value = {education.type} onChange = {handleChange}>
                 {school_types.map((school) => (
                     <option value={school.value}>{school.label}</option>
                 ))}
                 </select>
 
                 <label htmlFor="school-name">Course type: </label>
-                <input type="text" id="course-name"  name="course"></input>
+                <input type="text" id="course-name"  name="course" value = {education.course} onChange = {handleChange}></input>
 
                 <label htmlFor="school-start">Start date:</label>
-                <input type="date" id="school-start"  name="start_date"></input>
+                <input type="date" id="school-start"  name="start_date" value={education.start_date} onChange = {handleChange}></input>
 
                 <label htmlFor="school-end">End Date:</label>
-                <input type="date" id="school-end" name="end_date"></input>
+                <input type="date" id="school-end" name="end_date" value={education.end_date} onChange = {handleChange}></input>
             </div>
             <button type = "button">+Add</button>
 

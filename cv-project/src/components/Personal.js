@@ -1,5 +1,38 @@
-import React,{Component} from "react";
+import React,{useState} from "react";
 import ReactDOM from "react-dom";
+
+
+const Personal = (props) => {
+  const [personal,setPersonal] = useState(
+      {
+          name: "",
+          birth_date: "",
+          phone: "",
+          email: "",
+      },
+  )
+
+    return(
+      <div class = "section-wrapper">
+        <fieldset>
+          <legend>Personal Information</legend>
+          <label htmlFor="person-name">Name:</label>
+          <input type="text" id="person-name" name="name"></input>
+
+          <label htmlFor="person-birthdate">Date of Birth:</label>
+          <input type="date" id="person-birthdate" name="birth_date"></input>
+
+          <label htmlFor="person-phone">Phone number:</label>
+          <input type="tel" id="person-phone" name="phone"></input>
+
+          <label htmlFor="person-email">Email:</label>
+          <input type="email" id="person-email" name="email"></input>
+        </fieldset>
+      </div>
+    )
+}
+
+/*
 
 class Personal extends Component {
   constructor() {
@@ -34,5 +67,7 @@ class Personal extends Component {
     )
   }
 }
+
+*/
 
 export default Personal

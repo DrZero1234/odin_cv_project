@@ -1,8 +1,110 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import uniqid from "uniqid";
 import EditPopup from "./editPopUp";
 
+
+ const school_types = [
+      {
+        label: "Primary School",
+        value: "primary"
+      },
+    
+      {
+        label: "High School",
+        value: "highschool",
+      },
+    
+      {
+        label: "College",
+        value: "college",
+      },
+    
+      {
+        label: "University",
+        value: "university",
+      },
+    
+      {
+        label: "Other",
+        value: "other",
+      },
+    ]
+
+
+const Education = (props) => {
+  const [education,setEducation] = useState(
+    {
+          id : uniqid(),
+          name: "",
+          type: "",
+          course: "",
+          start_date: "",
+          end_date: "",
+          seen: false,
+        },
+  )
+
+  const past_education = props.educations
+
+   return(
+        <div class = "section-wrapper" id="work-wapper">
+          <fieldset>
+            <legend>Education</legend>
+            <div id = "education-wrapper" class = "hidden">
+                <label htmlFor="school-name">School name: </label>
+                <input type="text" id="school-name"  name="name"></input>
+                <label htmlFor="school-type">School type:</label>
+                <select name="type" id="school-type">
+                {school_types.map((school) => (
+                    <option value={school.value}>{school.label}</option>
+                ))}
+                </select>
+
+                <label htmlFor="school-name">Course type: </label>
+                <input type="text" id="course-name"  name="course"></input>
+
+                <label htmlFor="school-start">Start date:</label>
+                <input type="date" id="school-start"  name="start_date"></input>
+
+                <label htmlFor="school-end">End Date:</label>
+                <input type="date" id="school-end" name="end_date"></input>
+            </div>
+            <button type = "button">+Add</button>
+
+                <div id="education-list" class = "cv-table">
+                  <table>
+                    <tr>
+                      <th>School name</th>
+                      <th>School type</th>
+                      <th>Course</th>
+                      <th>Start-date</th>
+                      <th>End-date</th>
+                    </tr>
+                    
+                    {past_education ? past_education.map((education) => (
+                      <tr>
+                        <td>{education.name}</td>
+                        <td>{education.type}</td>
+                        <td>{education.course}</td>
+                        <td>{education.start_date}</td>
+                        <td>{education.end_date}</td>
+                        <td><button type="button">Edit</button></td>
+                        <td><button type = "button">Delete</button></td>
+                        
+                    </tr>
+                    )): null}
+
+                  </table>
+
+          </div>
+          </fieldset>
+
+        </div>
+    )
+}
+    
+/*
 class Education extends Component {
   constructor(props) {
     super(props)
@@ -77,5 +179,7 @@ class Education extends Component {
         </div>
     )}
 }
+
+*/
 
 export default Education

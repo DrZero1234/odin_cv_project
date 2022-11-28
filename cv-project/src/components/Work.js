@@ -1,8 +1,77 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import uniqid from "uniqid";
 
 import EditPopup from "./editPopUp";
+
+const Work = (props) => {
+  const [work,setWork] = useState(
+    {
+          id : uniqid(),
+          name: "",
+          position: "",
+          start_date : "",
+          end_date : "",
+          description: "",
+          seen: false,
+    },
+  )
+  const workplaces = props.workplaces
+
+  console.log(props.workplaces)
+
+        return(
+        <div>
+          <fieldset>
+            <legend>Work Experience</legend>
+            <div id = "work-wrapper" class = "hidden">
+              <label htmlFor="work-name">Company name:</label>
+              <input type="text" id="work-name" name="name"></input>
+
+              <label htmlFor="work-position">Position:</label>
+              <input type="text" id="work-position" name="position"></input>
+
+              <label htmlFor="work-start">Start date:</label>
+              <input type="date" id="work-start" name="start_date"></input>
+
+              <label htmlFor="work-end">End date:</label>
+              <input type="date" id="work-end" name="end_date"></input>
+
+              <label htmlFor="work-desc">Description</label>
+              <textarea id="work-desc" name="description"  />
+            </div>
+            <button type = "button" >+Add</button>
+                <div id="work-list" class = "cv-table">
+                  
+                  <table>
+                    <tr>
+                      <th>Workplace name</th>
+                      <th>Position</th>
+                      <th>Start-date</th>
+                      <th>End-date</th>
+                      <th>Description</th>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                     {workplaces ? workplaces.map((workplace) => (
+                      <tr key  = {workplace.id} id={workplace.id}>
+                        <td>{workplace.name}</td>
+                        <td>{workplace.position}</td>
+                        <td>{workplace.start_date}</td>
+                        <td >{workplace.end_date}</td>
+                        <td>{workplace.description}</td>
+                        <td><button >Edit</button></td>
+                        <td><button>Delete</button></td>
+                      </tr>
+      )) : null}
+              </table>
+                </div>
+
+            </fieldset>
+      </div>
+    )} 
+
+/*
 
 class Work extends Component {
   constructor(props) {
@@ -83,5 +152,7 @@ class Work extends Component {
       </div>
     )}
 }
+
+*/
 
 export default Work

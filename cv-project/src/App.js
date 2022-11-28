@@ -1,5 +1,5 @@
 import "./styles/App.css"
-import React, {Component} from "react";
+import React, {useState} from "react";
 import uniqid from "uniqid";
 
 import Work from "./components/Work"
@@ -8,6 +8,33 @@ import Personal from "./components/Personal";
 import EditPopup from "./components/editPopUp";
 import CvApp from "./components/CvPdf";
 
+
+const App = () => {
+  const[cvState,setCvState] = useState({
+        educations: [],
+        works: [],
+        ShowComponent: false,
+  })
+  
+  return(
+      <div className = "container">
+        <form id="cv-form">
+          <div id="personal"  className = "cv-section">
+            <Personal />
+          </div>
+          <div id="education" className = "cv-section">
+            <Education />
+          </div>
+          <div id="work" className="cv-section">
+            <Work workplaces = {cvState.works}/>
+          </div>
+          <input type="submit" id="submit-form" disabled ></input>
+        </form>
+      </div>
+  )
+}
+
+/*
 
 class App extends Component {
   constructor(props) {
@@ -257,5 +284,7 @@ class App extends Component {
 
 
 }
+
+*/
 
 export default App;

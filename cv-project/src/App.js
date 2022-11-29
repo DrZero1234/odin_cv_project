@@ -10,11 +10,23 @@ import CvApp from "./components/CvPdf";
 
 
 const App = () => {
-  const[cvState,setCvState] = useState({
-        educations: [],
-        works: [],
-        ShowComponent: false,
-  })
+  const [works,setWorks] = useState([]);
+  const [educations,setEducations] = useState([])
+
+  const addStateItem = (state) => {
+
+    switch(state.mode) {
+      case "work":
+        setWorks([...works,state])
+        break;
+      case "education":
+        setEducations([...educations,state])
+        break;
+      default:
+        return false;
+    }
+
+}
   
   return(
       <div className = "container">
@@ -23,10 +35,10 @@ const App = () => {
             <Personal />
           </div>
           <div id="education" className = "cv-section">
-            <Education />
+            <Education educations = {educations} addEducation = {addStateItem}/>
           </div>
           <div id="work" className="cv-section">
-            <Work workplaces = {cvState.works}/>
+            <Work workplaces = {works} addWork = {addStateItem}/>
           </div>
           <input type="submit" id="submit-form" disabled ></input>
         </form>

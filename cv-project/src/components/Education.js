@@ -41,7 +41,8 @@ const Education = (props) => {
           course: "",
           start_date: "",
           end_date: "",
-          seen: false,
+          mode: "education",
+          edit: false,
         },
   )
 
@@ -53,7 +54,27 @@ const Education = (props) => {
     }),console.log([education[name]]))
   }
 
-  const past_education = props.educations
+  const resetEducation = () => {
+    setEducation(
+          {
+          id : uniqid(),
+          name: "",
+          type: "",
+          course: "",
+          start_date: "",
+          end_date: "",
+          mode: "education",
+          edit: false,
+        },
+    )
+  }
+
+  const handleAdd =  () => {
+    addEducation(education);
+    resetEducation();
+  }
+
+  const {educations,addEducation} = props;
 
 
 
@@ -80,7 +101,7 @@ const Education = (props) => {
                 <label htmlFor="school-end">End Date:</label>
                 <input type="date" id="school-end" name="end_date" value={education.end_date} onChange = {handleChange}></input>
             </div>
-            <button type = "button">+Add</button>
+            <button type = "button" onClick={handleAdd}>+Add</button>
 
                 <div id="education-list" class = "cv-table">
                   <table>
@@ -92,7 +113,7 @@ const Education = (props) => {
                       <th>End-date</th>
                     </tr>
                     
-                    {past_education ? past_education.map((education) => (
+                    {educations ? educations.map((education) => (
                       <tr>
                         <td>{education.name}</td>
                         <td>{education.type}</td>

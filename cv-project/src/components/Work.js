@@ -13,7 +13,8 @@ const Work = (props) => {
           start_date : "",
           end_date : "",
           description: "",
-          seen: false,
+          mode: "work",
+          edit: false,
     },
   )
 
@@ -22,14 +23,29 @@ const Work = (props) => {
     setWork((prevState) => ({
       ...prevState,
       [name]: value
-    }), console.log(work))
+    }),)
   }
 
-  const addWorkplace = (state,e) =>  {
-    
+  const resetWork = () => {
+    setWork({
+          id : uniqid(),
+          name: "",
+          position: "",
+          start_date : "",
+          end_date : "",
+          description: "",
+          mode: "work",
+          edit: false,
+    })
+    console.log(work)
   }
 
-  const workplaces = props.workplaces
+  const addWorkplace = () =>  {
+    addWork(work);
+    resetWork();
+  }
+
+  const {workplaces,addWork} = props
 
         return(
         <div>
@@ -51,7 +67,7 @@ const Work = (props) => {
               <label htmlFor="work-desc">Description</label>
               <textarea id="work-desc" name="description" value={work.description} onChange = {handleChange}  />
             </div>
-            <button type = "button" >+Add</button>
+            <button type = "button" onClick={addWorkplace}>+Add</button>
                 <div id="work-list" class = "cv-table">
                   
                   <table>

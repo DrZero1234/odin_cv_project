@@ -18,15 +18,43 @@ const App = () => {
     switch(state.mode) {
       case "work":
         setWorks([...works,state])
+        console.log(works)
         break;
       case "education":
         setEducations([...educations,state])
+        console.log(educations)
         break;
       default:
         return false;
+      }
+  }
+
+  const getItem = (type,id) => {
+    if (type === "works") {
+        return works.find((item) => item.id === id);
+    } else if (type === "educations") {
+        return educations.find((item) => item.id === id)
+    } 
+    return false
     }
 
-}
+  const deleteItem = (e) => {
+    const id = e.target.id;
+    const type = e.target.dataset.state_array;
+    const item = getItem(type,id);
+
+    console.log(item)
+
+
+
+    if (item.mode === "work") {
+      const new_array = works.filter((item) => item.id !== id);
+      setWorks(new_array)
+    }else if (item.mode === "education") {
+      const new_array = educations.filter((item) => item.id !== id)
+      setEducations(new_array)
+    }
+  }
   
   return(
       <div className = "container">
@@ -35,10 +63,10 @@ const App = () => {
             <Personal />
           </div>
           <div id="education" className = "cv-section">
-            <Education educations = {educations} addEducation = {addStateItem}/>
+            <Education educations = {educations} addEducation = {addStateItem} deleteEducation = {deleteItem}/>
           </div>
           <div id="work" className="cv-section">
-            <Work workplaces = {works} addWork = {addStateItem}/>
+            <Work workplaces = {works} addWork = {addStateItem} deleteWork = {deleteItem}/>
           </div>
           <input type="submit" id="submit-form" disabled ></input>
         </form>

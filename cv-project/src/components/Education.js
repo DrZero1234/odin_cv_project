@@ -74,7 +74,7 @@ const Education = (props) => {
     resetEducation();
   }
 
-  const {educations,addEducation} = props;
+  const {educations,addEducation,deleteEducation} = props;
 
 
 
@@ -120,8 +120,8 @@ const Education = (props) => {
                         <td>{education.course}</td>
                         <td>{education.start_date}</td>
                         <td>{education.end_date}</td>
-                        <td><button type="button">Edit</button></td>
-                        <td><button type = "button">Delete</button></td>
+                        <td><button type="button" id = {education.id} data-state_array = "educations">Edit</button></td>
+                        <td><button type = "button" id = {education.id} data-state_array = "educations" onClick={deleteEducation}>Delete</button></td>
                         
                     </tr>
                     )): null}

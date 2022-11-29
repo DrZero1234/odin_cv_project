@@ -45,7 +45,7 @@ const Work = (props) => {
     resetWork();
   }
 
-  const {workplaces,addWork} = props
+  const {workplaces,addWork,deleteWork} = props
 
         return(
         <div>
@@ -87,8 +87,8 @@ const Work = (props) => {
                         <td>{workplace.start_date}</td>
                         <td >{workplace.end_date}</td>
                         <td>{workplace.description}</td>
-                        <td><button >Edit</button></td>
-                        <td><button>Delete</button></td>
+                        <td><button  id = {workplace.id} data-state_array = "works">Edit</button></td>
+                        <td><button type="button" id = {workplace.id} data-state_array = "works" onClick={deleteWork}>Delete</button></td>
                       </tr>
       )) : null}
               </table>

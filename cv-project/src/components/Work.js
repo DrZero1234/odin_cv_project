@@ -17,6 +17,7 @@ const Work = (props) => {
           edit: false,
     },
   )
+  
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -45,7 +46,7 @@ const Work = (props) => {
     resetWork();
   }
 
-  const {workplaces,addWork,deleteWork} = props
+  const {workplaces,addWork,deleteWork,toggleEdit} = props
 
         return(
         <div>
@@ -81,14 +82,27 @@ const Work = (props) => {
                       <td></td>
                     </tr>
                      {workplaces ? workplaces.map((workplace) => (
+                      !workplace.edit ? 
                       <tr key  = {workplace.id} id={workplace.id}>
+
                         <td>{workplace.name}</td>
                         <td>{workplace.position}</td>
                         <td>{workplace.start_date}</td>
                         <td >{workplace.end_date}</td>
                         <td>{workplace.description}</td>
-                        <td><button  id = {workplace.id} data-state_array = "works">Edit</button></td>
-                        <td><button type="button" id = {workplace.id} data-state_array = "works" onClick={deleteWork}>Delete</button></td>
+                        <td><button  id = {workplace.id} data-state_array = "works" onClick = {toggleEdit}>Edit</button></td>
+                        <td><button id = {workplace.id} data-state_array = "works" onClick={deleteWork}>Delete</button></td>
+                        
+                      </tr>
+                      :
+                      <tr key  = {workplace.id} id={workplace.id}>
+                        <td><input type="text"></input></td>
+                        <td>{workplace.position}</td>
+                        <td>{workplace.start_date}</td>
+                        <td >{workplace.end_date}</td>
+                        <td>{workplace.description}</td>
+                        <td><button  id = {workplace.id} data-state_array = "works" onClick = {toggleEdit}>Edit</button></td>
+                        <td><button id = {workplace.id} data-state_array = "works">Confirm</button></td>
                       </tr>
       )) : null}
               </table>

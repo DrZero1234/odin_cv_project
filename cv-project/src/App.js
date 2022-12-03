@@ -57,6 +57,7 @@ const App = () => {
   }
 
   const editItem = (e,oldstate,newstate) => {
+
     console.log(e)
     let old_state_index;
     let array_copy;
@@ -91,17 +92,24 @@ const App = () => {
 
   const toggleEdit = (e) => {
     e.preventDefault();
-
+    let current_edit;
     const id = e.target.id;
     const type = e.target.dataset.state_array;
     const item = getItem(type,id);
     let arr;
     if (type === "works") {
+      current_edit = works.find(work => work.edit === true)
       arr = works
     } else if (type === "educations") {
+      current_edit = educations.find(education => education.edit = true)
       arr = educations;
     }
     let arr_copy = arr.slice(0)
+    const current_index = current_edit ? arr_copy.indexOf(current_edit) : null;
+    console.log(current_index)
+    if (arr_copy[current_index]) {
+      arr_copy[current_index].edit = !arr_copy[current_index]
+    }
     const index = arr.indexOf(item);
     arr_copy[index].edit = !arr_copy[index].edit;
     console.log(arr_copy[index])

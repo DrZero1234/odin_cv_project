@@ -17,14 +17,33 @@ const Work = (props) => {
           edit: false,
     },
   )
+
+  const[workEdit,setWorkEdit] = useState({
+          id: "",
+          name: "",
+          position: "",
+          start_date : "",
+          end_date : "",
+          description: "",
+          mode: "work",
+  })
+
   
 
-  const handleChange = (e) => {
+  const handleChange = (e,edit) => {
     const {name, value} = e.target;
-    setWork((prevState) => ({
+    if (!edit) {
+          setWork((prevState) => ({
       ...prevState,
       [name]: value
     }),)
+    } else {
+                setWorkEdit((prevState) => ({
+      ...prevState,
+      [name]: value
+    }),console.log(workEdit))
+    }
+
   }
 
   const resetWork = () => {
@@ -46,7 +65,7 @@ const Work = (props) => {
     resetWork();
   }
 
-  const {workplaces,addWork,deleteWork,toggleEdit} = props
+  const {workplaces,addWork,deleteWork,toggleEdit,editItem} = props
 
         return(
         <div>
@@ -96,13 +115,13 @@ const Work = (props) => {
                       </tr>
                       :
                       <tr key  = {workplace.id} id={workplace.id}>
-                        <td><input type="text"></input></td>
-                        <td>{workplace.position}</td>
+                        <td><input type="text" name="name" value={workEdit.name} onChange = {(e) => handleChange(e,true)}></input></td>
+                        <td><input type="text" name="position" value = {workEdit.position} onChange = {(e) => handleChange(e,true)}></input></td>
                         <td>{workplace.start_date}</td>
                         <td >{workplace.end_date}</td>
                         <td>{workplace.description}</td>
-                        <td><button  id = {workplace.id} data-state_array = "works" onClick = {toggleEdit}>Edit</button></td>
-                        <td><button id = {workplace.id} data-state_array = "works">Confirm</button></td>
+                        <td><button  id = {workplace.id} data-state_array = "works" onClick = {toggleEdit}>Cancel</button></td>
+                        <td><button id = {workplace.id} type="button" data-state_array = "works" onClick={(e) => editItem(e,workplace,workEdit,)}>Confirm</button></td>
                       </tr>
       )) : null}
               </table>

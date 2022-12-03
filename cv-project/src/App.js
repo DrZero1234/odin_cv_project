@@ -47,14 +47,45 @@ const App = () => {
 
     console.log(item)
 
-
-
     if (item.mode === "work") {
       const new_array = works.filter((item) => item.id !== id);
       setWorks(new_array)
     }else if (item.mode === "education") {
       const new_array = educations.filter((item) => item.id !== id)
       setEducations(new_array)
+    }
+  }
+
+  const editItem = (e,oldstate,newstate) => {
+    console.log(e)
+    let old_state_index;
+    let array_copy;
+    const id = e.target.id;
+    const type = e.target.dataset.state_array;
+    e.preventDefault();
+
+
+    console.log(oldstate)
+    console.log(newstate)
+
+    if (type === "works") {
+      old_state_index = works.indexOf(getItem("works",id));
+      array_copy = works.slice(0);
+    } else if (type === "educations") {
+      old_state_index = educations.indexOf(getItem("educations",id));
+      array_copy = educations.slice(0);
+    }
+    newstate.id = id;
+    newstate.edit = !oldstate.edit
+    console.log(works)
+
+
+
+    array_copy[old_state_index] = newstate;
+    if (type === "works") {
+      setWorks(array_copy)
+    } else {
+      setEducations(array_copy);
     }
   }
 
@@ -80,13 +111,6 @@ const App = () => {
     } else {
       setEducations(arr_copy);
     }
-
-
-
-
-
-
-
   }
   
   return(
@@ -99,7 +123,7 @@ const App = () => {
             <Education educations = {educations} addEducation = {addStateItem} deleteEducation = {deleteItem}/>
           </div>
           <div id="work" className="cv-section">
-            <Work workplaces = {works} addWork = {addStateItem} deleteWork = {deleteItem} toggleEdit = {toggleEdit}/>
+            <Work workplaces = {works} addWork = {addStateItem} deleteWork = {deleteItem} toggleEdit = {toggleEdit} editItem = {editItem}/>
           </div>
           <input type="submit" id="submit-form" disabled ></input>
         </form>

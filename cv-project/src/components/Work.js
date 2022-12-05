@@ -36,14 +36,26 @@ const Work = (props) => {
           setWork((prevState) => ({
       ...prevState,
       [name]: value
-    }),)
+    }))
     } else {
-                setWorkEdit((prevState) => ({
+      setWorkEdit((prevState) => ({
       ...prevState,
       [name]: value
     }),console.log(workEdit))
     }
 
+  }
+
+  const resetWorkEdit = () => {
+    setWorkEdit({
+          id: "",
+          name: "",
+          position: "",
+          start_date : "",
+          end_date : "",
+          description: "",
+          mode: "work",
+    })
   }
 
   const resetWork = () => {
@@ -60,9 +72,27 @@ const Work = (props) => {
     console.log(work)
   }
 
+  const handleToggle = (e,state) => {
+    toggleEdit(e);
+    setWorkEdit({
+      id : state.id,
+      name: state.name,
+      position: state.position,
+      start_date: state.start_date,
+      end_date: state.end_date,
+      description: state.description,
+      mode: state.work,
+    })
+  }
+
   const addWorkplace = () =>  {
     addWork(work);
     resetWork();
+  }
+
+  const handleEdit = (e,workplace) => {
+    editItem(e,workplace,workEdit);
+    resetWorkEdit()
   }
 
   const {workplaces,addWork,deleteWork,toggleEdit,editItem} = props
@@ -109,7 +139,7 @@ const Work = (props) => {
                         <td>{workplace.start_date}</td>
                         <td >{workplace.end_date}</td>
                         <td>{workplace.description}</td>
-                        <td><button  id = {workplace.id} data-state_array = "works" onClick = {toggleEdit}>Edit</button></td>
+                        <td><button  id = {workplace.id} data-state_array = "works" onClick = {(e) => handleToggle(e,workplace)}>Edit</button></td>
                         <td><button id = {workplace.id} data-state_array = "works" onClick={deleteWork}>Delete</button></td>
                         
                       </tr>
@@ -117,11 +147,11 @@ const Work = (props) => {
                       <tr key  = {workplace.id} id={workplace.id}>
                         <td><input type="text" name="name" value={workEdit.name} onChange = {(e) => handleChange(e,true)}></input></td>
                         <td><input type="text" name="position" value = {workEdit.position} onChange = {(e) => handleChange(e,true)}></input></td>
-                        <td>{workplace.start_date}</td>
-                        <td >{workplace.end_date}</td>
-                        <td>{workplace.description}</td>
-                        <td><button  id = {workplace.id} data-state_array = "works" onClick = {toggleEdit}>Cancel</button></td>
-                        <td><button id = {workplace.id} type="button" data-state_array = "works" onClick={(e) => editItem(e,workplace,workEdit,)}>Confirm</button></td>
+                        <td><input type="date" name="start_date" value = {workEdit.start_date} onChange = {(e) => handleChange(e,true)} /></td>
+                        <td><input type="date" name="end_date" value = {workEdit.end_date} onChange = {(e) => handleChange(e,true)} /></td>
+                        <td><textarea name="description" value={workEdit.description} onChange = {(e) => handleChange(e,true)}/></td>
+                        <td><button id = {workplace.id} type="button" data-state_array = "works" onClick={(e) => handleEdit(e,workplace)}>Confirm</button></td>
+                        <td><button  id = {workplace.id} data-state_array = "works" onClick = {(e) => handleToggle(e,workplace)}>Cancel</button></td>
                       </tr>
       )) : null}
               </table>

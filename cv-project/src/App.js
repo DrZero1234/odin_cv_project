@@ -61,7 +61,7 @@ const App = () => {
     console.log(e)
     let old_state_index;
     let array_copy;
-    const id = e.target.id;
+    const id = oldstate.id;
     const type = e.target.dataset.state_array;
     e.preventDefault();
 
@@ -101,14 +101,14 @@ const App = () => {
       current_edit = works.find(work => work.edit === true)
       arr = works
     } else if (type === "educations") {
-      current_edit = educations.find(education => education.edit = true)
+      current_edit = educations.find(education => education.edit === true)
       arr = educations;
     }
     let arr_copy = arr.slice(0)
     const current_index = current_edit ? arr_copy.indexOf(current_edit) : null;
     console.log(current_index)
     if (arr_copy[current_index]) {
-      arr_copy[current_index].edit = !arr_copy[current_index]
+      arr_copy[current_index].edit = !arr_copy[current_index].edit
     }
     const index = arr.indexOf(item);
     arr_copy[index].edit = !arr_copy[index].edit;
@@ -128,7 +128,7 @@ const App = () => {
             <Personal />
           </div>
           <div id="education" className = "cv-section">
-            <Education educations = {educations} addEducation = {addStateItem} deleteEducation = {deleteItem}/>
+            <Education educations = {educations} addEducation = {addStateItem} deleteEducation = {deleteItem} editItem = {editItem} toggleEdit = {toggleEdit}/>
           </div>
           <div id="work" className="cv-section">
             <Work workplaces = {works} addWork = {addStateItem} deleteWork = {deleteItem} toggleEdit = {toggleEdit} editItem = {editItem}/>

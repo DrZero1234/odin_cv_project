@@ -46,12 +46,30 @@ const Education = (props) => {
         },
   )
 
-    const handleChange = (e) => {
+  const [editEducation,setEditEducation] = useState({
+          id : "",
+          name: "",
+          type: "",
+          course: "",
+          start_date: "",
+          end_date: "",
+          mode: "education",
+  })
+
+    const handleChange = (e,edit) => {
     const {name,value} = e.target;
-    setEducation((prevState) => ({
+    if (!edit) {
+          setEducation((prevState) => ({
       ...prevState,
       [name]: value,
     }),console.log([education[name]]))
+    } else {
+      setEditEducation((prevState) => ({
+        ...prevState,
+        [name]: value
+      }),console.log(editEducation))
+    }
+
   }
 
   const resetEducation = () => {
@@ -69,12 +87,44 @@ const Education = (props) => {
     )
   }
 
+  const resetEditEducation = () => {
+    setEditEducation({
+          id : "",
+          name: "",
+          type: "",
+          course: "",
+          start_date: "",
+          end_date: "",
+          mode: "education",
+    })
+  }
+
   const handleAdd =  () => {
     addEducation(education);
     resetEducation();
   }
 
-  const {educations,addEducation,deleteEducation} = props;
+  const handleEdit = (e,education) => {
+    editItem(e,education,editEducation)
+    resetEditEducation();
+  }
+
+  const handleToggle = (e,state) => {
+    toggleEdit(e);
+    setEditEducation({
+      id: state.id,
+      name: state.name,
+      type: state.type,
+      course: state.course,
+      start_date: state.start_date,
+      end_date: state.end_date,
+      mode: state.mode
+    })
+  }
+
+
+
+  const {educations,addEducation,deleteEducation,editItem,toggleEdit} = props;
 
 
 
@@ -114,20 +164,35 @@ const Education = (props) => {
                     </tr>
                     
                     {educations ? educations.map((education) => (
+                      !education.edit ?
                       <tr>
                         <td>{education.name}</td>
                         <td>{education.type}</td>
                         <td>{education.course}</td>
                         <td>{education.start_date}</td>
                         <td>{education.end_date}</td>
-                        <td><button type="button" id = {education.id} data-state_array = "educations">Edit</button></td>
+                        <td><button type="button" id = {education.id} data-state_array = "educations" onClick={(e) => handleToggle(e,education)}>Edit</button></td>
                         <td><button type = "button" id = {education.id} data-state_array = "educations" onClick={deleteEducation}>Delete</button></td>
                         
                     </tr>
+                    :
+                   
+                    <tr>
+                        <td><input type="text" name = "name" value={editEducation.name} onChange={(e) => handleChange(e,true)} placeholder={editEducation.name}></input></td>
+                        <td><select name="type" id="school-type" value = {editEducation.type} onChange = {(e) => handleChange(e,true)}>
+                {school_types.map((school) => (
+                    <option value={school.value}>{school.label}</option>
+                ))}
+                </select>
+                </td>
+                        <td><input type="text" name = "course" value={editEducation.course} onChange={(e) => handleChange(e,true)}></input></td>
+                        <td><input type="text" name = "start_date" value={editEducation.start_date} onChange={(e) => handleChange(e,true)}></input></td>
+                        <td><input type="text" name = "end_date" value={editEducation.ebd_date} onChange={(e) => handleChange(e,true)}></input></td>
+                        <td><button  id = {education.id} data-state_array = "educations" onClick={(e) => handleEdit(e,education)}>Confirm</button></td>
+                        <td><button  id = {education.id} data-state_array = "educations" onClick={(e) => handleToggle(e,education)}>Cancel</button></td> 
+                    </tr>
                     )): null}
-
                   </table>
-
           </div>
           </fieldset>
 

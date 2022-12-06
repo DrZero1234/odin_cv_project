@@ -88,6 +88,7 @@ const Work = (props) => {
   const addWorkplace = () =>  {
     addWork(work);
     resetWork();
+    validateSubmit();
   }
 
   const handleEdit = (e,workplace) => {
@@ -95,7 +96,7 @@ const Work = (props) => {
     resetWorkEdit()
   }
 
-  const {workplaces,addWork,deleteWork,toggleEdit,editItem} = props
+  const {workplaces,addWork,deleteWork,toggleEdit,editItem,validateSubmit} = props
 
         return(
         <div>

@@ -1,17 +1,53 @@
 import "./styles/App.css"
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import uniqid from "uniqid";
 
 import Work from "./components/Work"
 import Education from "./components/Education";
 import Personal from "./components/Personal";
 import EditPopup from "./components/editPopUp";
-import CvApp from "./components/CvPdf";
+import PdfFile from "./components/CvPdf"
+import { subscribe } from "pubsub-js";
+import { PDFViewer } from "@react-pdf/renderer";
 
 
 const App = () => {
   const [works,setWorks] = useState([]);
   const [educations,setEducations] = useState([])
+  const [personal,setPersonal] = useState(
+      {
+          name: "",
+          birth_date: "",
+          phone: "",
+          email: "",
+      },
+  )
+  const [submitted,setSubmitted] = useState(false)
+
+  const handleChange = (e) => {
+    const {name,value} = e.target;
+    setPersonal((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }))
+  }
+
+  const validateSubmit = () => {
+    const submit_btn = document.getElementById("submit-form")
+    if (personal.name && personal.birth_date && personal.email && personal.phone && educations.length > 0 && works.length > 0) {
+      submit_btn.className = "active";
+      submit_btn.disabled = false
+    } else {
+      submit_btn.className = "inactive";
+      submit_btn.disabled = true;
+    }
+  }
+  
+
+  // validating the submit
+  useEffect(() => {
+    validateSubmit()
+  },[personal,works,educations])
 
   const addStateItem = (state) => {
 
@@ -120,23 +156,37 @@ const App = () => {
       setEducations(arr_copy);
     }
   }
-  
+
+  const renderPdfPage = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+  }
+
+  if (submitted) {
+    return(
+      <PDFViewer>
+        <PdfFile />
+      </PDFViewer>
+    )
+  }
+
+  else {
   return(
       <div className = "container">
-        <form id="cv-form">
-          <div id="personal"  className = "cv-section">
-            <Personal />
+        <form id="cv-form" onSubmit={renderPdfPage}>
+          <div id="personal"  className = "cv-section" p>
+            <Personal personal = {personal} handleChange={handleChange}/>
           </div>
           <div id="education" className = "cv-section">
-            <Education educations = {educations} addEducation = {addStateItem} deleteEducation = {deleteItem} editItem = {editItem} toggleEdit = {toggleEdit}/>
+            <Education educations = {educations} addEducation = {addStateItem} deleteEducation = {deleteItem} editItem = {editItem} toggleEdit = {toggleEdit} validateSubmit = {validateSubmit}/>
           </div>
           <div id="work" className="cv-section">
-            <Work workplaces = {works} addWork = {addStateItem} deleteWork = {deleteItem} toggleEdit = {toggleEdit} editItem = {editItem}/>
+            <Work workplaces = {works} addWork = {addStateItem} deleteWork = {deleteItem} toggleEdit = {toggleEdit} editItem = {editItem} validateSubmit = {validateSubmit}/>
           </div>
           <input type="submit" id="submit-form" disabled ></input>
         </form>
       </div>
-  )
+  )}
 }
 
 /*

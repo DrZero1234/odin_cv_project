@@ -102,6 +102,7 @@ const Education = (props) => {
   const handleAdd =  () => {
     addEducation(education);
     resetEducation();
+    validateSubmit();
   }
 
   const handleEdit = (e,education) => {
@@ -124,7 +125,7 @@ const Education = (props) => {
 
 
 
-  const {educations,addEducation,deleteEducation,editItem,toggleEdit} = props;
+  const {educations,addEducation,deleteEducation,editItem,toggleEdit,validateSubmit} = props;
 
 
 

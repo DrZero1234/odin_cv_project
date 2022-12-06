@@ -3,22 +3,8 @@ import ReactDOM from "react-dom";
 
 
 const Personal = (props) => {
-  const [personal,setPersonal] = useState(
-      {
-          name: "",
-          birth_date: "",
-          phone: "",
-          email: "",
-      },
-  )
 
-  const handleChange = (e) => {
-    const {name,value} = e.target;
-    setPersonal((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }),console.log([personal[name]]))
-  }
+    const {personal,handleChange} = props;
 
     return(
       <div class = "section-wrapper">

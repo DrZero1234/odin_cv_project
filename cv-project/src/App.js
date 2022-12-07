@@ -8,7 +8,7 @@ import Personal from "./components/Personal";
 import EditPopup from "./components/editPopUp";
 import PdfFile from "./components/CvPdf"
 import { subscribe } from "pubsub-js";
-import { PDFViewer } from "@react-pdf/renderer";
+import ReactPDF, { PDFViewer } from "@react-pdf/renderer";
 
 
 const App = () => {
@@ -45,9 +45,11 @@ const App = () => {
   
 
   // validating the submit
+  /*
   useEffect(() => {
     validateSubmit()
   },[personal,works,educations])
+  */
 
   const addStateItem = (state) => {
 
@@ -164,10 +166,9 @@ const App = () => {
 
   if (submitted) {
     return(
-      <PDFViewer>
-        <PdfFile />
-      </PDFViewer>
-    )
+      <div className="App">
+        <PdfFile personal = {personal}/>
+      </div>          )
   }
 
   else {
@@ -183,7 +184,7 @@ const App = () => {
           <div id="work" className="cv-section">
             <Work workplaces = {works} addWork = {addStateItem} deleteWork = {deleteItem} toggleEdit = {toggleEdit} editItem = {editItem} validateSubmit = {validateSubmit}/>
           </div>
-          <input type="submit" id="submit-form" disabled ></input>
+          <input type="submit" id="submit-form" ></input>
         </form>
       </div>
   )}

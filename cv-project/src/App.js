@@ -167,7 +167,7 @@ const App = () => {
   if (submitted) {
     return(
       <div className="App">
-        <PdfFile personal = {personal}/>
+        <PdfFile personal = {personal} educations = {educations} works = {works}/>
       </div>          )
   }
 

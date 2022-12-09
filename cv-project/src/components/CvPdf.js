@@ -37,6 +37,12 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     marginHorizontal: 100,
   },
+  personal: {
+    textAlign: "center",
+    fontSize: 16,
+    margin: 6,
+    fontWeight: 700,
+  },
   header: {
     fontSize: 12,
     marginBottom: 20,
@@ -61,21 +67,31 @@ const styles = StyleSheet.create({
 
 
 const PdfFile = (props) => {
-    const {personal} = props;
+    const {personal,works,educations} = props;
+    console.log(educations)
     const {name,birth_date,email,phone} = personal;
     const array = ["one,two,three"];
     
     return(
     <PDFViewer style={styles.viewer}>
-        <Document>
-            <Page style={styles.body}>
+        <Document title  = {name + "´s CV"}>
+            <Page style={styles.body} wrap = {true}>
                     <Text style={styles.title}>{name}</Text>
+                    <Text style={styles.personal}> {"Date of birth: " + birth_date}</Text>
+                    <Text style={styles.personal}>{"Phone: " + phone}</Text>
+                    <Text style={styles.personal}>{"Email: " + email}</Text>
                 <Text style={styles.text}>{name}</Text>
 
-                <Text style={styles.subtitle}>Personal Information</Text>
-
                 <Text style={styles.subtitle}>Past Education</Text>
+                  {educations.map((education) => (
+                    <>
+                    <View style={{overflow: "hidden", textOverflow: "ellipsis"}}>
+                    <Text>{education.start_date}</Text>
+                    <Text>Lel</Text>
+                    </View>
 
+                    </>
+                  ))}
                 <Text style={styles.subtitle}>Work Experience</Text>
             </Page>
         </Document>

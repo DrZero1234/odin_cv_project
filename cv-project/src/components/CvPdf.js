@@ -11,31 +11,16 @@ const styles = StyleSheet.create({
     paddingTop: 35,
     paddingBottom: 65,
     paddingHorizontal: 35,
+    margin: 6,
   },
   title: {
     fontSize: 24,
     textAlign: 'center',
     fontFamily: 'Oswald'
   },
-  author: {
-    fontSize: 12,
-    textAlign: 'center',
-    marginBottom: 40,
-  },
   subtitle: {
     fontSize: 18,
-    margin: 12,
-    fontFamily: 'Oswald'
-  },
-  text: {
-    margin: 12,
-    fontSize: 14,
-    textAlign: 'justify',
-    fontFamily: 'Times-Roman'
-  },
-  image: {
-    marginVertical: 15,
-    marginHorizontal: 100,
+    fontFamily: 'Oswald',
   },
   personal: {
     textAlign: "center",
@@ -43,20 +28,19 @@ const styles = StyleSheet.create({
     margin: 6,
     fontWeight: 700,
   },
-  header: {
+  section: {
+    margin: 10,
     fontSize: 12,
-    marginBottom: 20,
-    textAlign: 'center',
-    color: 'grey',
+    borderBottom: "2px solid black",
   },
-  pageNumber: {
-    position: 'absolute',
-    fontSize: 12,
-    bottom: 30,
-    left: 0,
-    right: 0,
-    textAlign: 'center',
-    color: 'grey',
+
+  section_text: {
+    marginBottom: 20,
+  },
+  year: {
+    fontWeight: 800,
+    marginBottom: 6,
+    
   },
   viewer: {
     width: window.innerWidth, //the pdf viewer will take up all of the width and height
@@ -80,19 +64,28 @@ const PdfFile = (props) => {
                     <Text style={styles.personal}> {"Date of birth: " + birth_date}</Text>
                     <Text style={styles.personal}>{"Phone: " + phone}</Text>
                     <Text style={styles.personal}>{"Email: " + email}</Text>
-                <Text style={styles.text}>{name}</Text>
 
                 <Text style={styles.subtitle}>Past Education</Text>
+                <View style={styles.section}>
                   {educations.map((education) => (
                     <>
-                    <View style={{overflow: "hidden", textOverflow: "ellipsis"}}>
-                    <Text>{education.start_date}</Text>
-                    <Text>Lel</Text>
-                    </View>
-
+                          <Text style={styles.section_text}><Text style={styles.year}>{education.start_date +  " - " + education.end_date }</Text><Text> {education.name + ", " + education.type + " " + education.course} </Text> </Text>
                     </>
                   ))}
+                  </View>
                 <Text style={styles.subtitle}>Work Experience</Text>
+
+                <View style={styles.section}>
+                  {works.map((work) => (
+                    <>
+                    <Text style={styles.section_text}><Text style={styles.year}>{work.start_date + " - " + work.end_date}</Text><Text> {work.name + ", " + work.position}</Text></Text>
+                    work.description ?
+                    <Text style={styles.year}>Description</Text>
+                    <Text style = {styles.section_text}>{work.description}</Text>
+                    : null
+                    </>
+                  ))}
+                </View>
             </Page>
         </Document>
     </PDFViewer>

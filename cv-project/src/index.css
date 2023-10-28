@@ -1,69 +1,213 @@
+/* Box sizing rules */
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  
+  --bg-color: aliceblue;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  
+  --primary-100: #212529;
+  --primary-200: #e0e0e0;
+  --primary-300: #6c757d;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  --neutral-200: #09229c;
+  --neutral-400: #007bff;
+  --neutral-300: #117a8b;
+  --neutral-500: #17a2b8;
+
+  --fw-bold: 500;
+  --fw-xbold: 700
+
+
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-a:hover {
-  color: #535bf2;
+
+/* Remove default margin */
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit
 }
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+/* Set core body defaults */
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+svg {
+  display: block;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 
 body {
-  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  background-color: var(--bg-color);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  column-gap: 1em;
+}
+
+/* Header */
+header {
+  width: 100%;
+  background-color: #007bff;
+  padding: .5em;
+  margin-bottom: 1em;
+}
+
+.header-content {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  align-items: center;
+  margin-left: 1.5em;
+  gap: 1em;
+}
+
+.header-icon {
+  path {
+    color: aliceblue;
+  }
+}
+
+/* General form */
+
+form {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 2em;
+}
+
+form input,
+form select {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 5px;
+  border-radius: 8px;
+  border: 2px solid var(--neutral-400);
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  margin-right: 5em;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-tab {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+  background-color: var(--neutral-500);
+  width: 50%;
+  color: #fff;
+  border: 2px solid var(--neutral-400);
+  font-weight: var(--fw-bold);
+  font-size: 1.5em;
+}
+
+.form-tab:hover {
+  cursor: pointer;
+}
+
+.form-tab .tab-icon {
+  color: #e0e0e0;
+  margin-left: .25em;
+}
+
+/* TABLE styles */
+table  {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+
+th,td {
+  padding: 20px;
+}
+
+
+
+thead {
+  background-color: var(--neutral-200);
+  text-align: center;
+  color: #fff;
+  font-weight: var(--fw-xbold);
+}
+
+
+
+.submit-form-btn {
+  width: 50%;
+  grid-column-start: 2;
+  justify-self: end;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 2em;
+  color: var(--bg-color);
+  font-weight: var(--fw-xbold);
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@media screen and (max-width: 700px) {
+  form {
+    grid-template-columns: 1fr;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+  .main-content {
+    margin-right: 2em;
   }
 }

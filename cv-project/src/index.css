@@ -180,6 +180,27 @@ th,td {
   padding: 20px;
 }
 
+tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--neutral-400);
+  color: #fff;
+}
+
+td {
+  border: 2px solid black;
+}
+
+tr td:nth-child(5),
+tr th:nth-child(5)
+{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
 
 
 thead {

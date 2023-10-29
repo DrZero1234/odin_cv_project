@@ -118,6 +118,7 @@ export const Education = (/*{ educations, setEducations }*/) => {
               <th scope="col">School type</th>
               <th scope="col">Start date</th>
               <th scope="col">End date</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -128,6 +129,10 @@ export const Education = (/*{ educations, setEducations }*/) => {
                   <td>{education.type}</td>
                   <td>{education.start_date}</td>
                   <td>{education.end_date}</td>
+                  <td>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                  </td>
                 </tr>
               );
             })}

@@ -11,6 +11,7 @@
 
   --neutral-200: #09229c;
   --neutral-400: #007bff;
+  --neutral-450: #138496;
   --neutral-300: #117a8b;
   --neutral-500: #17a2b8;
 
@@ -117,17 +118,20 @@ header {
 
 /* General form */
 
-form {
+.form-wrapper form {
   display: grid;
   grid-template-columns: repeat(2,1fr);
   gap: 2em;
 }
 
 form input,
+form input[type="date"],
 form select {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 50%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   padding: 5px;
   border-radius: 8px;
   border: 2px solid var(--neutral-400);
@@ -168,9 +172,12 @@ form select {
 }
 
 /* TABLE styles */
+.table-wrapper {
+  overflow-x: auto;
+}
+
 table  {
   table-layout: fixed;
-  width: 100%;
   border-collapse: collapse;
   border: 2px solid black;
   border-radius: 4px;
@@ -182,23 +189,28 @@ th,td {
 
 tbody tr:nth-child(odd) {
   background-color: #fff;
+
+  .table-btn .btn-icon {
+      color: var(--neutral-400);
+    }
 }
 
 tbody tr:nth-child(even) {
   background-color: var(--neutral-400);
   color: #fff;
+    .table-btn .btn-icon {
+        color: #fff;
+      }
 }
 
 td {
   border: 2px solid black;
 }
 
-tr td:nth-child(5),
-tr th:nth-child(5)
+tr td:last-child button,
+tr th:last-child
 {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
+  margin-right: 10px;
 }
 
 
@@ -210,12 +222,42 @@ thead {
   font-weight: var(--fw-xbold);
 }
 
+.table-btn {
+  background-color: inherit;
+  border: none;
+  transition: scale .2s ease-in-out;
+}
 
 
-.submit-form-btn {
-  width: 50%;
+
+.table-btn:hover {
+  scale: 1.2;
+  cursor: pointer;
+}
+
+
+
+.add-btn {
+  min-width: 50%;
+  max-height: 40px;
+  font-weight: var(--fw-xbold);
+  padding: .35em;
   grid-column-start: 2;
   justify-self: end;
+  color: #fff;
+  background-color: var(--neutral-500);
+}
+
+.add-btn:hover {
+  cursor: pointer;
+  border-color: var(--neutral-300);
+  background-color: var(--neutral-450);
+}
+
+
+.btn {
+  border: 2px solid var(--neutral-400);
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 h1 {
@@ -224,8 +266,8 @@ h1 {
   font-weight: var(--fw-xbold);
 }
 
-@media screen and (max-width: 700px) {
-  form {
+@media screen and (max-width: 950px) {
+  .form-wrapper form{
     grid-template-columns: 1fr;
   }
   .main-content {

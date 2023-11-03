@@ -21,11 +21,12 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-export const MyDocument = () => (
+export const MyDocument = ({ personal_info }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
         <Text>Section #1</Text>
+        <Text>{personal_info.name}</Text>
       </View>
       <View style={styles.section}>
         <Text>Section #2</Text>

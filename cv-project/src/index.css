@@ -142,6 +142,7 @@ form select {
   flex-direction: column;
   gap: 2em;
   margin-right: 5em;
+  margin-bottom: 3em;
 }
 
 .form-wrapper {
@@ -178,13 +179,25 @@ form select {
 
 table  {
   table-layout: fixed;
+  width: 100%;
   border-collapse: collapse;
   border: 2px solid black;
   border-radius: 4px;
 }
 
+td input,
+td textarea {
+  max-width: 100%;
+}
+
+textarea {
+  resize: none;
+}
+
 th,td {
+  width: auto;
   padding: 20px;
+  overflow: hidden;
 }
 
 tbody tr:nth-child(odd) {
@@ -196,7 +209,7 @@ tbody tr:nth-child(odd) {
 }
 
 tbody tr:nth-child(even) {
-  background-color: var(--neutral-400);
+  background-color: var(--neutral-500);
   color: #fff;
     .table-btn .btn-icon {
         color: #fff;
@@ -207,13 +220,15 @@ td {
   border: 2px solid black;
 }
 
-tr td:last-child button,
+tr td:last-child,
 tr th:last-child
 {
-  margin-right: 10px;
+  width: 10%;
 }
 
-
+tr td:last-child button {
+  margin-right: 1em;
+}
 
 thead {
   background-color: var(--neutral-200);
@@ -226,6 +241,14 @@ thead {
   background-color: inherit;
   border: none;
   transition: scale .2s ease-in-out;
+}
+
+.table-accept {
+  color: green;
+}
+
+.table-cancel {
+  color: red;
 }
 
 
@@ -258,6 +281,32 @@ thead {
 .btn {
   border: 2px solid var(--neutral-400);
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.create-pdf-btn {
+  position: relative;
+  margin: auto;
+  border: none;
+  background-color: var(--neutral-400);
+  color: #fff;
+  font-size: 1.5rem;
+  padding: 11px 40px;
+  box-shadow: 0 5px 0 #345880;
+  -webkit-appearance: button;
+  font-weight: 400;
+  border-radius: 5px;
+}
+
+.create-pdf-btn:hover {
+  cursor: pointer;
+  top: 2px;
+  box-shadow: 0 3px 0 #345880;
+}
+
+.create-pdf-btn:active {
+  top: 5px;
+  outline: 0;
+  box-shadow: none;
 }
 
 h1 {

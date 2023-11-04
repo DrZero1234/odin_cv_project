@@ -7,11 +7,14 @@ import {
   StyleSheet,
 } from "@react-pdf/renderer";
 
+const cv_blue = "#0bb5f3";
+const cv_black = "#024e7c";
+
 // Create styles
 const styles = StyleSheet.create({
   page: {
-    flexDirection: "row",
-    backgroundColor: "#E4E4E4",
+    flexDirection: "column",
+    backgroundColor: "#ffffff",
   },
   section: {
     margin: 10,

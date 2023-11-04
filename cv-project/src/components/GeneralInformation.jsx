@@ -1,29 +1,23 @@
-import { debounce } from "lodash";
-import {
-  ChangeEventHandler,
-  useCallback,
-  useEffect,
-  useState,
-  useMemo,
-} from "react";
+import { useState } from "react";
 
 export const GeneralInformation = ({
   generalInformation,
   setGeneralInformation,
 }) => {
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setGeneralInformation((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-    debounceFn(value);
+    const { name, value, files } = e.target;
+    if (name != "photoUrl") {
+      setGeneralInformation((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    } else {
+      setGeneralInformation((prevState) => ({
+        photoUrl: URL.createObjectURL(files[0]),
+      }));
+    }
+    console.log(generalInformation);
   };
-
-  const debounceFn = useMemo(
-    () => debounce(handleChange, 1000000),
-    []
-  );
 
   return (
     <div className="form-wrapper general">
@@ -67,6 +61,16 @@ export const GeneralInformation = ({
             name="phone"
             value={generalInformation.phone}
             onChange={handleChange}
+          />
+        </div>
+        <div className="form-input person-image">
+          <label htmlFor="phone">Image:</label>
+          <input
+            type="file"
+            id="p-image"
+            name="photoUrl"
+            onChange={handleChange}
+            accept="image/*"
           />
         </div>
       </form>

@@ -108,7 +108,7 @@ export const JobExperience = ({
                   value={newJob.description}
                   onChange={handleChange}
                   placeholder="In couple of sentences describe your ordinary day in the job..."
-                ></textarea>
+                />
               </div>
               <button type="submit" className="btn add-btn">
                 Add Work Experience

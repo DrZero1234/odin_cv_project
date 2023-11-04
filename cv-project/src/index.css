@@ -194,6 +194,12 @@ textarea {
   resize: none;
 }
 
+.work-description {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
 th,td {
   width: auto;
   padding: 20px;

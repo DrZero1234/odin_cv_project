@@ -19,6 +19,7 @@ function App() {
     birth_date: "",
     phone: "",
     email: "",
+    photoUrl: "",
   });
   const [educations, setEducations] = useState([]);
   const [workExperience, setWorkExperience] = useState([]);

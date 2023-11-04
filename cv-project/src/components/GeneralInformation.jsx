@@ -1,7 +1,15 @@
+import { debounce } from "lodash";
+import {
+  ChangeEventHandler,
+  useCallback,
+  useEffect,
+  useState,
+  useMemo,
+} from "react";
+
 export const GeneralInformation = ({
   generalInformation,
   setGeneralInformation,
-  onChange,
 }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -9,7 +17,14 @@ export const GeneralInformation = ({
       ...prevState,
       [name]: value,
     }));
+    debounceFn(value);
   };
+
+  const debounceFn = useMemo(
+    () => debounce(handleChange, 1000000),
+    []
+  );
+
   return (
     <div className="form-wrapper general">
       <h2>Genreal Information</h2>
@@ -21,7 +36,7 @@ export const GeneralInformation = ({
             id="name"
             name="name"
             value={generalInformation.name}
-            onChange={handleChange}
+            onChange={(e) => handleChange(e)}
           />
         </div>
         <div className="form-input general-birth-date">

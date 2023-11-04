@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { PastEducations } from "./components/PastEducations";
 import { JobExperience } from "./components/JobExperience";
@@ -12,41 +12,6 @@ import { mdiFileAccount } from "@mdi/js";
 
 function App() {
   // template: https://preview.themeforest.net/item/geeko-cv-builder-resume-maker-bootstrap-template/full_screen_preview/34056293
-  const MOCK_EDUCATIONS = [
-    {
-      id: "jfghjfgh213",
-      name: "School",
-      type: "highschool",
-      start_date: "2019-09-02",
-      end_date: "2022-06-30",
-    },
-    {
-      id: "njgdsfjng451",
-      name: "School",
-      type: "highschool",
-      start_date: "2019-09-02",
-      end_date: "2022-06-30",
-    },
-  ];
-
-  const MOCK_WORK = [
-    {
-      id: "jfghjfgh213",
-      name: "School",
-      position: "Bartender",
-      start_date: "2019-09-02",
-      end_date: "2022-06-30",
-      description: "First Job",
-    },
-    {
-      id: "njgdsfjng451",
-      name: "School",
-      position: "Junior dev",
-      start_date: "2019-09-02",
-      end_date: "2022-06-30",
-      description: "Finally ",
-    },
-  ];
 
   const [count, setCount] = useState(0);
   const [generalInformation, setGeneralInformation] = useState({
@@ -57,6 +22,7 @@ function App() {
   });
   const [educations, setEducations] = useState([]);
   const [workExperience, setWorkExperience] = useState([]);
+
   return (
     <>
       <header>

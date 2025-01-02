@@ -45,14 +45,44 @@ p {
   /* Prevents orphans on lines */
 }
 
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.page--wrapper{
+  width: 95%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+}
+
 .error__msg{
   color: red;
   font-size: .75rem;
   text-align: left;
 }
 
-.form--control{
-  margin-bottom: 20px;
+form{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  padding: 1.5em;
+  gap: 1em;
+  height: inherit;
+  align-content: center;
+}
+
+.row,form>button{
+  grid-column: 1 / -1;
+}
+
+input{
+  width: 100%;
+}
+
+button{
+  justify-self: center;
+  align-self: center;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -1,3 +1,54 @@
+@font-face{
+  font-family: "TTRegular";
+  src: local("TTRegular"),
+  url("./fonts/TT/OldStandardTT-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "TTBold";
+  src: local("TTBold"),
+    url("./fonts/TT/OldStandardTT-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
+@font-face{
+  font-family: "CantarellRegular";
+  src: local("CantarellRegular"),
+  url("./fonts/Cantarell/Cantarell-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "CantarellBold";
+  src: local("CantarellBold"),
+    url("./fonts/Cantarell/Cantarell-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
+@font-face{
+  font-family: "RobotoRegular";
+  src: local("RobotoRegular"),
+  url("./fonts/Roboto/Roboto-Regular.ttf") format("truetype")
+}
+
+@font-face {
+  font-family: "RobotoBold";
+  src: local("RobotoBold"),
+    url("./fonts/Roboto/Roboto-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
+:root{
+  --header-bg: #ebedf1;
+
+  --c-black-1: rgb(30, 37, 50);
+
+  --c-gray-1: rgb(130, 139, 162);
+  --c-gray-2: rgb(239, 242, 249);
+
+  --c-blue-1: rgb(26, 145, 240);
+
+}
+
 *,
 *::before,
 *::after {
@@ -12,7 +63,6 @@
 }
 
 html {
-  color-scheme: dark light;
   /* Default dark */
   hanging-punctuation: first last;
   /* Not supported in Chrome */
@@ -20,6 +70,8 @@ html {
 
 body {
   min-height: 100vh;
+  font-family: "TTRegular","RobotoRegular","CantarellRegular",sans-serif;
+  font-size: 19px;
 }
 
 img,
@@ -45,16 +97,28 @@ p {
   /* Prevents orphans on lines */
 }
 
+
 .container {
   max-width: 1600px;
   margin: 0 auto;
+  width: 95%;
+}
+
+label{
+  color: var(--c-gray-1);
+  font-size: 15px;
+  font-family: "CantarellRegular",sans-serif;
+}
+
+header{
+  background-color: #f7f7f7;
 }
 
 .page--wrapper{
   width: 95%;
   min-height: 100vh;
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: 1fr
 }
 
 .error__msg{
@@ -63,13 +127,52 @@ p {
   text-align: left;
 }
 
-form{
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
+form,.preview{
   padding: 1.5em;
+}
+
+.form--section{
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 1em;
   height: inherit;
   align-content: center;
+}
+
+.form--field{
+  display: flex;
+  flex-direction: column;
+  gap: .25em;
+}
+
+.double--field {
+  display: flex;
+  flex-direction: row;
+  gap: .25em;
+}
+
+.form--field>input{
+  padding: 12px 16px;
+  border: none;
+  background-color: var(--c-gray-2);
+  transition: box-shadow 0.2s ease-in;
+  color: var(--c-black-1);
+  border-radius: 3px;
+  width: 100%;
+}
+
+.form--field>input:focus{
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 0px var(--c-blue-1);
+}
+
+.cv--list{
+  grid-column: 1 / -1;
+}
+
+ul{
+  list-style-type: none;
 }
 
 .row,form>button{
@@ -89,5 +192,11 @@ button{
   :has(:target) {
     scroll-behavior: smooth;
     scroll-padding-top: 3rem;
+  }
+}
+
+@media (min-width: 768px){
+  .page--wrapper,.form--section {
+    grid-template-columns: repeat(2,1fr);
   }
 }

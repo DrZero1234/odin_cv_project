@@ -1,0 +1,145 @@
+@font-face {
+    font-family: "CantarellBold";
+    src: local("CantarellBold"),
+        url("./fonts/Cantarell/Cantarell-Bold.ttf") format("truetype");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "RobotoBold";
+    src: local("RobotoBold"),
+        url("./fonts/Roboto/Roboto-Bold.ttf") format("truetype");
+    font-weight: bold;
+}
+
+nav{
+    font-family: "RobotoBold", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav--links {
+    min-height: 15vh;
+}
+
+.nav--links ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+nav ul li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 10px 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+.navbar--separator{
+    background-color: #d9deeb;
+    height: 20px;
+    width: 1px;
+}
+
+.user--nav{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+nav ul li a:hover {
+    color: #10529b;
+    transition: .3s;
+}
+
+.navbar--btn{
+    background-color: inherit;
+    border: 1px solid #1a91f0;
+    color: #1a91f0;
+    padding: 13px 23px;
+    text-wrap: nowrap;
+    /* button styles */
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 600;
+    outline: none;
+    border-radius: 4px;
+    transition: background-color .1s,
+        color .1s,
+        box-shadow .1s
+}
+
+.navbar--btn:hover{
+    cursor: pointer;
+    background-color: #eef7fe;
+}
+
+.Mobile--navigation{
+    display: none;
+}
+
+#page--logo{
+    color: #10529b;
+    font-weight: 800;
+    font-size: 2em;
+    text-decoration: none;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .Desktop--navigation{
+        display: none;
+    }
+
+    .Mobile--navigation{
+        display: flex;
+        align-items: center;
+        min-height: 15vh;
+    }
+
+    header{
+        background-color: red;
+    }
+
+    .hamburger--menu{
+        position: absolute;
+        right: 2%;
+        cursor: pointer;
+    }
+
+
+    .nav--links ul,.user--nav{
+        flex-direction: column;
+        align-items: center;
+    }
+    .nav--links {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        position: absolute;
+        border-top: 3px solid #10529b;
+        top: 15vh;
+        right: 0;
+        min-height: 50vh;
+        height: 75vh;
+        z-index: 10;
+        width: 100%;
+        background: #f7f7f7;
+    }
+
+    .navbar--separator{
+        display: none;
+    }
+}

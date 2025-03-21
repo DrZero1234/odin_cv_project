@@ -1,12 +1,16 @@
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { ControlTest } from "./components/ControlTest";
-import { ListElement } from "./components/ListElement";
+import { ListElement } from "./components/ListElement/ListElement";
 import { NavBar } from "./components/NavBar/NavBar";
+import { PDFViewer, renderToFile } from "@react-pdf/renderer";
+import { MyDocument } from "./components/CvPdf";
+// TEMPLATE LINK: https://resume.io/app/resumes/52176034/edit
 
 const defaultValues = {
   firstName: "John",
   lastName: "Smith",
   birthDate: new Date(),
+  profilePicture: "",
   gender: "",
   email: "lel@email.com",
   phone: "+1234567890",
@@ -24,7 +28,7 @@ const defaultValues = {
   ],
   jobExperience: [
     {
-      companyName: "",
+      companyName: "New job",
       position: "",
       jobStartDate: new Date(),
       jobEndDate: new Date(),
@@ -43,9 +47,16 @@ const App = () => {
       mode: "onBlur",
     });
 
+  console.log(watch());
+
   const { errors, isValid } = formState;
 
-  const { fields, append, remove, update } = useFieldArray({
+  const {
+    fields: educationFields,
+    append: appendEducation,
+    remove: removeEducation,
+    update: updateEducation,
+  } = useFieldArray({
     name: "educations",
     control,
     rules: {
@@ -53,7 +64,23 @@ const App = () => {
     },
   });
 
-  const onSubmit = (data) => console.log(data);
+  const {
+    fields: jobFields,
+    append: appendJob,
+    remove: removeJob,
+    update: updateJob,
+  } = useFieldArray({
+    name: "jobExperience",
+    control,
+    rules: {
+      required: "You need to add at least one education data.",
+    },
+  });
+
+  const onSubmit = (data) => {
+    console.log(data);
+    renderToFile(`<${MyDocument}/>`);
+  };
 
   const onError = (errors) => console.error("Form error: ", errors);
 
@@ -136,6 +163,27 @@ const App = () => {
               />
               <p className="error__msg">{errors.email?.message}</p>
             </div>
+
+            {/*  
+
+            PROFILE PICTURE INPUT
+
+            <div className="form--field">
+              <label htmlFor="profilePicture">Profile picture*</label>
+              <input
+                type="file"
+                id="profilePicture"
+                {...register("profilePicture", {
+                  required: "This field is required",
+                })}
+              />
+              <p className="error__msg">
+                {errors.profilePicture?.message}
+              </p>
+            </div>
+
+            */}
+
             <div className="form--field">
               <label htmlFor="phone">Phone number*</label>
               <input
@@ -175,26 +223,24 @@ const App = () => {
           <h2>Education</h2>
           <section className="form--section education">
             <ul className="cv--list">
-              {fields.map((field, index) => {
+              {educationFields.map((field, index) => {
                 return (
-                  <li key={field.id}>
+                  <li key={field.id} className="list--item--wrapper">
                     <ListElement
                       arrayName="educations"
                       value={field}
                       control={control}
-                      update={update}
+                      update={updateEducation}
                       index={index}
+                      remove={removeEducation}
                     />
-                    <button onClick={() => remove(index)}>
-                      Remove{" "}
-                    </button>
                   </li>
                 );
               })}
               <button
                 type="button"
                 onClick={() =>
-                  append({
+                  appendEducation({
                     schoolName: "New school",
                     degree: "",
                     city: "",
@@ -202,14 +248,59 @@ const App = () => {
                     schoolEndDate: new Date(),
                   })
                 }
+                className="add--item--btn"
               >
-                Add education
+                + Add education
               </button>
               {errors.educations?.message}
             </ul>
           </section>
 
           {/* Educations END */}
+
+          {/*Job experience START*/}
+
+          <h2>Job experience</h2>
+          <section className="form--section education">
+            <ul className="cv--list">
+              {jobFields.map((jobField, index) => {
+                return (
+                  <li
+                    key={jobField.id}
+                    className="list--item--wrapper"
+                  >
+                    <ListElement
+                      arrayName="jobExperience"
+                      value={jobField}
+                      control={control}
+                      update={updateJob}
+                      index={index}
+                      remove={removeJob}
+                    />
+                  </li>
+                );
+              })}
+              <button
+                type="button"
+                onClick={() =>
+                  appendJob({
+                    companyName: "New job",
+                    position: "",
+                    jobStartDate: new Date(),
+                    jobEndDate: new Date(),
+                    description: "",
+                  })
+                }
+                className="add--item--btn"
+              >
+                + Add job experience
+              </button>
+              {errors.jobExperience?.message}
+            </ul>
+          </section>
+
+          {/*Job experience END*/}
+
           <button
             type="submit" /*disabled={!isValid ? true : false}*/
           >
@@ -226,6 +317,7 @@ const App = () => {
         <div className="container">
           <div className="preview">
             <h2>CV preview</h2>
+            <MyDocument CvState={watch} />
           </div>
         </div>
       </div>

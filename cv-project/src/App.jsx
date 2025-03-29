@@ -2,10 +2,17 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { ControlTest } from "./components/ControlTest";
 import { ListElement } from "./components/ListElement/ListElement";
 import { NavBar } from "./components/NavBar/NavBar";
-import { PDFViewer, renderToFile } from "@react-pdf/renderer";
+import { PDFViewer, render, renderToFile } from "@react-pdf/renderer";
 import { MyDocument } from "./components/CvPdf";
+import { StyleSheet, PDFDownloadLink } from "@react-pdf/renderer";
 // TEMPLATE LINK: https://resume.io/app/resumes/52176034/edit
 
+const pdfDocStyles = StyleSheet.create({
+  viewer: {
+    width: "100%",
+    minHeight: "50%",
+  },
+});
 const defaultValues = {
   firstName: "John",
   lastName: "Smith",
@@ -73,13 +80,12 @@ const App = () => {
     name: "jobExperience",
     control,
     rules: {
-      required: "You need to add at least one education data.",
+      required: "You need to add at least one job experience data.",
     },
   });
 
   const onSubmit = (data) => {
     console.log(data);
-    renderToFile(`<${MyDocument}/>`);
   };
 
   const onError = (errors) => console.error("Form error: ", errors);
@@ -164,26 +170,18 @@ const App = () => {
               <p className="error__msg">{errors.email?.message}</p>
             </div>
 
-            {/*  
-
-            PROFILE PICTURE INPUT
-
             <div className="form--field">
               <label htmlFor="profilePicture">Profile picture*</label>
               <input
                 type="file"
                 id="profilePicture"
-                {...register("profilePicture", {
-                  required: "This field is required",
-                })}
+                accept=".png, .jpg, .jpeg, .svg, .wepb"
+                {...register("profilePicture")}
               />
               <p className="error__msg">
                 {errors.profilePicture?.message}
               </p>
             </div>
-
-            */}
-
             <div className="form--field">
               <label htmlFor="phone">Phone number*</label>
               <input
@@ -233,6 +231,7 @@ const App = () => {
                       update={updateEducation}
                       index={index}
                       remove={removeEducation}
+                      errors={errors}
                     />
                   </li>
                 );
@@ -276,6 +275,7 @@ const App = () => {
                       update={updateJob}
                       index={index}
                       remove={removeJob}
+                      errors={errors}
                     />
                   </li>
                 );
@@ -300,12 +300,30 @@ const App = () => {
           </section>
 
           {/*Job experience END*/}
+          {isValid ? (
+            <PDFDownloadLink
+              document={
+                <MyDocument
+                  CvState={watch()}
+                  educationFields={educationFields}
+                  jobFields={jobFields}
+                />
+              }
+              fileName="myCV.pdf"
+            >
+              {({ blob, url, loading, error }) => (
+                <button
+                  type="button"
+                  disabled={loading ? true : false}
+                >
+                  Download form
+                </button>
+              )}
+            </PDFDownloadLink>
+          ) : (
+            <button type="submit">Check form</button>
+          )}
 
-          <button
-            type="submit" /*disabled={!isValid ? true : false}*/
-          >
-            Submit form
-          </button>
           <button type="button" onClick={() => reset()}>
             Reset
           </button>
@@ -317,7 +335,16 @@ const App = () => {
         <div className="container">
           <div className="preview">
             <h2>CV preview</h2>
-            <MyDocument CvState={watch} />
+            <PDFViewer
+              style={pdfDocStyles.viewer}
+              showToolbar={false}
+            >
+              <MyDocument
+                CvState={watch()}
+                educationFields={educationFields}
+                jobFields={jobFields}
+              />
+            </PDFViewer>
           </div>
         </div>
       </div>

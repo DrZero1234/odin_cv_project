@@ -3,6 +3,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { PiTrashLight } from "react-icons/pi";
 import { IconContext } from "react-icons";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
+import { getMonthName } from "../utils/getMonthName";
 
 import "./ListElement.css";
 
@@ -54,16 +55,11 @@ export const ListElement = ({
   index,
   value,
   remove,
+  errors,
 }) => {
   const { register, handleSubmit } = useForm({
     defaultValues: value,
   });
-
-  const getMonthName = (monthNumber) => {
-    const date = new Date();
-    date.setMonth(monthNumber);
-    return date.toLocaleString("en-EN", { month: "long" });
-  };
 
   const Trash = (
     <PiTrashLight
@@ -188,6 +184,9 @@ export const ListElement = ({
                   <button onClick={() => setIsEditing(false)}>
                     Cancel
                   </button>
+                  <p className="error__msg">
+                    {errors.educations?.message}
+                  </p>
                 </div>
               </>
             )}

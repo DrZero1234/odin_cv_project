@@ -1,3 +1,6 @@
+
+
+
 @font-face{
   font-family: "TTRegular";
   src: local("TTRegular"),
@@ -52,6 +55,10 @@
 
 }
 
+/*
+
+CSS reset (might not be needed)
+
 *,
 *::before,
 *::after {
@@ -62,14 +69,11 @@
   margin: 0;
   padding: 0;
   font: inherit;
-  /* Get rid of all font sizes and heights */
 }
 
 html {
-  /* Default dark */
   hanging-punctuation: first last;
-  /* Not supported in Chrome */
-}
+*/
 
 body {
   min-height: 100vh;
@@ -122,10 +126,6 @@ label{
   text-shadow: none;
 }
 
-header{
-  background-color: #f7f7f7;
-}
-
 .page--wrapper{
   width: 95%;
   min-height: 100vh;
@@ -175,12 +175,13 @@ form,.preview{
 }
 
 
-
+/*  
 .form--field>input:focus,.form--field>textarea:focus{
   border: none;
   outline: none;
   box-shadow: 0 2px 0px var(--c-blue-1);
 }
+    */
 
 .cv--list{
   display: grid;

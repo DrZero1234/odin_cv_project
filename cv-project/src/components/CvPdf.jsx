@@ -138,7 +138,10 @@ export const MyDocument = ({
           </View>
           <View style={styles.itemListStyling}>
             {educationFields.map((educationField) => (
-              <View style={styles.itemStyling}>
+              <View
+                style={styles.itemStyling}
+                key={educationField.id}
+              >
                 <Text style={{ fontWeight: "900" }}>
                   {getMonthName(
                     educationField.schoolStartDate.getMonth()
@@ -164,7 +167,7 @@ export const MyDocument = ({
           </View>
           <View style={styles.itemListStyling}>
             {jobFields.map((jobField) => (
-              <View style={styles.itemStyling}>
+              <View style={styles.itemStyling} key={jobField.id}>
                 <Text style={{ fontWeight: "900" }}>
                   {getMonthName(jobField.jobStartDate.getMonth())}{" "}
                   {jobField.jobStartDate.getFullYear()} -{" "}

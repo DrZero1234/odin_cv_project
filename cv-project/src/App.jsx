@@ -5,6 +5,7 @@ import { NavBar } from "./components/NavBar/NavBar";
 import { PDFViewer, render, renderToFile } from "@react-pdf/renderer";
 import { MyDocument } from "./components/CvPdf";
 import { StyleSheet, PDFDownloadLink } from "@react-pdf/renderer";
+
 // TEMPLATE LINK: https://resume.io/app/resumes/52176034/edit
 
 const pdfDocStyles = StyleSheet.create({
@@ -52,6 +53,7 @@ const App = () => {
     useForm({
       defaultValues,
       mode: "onBlur",
+      shouldUseNativeValidation: true,
     });
 
   console.log(watch());
@@ -94,8 +96,8 @@ const App = () => {
 
   return (
     <>
-      <header>
-        <div className="container header">
+      <header className="bg-gray-50 p-8">
+        <div className="container">
           <NavBar />
         </div>
       </header>
@@ -153,6 +155,7 @@ const App = () => {
               <input
                 type="email"
                 id="email"
+                className="border-pink-500 text-pink-600 focus:border-sky-500 "
                 {...register("email", {
                   required: "This field is required",
                   minLength: {

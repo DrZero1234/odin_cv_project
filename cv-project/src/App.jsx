@@ -5,6 +5,8 @@ import { NavBar } from "./components/NavBar/NavBar";
 import { PDFViewer, render, renderToFile } from "@react-pdf/renderer";
 import { MyDocument } from "./components/CvPdf";
 import { StyleSheet, PDFDownloadLink } from "@react-pdf/renderer";
+import { FormInput } from "./components/Input/FormInput";
+import { ErrorMessage } from "./components/Input/ErrorMessage";
 
 // TEMPLATE LINK: https://resume.io/app/resumes/52176034/edit
 
@@ -49,12 +51,10 @@ const defaultValues = {
 };
 
 const App = () => {
-  const { register, control, handleSubmit, reset, watch, formState } =
-    useForm({
-      defaultValues,
-      mode: "onBlur",
-      shouldUseNativeValidation: true,
-    });
+  const { register, control, handleSubmit, reset, watch, formState } = useForm({
+    defaultValues,
+    mode: "onBlur",
+  });
 
   console.log(watch());
 
@@ -96,17 +96,34 @@ const App = () => {
 
   return (
     <>
-      <header className="bg-gray-50 p-8">
-        <div className="container">
+      <header className="bg-header-bg selection:bg-c-blue-2 p-2 selection:text-black">
+        <div className="max-w-8x1 container m-auto w-[95%]">
           <NavBar />
         </div>
       </header>
-      <div className="container page--wrapper">
+      <div className="font-Cantarell-Regular page--wrapper selection:bg-c-blue-2 container selection:text-black">
         <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
           <section className="form--section personal--details">
             <div className="form--field row">
+              <FormInput
+                type="text"
+                id="firstName"
+                register={{
+                  ...register("firstName", {
+                    required: "This field is required",
+                    maxLength: {
+                      value: 80,
+                      message: "The name is too long",
+                    },
+                  }),
+                }}
+              >
+                First name
+              </FormInput>
+              {/*  
               <label htmlFor="firstName">First name*</label>
               <input
+                className="p-0.5 bg-sky-100"
                 type="text"
                 id="firstName"
                 {...register("firstName", {
@@ -117,107 +134,124 @@ const App = () => {
                   },
                 })}
               />
-              <p className="error__msg">
-                {errors.firstName?.message}
-              </p>
+              */}
+
+              <ErrorMessage>{errors.firstName?.message}</ErrorMessage>
             </div>
             <div className="form--field row">
-              <label htmlFor="lastName">Last name*</label>
-              <input
-                type="text"
+              <FormInput
                 id="lastName"
-                {...register("lastName", {
-                  required: "This field is required",
-                  maxLength: {
-                    value: 80,
-                    message: "The name is too long",
-                  },
-                })}
-              />
-              <p className="error__msg">{errors.lastName?.message}</p>
+                type="text"
+                register={{
+                  ...register("lastName", {
+                    required: "This field is required",
+                    maxLength: {
+                      value: 80,
+                      message: "The name is too long",
+                    },
+                  }),
+                }}
+              >
+                Last name
+              </FormInput>
+              <ErrorMessage>{errors.lastName?.message}</ErrorMessage>
             </div>
             <div className="form--field row">
-              <label htmlFor="birthDate">Birth date*</label>
-              <input
-                type="date"
+              <FormInput
                 id="birthDate"
-                {...register("birthDate", {
-                  required: "This field is required",
-                  valueAsDate: true,
-                })}
-              />
-              <p className="error__msg">
-                {errors.birthDate?.message}
-              </p>
+                type="date"
+                register={{
+                  ...register("birthDate", {
+                    required: "This field is required",
+                    valueAsDate: true,
+                  }),
+                }}
+              >
+                Birth date*
+              </FormInput>
+              <ErrorMessage>{errors.birthDate?.message}</ErrorMessage>
             </div>
             <div className="form--field">
-              <label htmlFor="email">Email address*</label>
-              <input
+              <FormInput
                 type="email"
                 id="email"
-                className="border-pink-500 text-pink-600 focus:border-sky-500 "
-                {...register("email", {
-                  required: "This field is required",
-                  minLength: {
-                    value: 10,
-                    message:
-                      "Your email is too short (min. 10 characters incl. @,.)",
-                  },
-                  pattern: {
-                    value:
-                      /^[a-zA-Z0-9._%±]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
-                    message: "Invalid e-mail format",
-                  },
-                })}
-              />
-              <p className="error__msg">{errors.email?.message}</p>
+                register={{
+                  ...register("email", {
+                    required: "This field is required",
+                    minLength: {
+                      value: 10,
+                      message:
+                        "Your email is too short (min. 10 characters incl. @,.)",
+                    },
+                    pattern: {
+                      value: /^[a-zA-Z0-9._%±]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
+                      message: "Invalid e-mail format",
+                    },
+                  }),
+                }}
+              >
+                Email address*
+              </FormInput>
+
+              <ErrorMessage>{errors.email?.message}</ErrorMessage>
             </div>
 
             <div className="form--field">
-              <label htmlFor="profilePicture">Profile picture*</label>
-              <input
-                type="file"
+              <FormInput
                 id="profilePicture"
+                type="file"
                 accept=".png, .jpg, .jpeg, .svg, .wepb"
-                {...register("profilePicture")}
-              />
-              <p className="error__msg">
-                {errors.profilePicture?.message}
-              </p>
+                register={{ ...register("profilePicture") }}
+              >
+                Profile picture
+              </FormInput>
+              <ErrorMessage>{errors.profilePicture?.message}</ErrorMessage>
             </div>
             <div className="form--field">
-              <label htmlFor="phone">Phone number*</label>
-              <input
+              <FormInput
                 type="tel"
                 id="phone"
-                {...register("phone", {
-                  required: "This field is required",
-                  pattern: {
-                    value:
-                      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
-                    message:
-                      "Invalid phone number format. Example: (+1234567890, 1234567890, 123-456-7890)",
-                  },
-                })}
-              />
-              <p className="error__msg">{errors.phone?.message}</p>
+                register={{
+                  ...register("phone", {
+                    required: "This field is required",
+                    pattern: {
+                      value:
+                        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+                      message:
+                        "Invalid phone number format. Example: (+1234567890, 1234567890, 123-456-7890)",
+                    },
+                  }),
+                }}
+              >
+                Phone number*
+              </FormInput>
+              <ErrorMessage>{errors.phone?.message}</ErrorMessage>
             </div>
             <div className="form--field row">
-              <label htmlFor="address">Address*</label>
-              <input
-                type="text"
+              <FormInput
                 id="address"
-                {...register("address", {
-                  required: "This field is required",
-                })}
-              />
-              <p className="error__msg">{errors.address?.message}</p>
+                type="text"
+                register={{
+                  ...register("address", {
+                    required: "This field is required",
+                  }),
+                }}
+              >
+                Address*
+              </FormInput>
+              <ErrorMessage>{errors.address?.message}</ErrorMessage>
             </div>
-            <ControlTest
-              register={register}
-              name="testValue"
-              formState={formState}
-            />
+            <FormInput
+              type="textarea"
+              id="testValue"
+              register={{
+                ...register("testValue", {
+                  required: "This field is required",
+                }),
+              }}
+            >
+              Test value
+            </FormInput>
           </section>
 
           {/* Educations START */}
@@ -267,10 +301,7 @@ const App = () => {
             <ul className="cv--list">
               {jobFields.map((jobField, index) => {
                 return (
-                  <li
-                    key={jobField.id}
-                    className="list--item--wrapper"
-                  >
+                  <li key={jobField.id} className="list--item--wrapper">
                     <ListElement
                       arrayName="jobExperience"
                       value={jobField}
@@ -315,10 +346,7 @@ const App = () => {
               fileName="myCV.pdf"
             >
               {({ blob, url, loading, error }) => (
-                <button
-                  type="button"
-                  disabled={loading ? true : false}
-                >
+                <button type="button" disabled={loading ? true : false}>
                   Download form
                 </button>
               )}
@@ -338,10 +366,7 @@ const App = () => {
         <div className="container">
           <div className="preview">
             <h2>CV preview</h2>
-            <PDFViewer
-              style={pdfDocStyles.viewer}
-              showToolbar={false}
-            >
+            <PDFViewer style={pdfDocStyles.viewer} showToolbar={false}>
               <MyDocument
                 CvState={watch()}
                 educationFields={educationFields}

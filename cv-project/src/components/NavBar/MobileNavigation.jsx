@@ -2,14 +2,13 @@ import { useState } from "react";
 import "./NavBar.css";
 import { NavLinks } from "./NavLinks";
 import { MdOutlineMenu, MdClose } from "react-icons/md";
-import { PiTrashLight } from "react-icons/pi";
 
 export const MobileNavigation = () => {
   const [click, setClick] = useState(false);
 
   const Hamburger = (
     <MdOutlineMenu
-      className="hamburger--menu"
+      className="hamburger--menu absolute right-[2%] cursor-pointer"
       size="35px"
       color="#1a91f0"
       onClick={() => setClick(!click)}
@@ -18,7 +17,7 @@ export const MobileNavigation = () => {
 
   const Close = (
     <MdClose
-      className="hamburger--menu"
+      className="hamburger--menu absolute right-[2%] cursor-pointer"
       size="30px"
       color="#1a91f0"
       onClick={() => setClick(!click)}
@@ -28,7 +27,7 @@ export const MobileNavigation = () => {
   const closeMenu = () => setClick(false);
 
   return (
-    <nav className="Mobile--navigation">
+    <nav className="Mobile--navigation font-Roboto-Bold flex items-center lg:hidden">
       <a id="page--logo">CV Creator</a>
       {click ? Close : Hamburger}
       {click && <NavLinks isClicked={true} closeMenu={closeMenu} />}

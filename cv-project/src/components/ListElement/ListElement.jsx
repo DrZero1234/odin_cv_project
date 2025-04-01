@@ -102,14 +102,11 @@ export const ListElement = ({
                 <p>{value?.schoolName}</p>
                 <p>
                   {JSON.stringify(
-                    getMonthName(value?.schoolStartDate.getMonth())
+                    getMonthName(value?.schoolStartDate.getMonth()),
                   ).slice(1, -1)}{" "}
+                  {JSON.stringify(value?.schoolStartDate.getFullYear())} -{" "}
                   {JSON.stringify(
-                    value?.schoolStartDate.getFullYear()
-                  )}{" "}
-                  -{" "}
-                  {JSON.stringify(
-                    getMonthName(value?.schoolEndDate.getMonth())
+                    getMonthName(value?.schoolEndDate.getMonth()),
                   ).slice(1, -1)}{" "}
                   {JSON.stringify(value?.schoolEndDate.getFullYear())}
                 </p>
@@ -120,7 +117,7 @@ export const ListElement = ({
             {isEditing && (
               // Editing
               <>
-                <div className="form--section  edit--form">
+                <div className="form--section edit--form">
                   <div className="form--field">
                     <label htmlFor="schoolName">School name</label>
                     <input
@@ -131,26 +128,16 @@ export const ListElement = ({
                   </div>
                   <div className="form--field">
                     <label htmlFor="degree">Degree</label>
-                    <input
-                      id="degree"
-                      type="text"
-                      {...register(`degree`)}
-                    />
+                    <input id="degree" type="text" {...register(`degree`)} />
                   </div>
 
                   <div className="form--field">
                     <label htmlFor="city">City</label>
-                    <input
-                      id="city"
-                      type="text"
-                      {...register(`city`)}
-                    />
+                    <input id="city" type="text" {...register(`city`)} />
                   </div>
                   <div className="double--field">
                     <div className="form--field">
-                      <label htmlFor="schoolStartDate">
-                        School start date
-                      </label>
+                      <label htmlFor="schoolStartDate">School start date</label>
                       <input
                         id="schoolStartDate"
                         type="date"
@@ -161,9 +148,7 @@ export const ListElement = ({
                     </div>
 
                     <div className="form--field">
-                      <label htmlFor="schoolEndDate">
-                        School end date
-                      </label>
+                      <label htmlFor="schoolEndDate">School end date</label>
                       <input
                         id="schoolEndDate"
                         type="date"
@@ -181,12 +166,8 @@ export const ListElement = ({
                   >
                     Confirm
                   </button>
-                  <button onClick={() => setIsEditing(false)}>
-                    Cancel
-                  </button>
-                  <p className="error__msg">
-                    {errors.educations?.message}
-                  </p>
+                  <button onClick={() => setIsEditing(false)}>Cancel</button>
+                  <p className="error__msg">{errors.educations?.message}</p>
                 </div>
               </>
             )}
@@ -206,12 +187,11 @@ export const ListElement = ({
                 <p>{value?.companyName}</p>
                 <p>
                   {JSON.stringify(
-                    getMonthName(value?.jobStartDate.getMonth())
+                    getMonthName(value?.jobStartDate.getMonth()),
                   ).slice(1, -1)}{" "}
-                  {JSON.stringify(value?.jobStartDate.getFullYear())}{" "}
-                  -{" "}
+                  {JSON.stringify(value?.jobStartDate.getFullYear())} -{" "}
                   {JSON.stringify(
-                    getMonthName(value?.jobEndDate.getMonth())
+                    getMonthName(value?.jobEndDate.getMonth()),
                   ).slice(1, -1)}{" "}
                   {JSON.stringify(value?.jobEndDate.getFullYear())}
                 </p>
@@ -222,7 +202,7 @@ export const ListElement = ({
             {isEditing && (
               // Editing
               <>
-                <div className="form--section  edit--form">
+                <div className="form--section edit--form">
                   <div className="form--field">
                     <label htmlFor="companyName">Company name</label>
                     <input
@@ -242,9 +222,7 @@ export const ListElement = ({
 
                   <div className="double--field">
                     <div className="form--field">
-                      <label htmlFor="jobStartDate">
-                        Job start date
-                      </label>
+                      <label htmlFor="jobStartDate">Job start date</label>
                       <input
                         id="jobStartDate"
                         type="date"
@@ -281,9 +259,7 @@ export const ListElement = ({
                   >
                     Confirm
                   </button>
-                  <button onClick={() => setIsEditing(false)}>
-                    Cancel
-                  </button>
+                  <button onClick={() => setIsEditing(false)}>Cancel</button>
                 </div>
               </>
             )}

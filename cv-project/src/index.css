@@ -1,5 +1,4 @@
-
-
+@import "tailwindcss";
 
 @font-face{
   font-family: "TTRegular";
@@ -48,11 +47,38 @@
   --c-gray-1: rgb(130, 139, 162);
   --c-gray-2: rgb(239, 242, 249);
   --c-gray-3: rgba(234, 246, 255, 0.5);
+  --c-gray-4: rgb(159, 166, 187);
 
   --c-blue-1: rgb(26, 145, 240);
+  --c-blue-2: #b3d4fc;
 
   --footer-bg: #0f141e;
 
+}
+
+@theme{
+  --color-header-bg: #ebedf1;
+
+  --color-c-black-1: rgb(30, 37, 50);
+
+  --color-c-gray-1: rgb(130, 139, 162);
+  --color-c-gray-2: rgb(239, 242, 249);
+  --color-c-gray-3: rgba(234, 246, 255, 0.5);
+  --color-c-gray-4: rgb(159, 166, 187);
+  --color-c-gray-5: #f7f7f7;
+
+  --color-c-blue-1: rgb(26, 145, 240);
+  --color-c-blue-2: #b3d4fc;
+
+  --color-c-footer-bg: #0f141e;
+
+  
+
+  --font-Cantarell-Regular: "CantarellRegular",sans-serif;
+  --font-TTBold: "TTBold",sans-serif;
+  --font-Roboto-Bold: "RobotoBold", sans-serif;
+
+  --container-8x1: 100rem;
 }
 
 /*
@@ -74,7 +100,7 @@ CSS reset (might not be needed)
 html {
   hanging-punctuation: first last;
 */
-
+/* 
 body {
   min-height: 100vh;
   font-family: "TTRegular","RobotoRegular","CantarellRegular",sans-serif;
@@ -101,7 +127,6 @@ h6 {
 p {
   max-width: 75ch;
   text-wrap: pretty;
-  /* Prevents orphans on lines */
 }
 
 button {
@@ -181,7 +206,7 @@ form,.preview{
   outline: none;
   box-shadow: 0 2px 0px var(--c-blue-1);
 }
-    */
+    
 
 .cv--list{
   display: grid;
@@ -259,3 +284,5 @@ ul{
 
 
 }
+
+*/

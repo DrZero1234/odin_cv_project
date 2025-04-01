@@ -1,5 +1,4 @@
 
-
 @font-face {
     font-family: "CantarellBold";
     src: local("CantarellBold"),
@@ -14,6 +13,7 @@
     font-weight: bold;
 }
 
+/*
 nav{
     font-family: "RobotoBold", sans-serif;
     display: flex;
@@ -70,7 +70,6 @@ nav ul li a:hover {
     color: #1a91f0;
     padding: 13px 23px;
     text-wrap: nowrap;
-    /* button styles */
     display: inline-block;
     font-size: 18px;
     font-weight: 600;
@@ -144,3 +143,5 @@ nav ul li a:hover {
         display: none;
     }
 }
+
+*/

@@ -39,6 +39,7 @@
   font-weight: bold;
 }
 
+
 :root{
   --header-bg: #ebedf1;
 
@@ -76,9 +77,60 @@
 
   --font-Cantarell-Regular: "CantarellRegular",sans-serif;
   --font-TTBold: "TTBold",sans-serif;
+  --font-TTRegular: "TTRegular",sans-serif;
+  --font-RobotoRegular: "RobotoRegular";
   --font-Roboto-Bold: "RobotoBold", sans-serif;
 
   --container-8x1: 100rem;
+
+  --font-body: "TTRegular","RobotoRegular","CantarellRegular",sans-serif;
+}
+
+
+
+
+
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 95%;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+p {
+  max-width: 75ch;
+  text-wrap: pretty;
+}
+
+
+button {
+  justify-self: center;
+  align-self: center;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.row,
+form>button {
+  grid-column: 1 / -1;
 }
 
 /*
@@ -115,24 +167,7 @@ video {
   max-width: 100%;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  text-wrap: balance;
-}
 
-p {
-  max-width: 75ch;
-  text-wrap: pretty;
-}
-
-button {
-  justify-self: center;
-  align-self: center;
-}
 
 input {
   width: 100%;
@@ -249,13 +284,6 @@ form,.preview{
 
 
 
-ul{
-  list-style-type: none;
-}
-
-.row,form>button{
-  grid-column: 1 / -1;
-}
 
 
 .preview{

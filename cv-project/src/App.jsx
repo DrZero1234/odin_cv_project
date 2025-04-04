@@ -7,6 +7,8 @@ import { MyDocument } from "./components/CvPdf";
 import { StyleSheet, PDFDownloadLink } from "@react-pdf/renderer";
 import { FormInput } from "./components/Input/FormInput";
 import { ErrorMessage } from "./components/Input/ErrorMessage";
+import { FormField } from "./components/Form Field/FormField";
+import { FormSection } from "./components/Form Field/FormSection";
 
 // TEMPLATE LINK: https://resume.io/app/resumes/52176034/edit
 
@@ -101,10 +103,14 @@ const App = () => {
           <NavBar />
         </div>
       </header>
-      <div className="font-Cantarell-Regular page--wrapper selection:bg-c-blue-2 container selection:text-black">
-        <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
-          <section className="form--section personal--details">
-            <div className="form--field row">
+      <main className="font-Cantarell-Regular selection:bg-c-blue-2 container grid min-h-screen w-[95%] grid-cols-1 selection:text-black xl:grid-cols-2">
+        <form
+          className="p-[1.5em]"
+          onSubmit={handleSubmit(onSubmit, onError)}
+          noValidate
+        >
+          <FormSection>
+            <FormField isRow={true}>
               <FormInput
                 type="text"
                 id="firstName"
@@ -137,8 +143,8 @@ const App = () => {
               */}
 
               <ErrorMessage>{errors.firstName?.message}</ErrorMessage>
-            </div>
-            <div className="form--field row">
+            </FormField>
+            <FormField isRow={true}>
               <FormInput
                 id="lastName"
                 type="text"
@@ -155,8 +161,8 @@ const App = () => {
                 Last name
               </FormInput>
               <ErrorMessage>{errors.lastName?.message}</ErrorMessage>
-            </div>
-            <div className="form--field row">
+            </FormField>
+            <FormField isRow={true}>
               <FormInput
                 id="birthDate"
                 type="date"
@@ -170,8 +176,8 @@ const App = () => {
                 Birth date*
               </FormInput>
               <ErrorMessage>{errors.birthDate?.message}</ErrorMessage>
-            </div>
-            <div className="form--field">
+            </FormField>
+            <FormField>
               <FormInput
                 type="email"
                 id="email"
@@ -194,9 +200,9 @@ const App = () => {
               </FormInput>
 
               <ErrorMessage>{errors.email?.message}</ErrorMessage>
-            </div>
+            </FormField>
 
-            <div className="form--field">
+            <FormField>
               <FormInput
                 id="profilePicture"
                 type="file"
@@ -206,8 +212,8 @@ const App = () => {
                 Profile picture
               </FormInput>
               <ErrorMessage>{errors.profilePicture?.message}</ErrorMessage>
-            </div>
-            <div className="form--field">
+            </FormField>
+            <FormField isRow={true}>
               <FormInput
                 type="tel"
                 id="phone"
@@ -226,8 +232,8 @@ const App = () => {
                 Phone number*
               </FormInput>
               <ErrorMessage>{errors.phone?.message}</ErrorMessage>
-            </div>
-            <div className="form--field row">
+            </FormField>
+            <FormField isRow={true}>
               <FormInput
                 id="address"
                 type="text"
@@ -240,27 +246,32 @@ const App = () => {
                 Address*
               </FormInput>
               <ErrorMessage>{errors.address?.message}</ErrorMessage>
+            </FormField>
+            <div>
+              <FormInput
+                type="textarea"
+                id="testValue"
+                register={{
+                  ...register("testValue", {
+                    required: "This field is required",
+                  }),
+                }}
+              >
+                Test value
+              </FormInput>
             </div>
-            <FormInput
-              type="textarea"
-              id="testValue"
-              register={{
-                ...register("testValue", {
-                  required: "This field is required",
-                }),
-              }}
-            >
-              Test value
-            </FormInput>
-          </section>
+          </FormSection>
 
           {/* Educations START */}
           <h2>Education</h2>
           <section className="form--section education">
-            <ul className="cv--list">
+            <ul className="cv--list col-span-full grid list-none gap-1">
               {educationFields.map((field, index) => {
                 return (
-                  <li key={field.id} className="list--item--wrapper">
+                  <li
+                    key={field.id}
+                    className="list--item--wrapper inline-flex hover:cursor-pointer"
+                  >
                     <ListElement
                       arrayName="educations"
                       value={field}
@@ -284,7 +295,7 @@ const App = () => {
                     schoolEndDate: new Date(),
                   })
                 }
-                className="add--item--btn"
+                className="add--item--btn justify-self-[unset] text-c-blue-1 hover:bg-c-gray-3 mt-5 rounded-b-sm border-none bg-inherit px-4 py-2 text-left font-bold duration-150 hover:cursor-pointer"
               >
                 + Add education
               </button>
@@ -298,10 +309,13 @@ const App = () => {
 
           <h2>Job experience</h2>
           <section className="form--section education">
-            <ul className="cv--list">
+            <ul className="cv--list list-none">
               {jobFields.map((jobField, index) => {
                 return (
-                  <li key={jobField.id} className="list--item--wrapper">
+                  <li
+                    key={jobField.id}
+                    className="list--item--wrapper inline-flex hover:cursor-pointer"
+                  >
                     <ListElement
                       arrayName="jobExperience"
                       value={jobField}
@@ -325,7 +339,7 @@ const App = () => {
                     description: "",
                   })
                 }
-                className="add--item--btn"
+                className="add--item--btn justify-self-[unset] text-c-blue-1 hover:bg-c-gray-3 mt-5 rounded-b-sm border-none bg-inherit px-4 py-2 text-left font-bold duration-150 hover:cursor-pointer"
               >
                 + Add job experience
               </button>
@@ -352,19 +366,29 @@ const App = () => {
               )}
             </PDFDownloadLink>
           ) : (
-            <button type="submit">Check form</button>
+            <button type="submit" className="col-span-full">
+              Check form
+            </button>
           )}
 
-          <button type="button" onClick={() => reset()}>
+          <button
+            type="button"
+            className="col-span-full"
+            onClick={() => reset()}
+          >
             Reset
           </button>
-          <button type="button" onClick={() => console.log(watch())}>
+          <button
+            type="button"
+            className="col-span-full"
+            onClick={() => console.log(watch())}
+          >
             Log form state
           </button>
         </form>
 
         <div className="container">
-          <div className="preview">
+          <div className="preview flex h-full flex-col items-center justify-center gap-y-8 p-[1.5em]">
             <h2>CV preview</h2>
             <PDFViewer style={pdfDocStyles.viewer} showToolbar={false}>
               <MyDocument
@@ -375,7 +399,7 @@ const App = () => {
             </PDFViewer>
           </div>
         </div>
-      </div>
+      </main>
     </>
   );
 };

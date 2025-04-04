@@ -130,7 +130,7 @@ nav ul li a:hover {
         flex-direction: column;
         justify-content: space-evenly;
         position: absolute;
-        border-top: 3px solid #10529b;
+        border-top: 3px solid ;#10529b
         top: 15vh;
         right: 0;
         min-height: 50vh;

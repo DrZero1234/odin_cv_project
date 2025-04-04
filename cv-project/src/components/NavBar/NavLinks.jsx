@@ -3,7 +3,7 @@ import "../../index.css";
 
 export const NavLinks = ({ isClicked, closeMenu }) => {
   return (
-    <nav className="nav--links absolute top-[15vh] right-0 z-10 flex min-h-[50vh] w-full flex-col items-center justify-evenly border-t-[3px] border-t-[#10529b] bg-[#f7f7f7] lg:relative lg:top-0 lg:right-auto lg:z-0 lg:min-h-[15vh] lg:flex-row lg:justify-end lg:border-t-0 lg:bg-inherit">
+    <nav className="nav--links font-Roboto-Bold absolute top-[15vh] right-0 z-10 flex min-h-[50vh] w-full flex-col items-center justify-evenly border-t-[3px] border-t-[#10529b] bg-[#f7f7f7] lg:relative lg:top-0 lg:right-auto lg:z-0 lg:min-h-[15vh] lg:flex-row lg:justify-end lg:border-t-0 lg:bg-inherit">
       <ul className="flex flex-col items-center lg:flex-row lg:content-evenly">
         <li
           className="inline-block list-none px-2.5 py-5"

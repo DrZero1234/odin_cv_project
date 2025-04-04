@@ -27,8 +27,13 @@ export const MobileNavigation = () => {
   const closeMenu = () => setClick(false);
 
   return (
-    <nav className="Mobile--navigation font-Roboto-Bold flex items-center lg:hidden">
-      <a id="page--logo">CV Creator</a>
+    <nav className="Mobile--navigation font-Roboto-Bold flex min-h-[15vh] items-center lg:hidden">
+      <a
+        id="page--logo"
+        className="text-4xl font-extrabold text-nowrap text-[#10529b]"
+      >
+        CV Creator
+      </a>
       {click ? Close : Hamburger}
       {click && <NavLinks isClicked={true} closeMenu={closeMenu} />}
     </nav>

@@ -19,14 +19,14 @@ const pdfDocStyles = StyleSheet.create({
   },
 });
 const defaultValues = {
-  firstName: "John",
-  lastName: "Smith",
+  firstName: "",
+  lastName: "",
   birthDate: new Date(),
   profilePicture: "",
   gender: "",
-  email: "lel@email.com",
-  phone: "+1234567890",
-  address: "gfds",
+  email: "",
+  phone: "",
+  address: "",
   zipCode: "",
   city: "",
   educations: [

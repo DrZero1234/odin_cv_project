@@ -1,7 +1,6 @@
 //PDF template https://www.posters.sk/print-on-photo-paper-f512699989
 
 import profilePictureDefault from "../assets/profile-picture-default.jpeg";
-import testProfilePicture from "../assets/test-profile-picture.jpeg";
 import phoneIcon from "../assets/phone-icon.png";
 import emailIcon from "../assets/email-icon.png";
 import addressIcon from "../assets/address-icon.png";
@@ -75,20 +74,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export const MyDocument = ({
-  CvState,
-  educationFields,
-  jobFields,
-}) => {
+export const MyDocument = ({ CvState, educationFields, jobFields }) => {
   console.log(educationFields[0]);
-  const { firstName, lastName, phone, email, address, gender } =
-    CvState;
+  const { firstName, lastName, phone, email, address, gender } = CvState;
   return (
     <Document title={`${firstName} ${lastName}´s CV`}>
       <Page size="A4" style={styles.page}>
         <View style={[styles.titleSection, styles.sectionStylings]}>
           <Image
-            src={testProfilePicture}
+            src={profilePictureDefault}
             style={[styles.profilePicture, styles.imageStyling]}
           />
           <View style={[styles.titleWrapper, { flex: "1" }]}>
@@ -102,27 +96,21 @@ export const MyDocument = ({
             <Text style={styles.titleStyling}>Contact</Text>
           </View>
           <View style={styles.itemListStyling}>
-            <View
-              style={[styles.itemStyling, { letterSpacing: "4px" }]}
-            >
+            <View style={[styles.itemStyling, { letterSpacing: "4px" }]}>
               <Image
                 style={[styles.imageStyling, styles.contactItemIcon]}
                 src={phoneIcon}
               />
               <Text>{phone}</Text>
             </View>
-            <View
-              style={[styles.itemStyling, { letterSpacing: "4px" }]}
-            >
+            <View style={[styles.itemStyling, { letterSpacing: "4px" }]}>
               <Image
                 style={[styles.imageStyling, styles.contactItemIcon]}
                 src={emailIcon}
               />
               <Text>{email}</Text>
             </View>
-            <View
-              style={[styles.itemStyling, { letterSpacing: "4px" }]}
-            >
+            <View style={[styles.itemStyling, { letterSpacing: "4px" }]}>
               <Image
                 style={[styles.imageStyling, styles.contactItemIcon]}
                 src={addressIcon}
@@ -138,18 +126,11 @@ export const MyDocument = ({
           </View>
           <View style={styles.itemListStyling}>
             {educationFields.map((educationField) => (
-              <View
-                style={styles.itemStyling}
-                key={educationField.id}
-              >
+              <View style={styles.itemStyling} key={educationField.id}>
                 <Text style={{ fontWeight: "900" }}>
-                  {getMonthName(
-                    educationField.schoolStartDate.getMonth()
-                  )}{" "}
+                  {getMonthName(educationField.schoolStartDate.getMonth())}{" "}
                   {educationField.schoolStartDate.getFullYear()} -{" "}
-                  {getMonthName(
-                    educationField.schoolEndDate.getMonth()
-                  )}{" "}
+                  {getMonthName(educationField.schoolEndDate.getMonth())}{" "}
                   {educationField.schoolEndDate.getFullYear()}{" "}
                   <Text style={{ fontWeight: "900" }}>
                     {educationField.schoolName}

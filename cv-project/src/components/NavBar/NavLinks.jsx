@@ -1,4 +1,3 @@
-import "./NavBar.css";
 import "../../index.css";
 
 export const NavLinks = ({ isClicked, closeMenu }) => {

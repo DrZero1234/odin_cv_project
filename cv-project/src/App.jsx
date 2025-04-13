@@ -1,5 +1,4 @@
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import { ControlTest } from "./components/ControlTest";
 import { ListElement } from "./components/ListElement/ListElement";
 import { NavBar } from "./components/NavBar/NavBar";
 import { PDFViewer, render, renderToFile } from "@react-pdf/renderer";
@@ -129,21 +128,6 @@ const App = () => {
               >
                 First name
               </FormInput>
-              {/*  
-              <label htmlFor="firstName">First name*</label>
-              <input
-                className="p-0.5 bg-sky-100"
-                type="text"
-                id="firstName"
-                {...register("firstName", {
-                  required: "This field is required",
-                  maxLength: {
-                    value: 80,
-                    message: "The name is too long",
-                  },
-                })}
-              />
-              */}
 
               <ErrorMessage>{errors.firstName?.message}</ErrorMessage>
             </FormField>
@@ -207,17 +191,6 @@ const App = () => {
 
             <FormField>
               <FormInput
-                id="profilePicture"
-                type="file"
-                accept=".png, .jpg, .jpeg, .svg, .wepb"
-                register={{ ...register("profilePicture") }}
-              >
-                Profile picture
-              </FormInput>
-              <ErrorMessage>{errors.profilePicture?.message}</ErrorMessage>
-            </FormField>
-            <FormField>
-              <FormInput
                 type="tel"
                 id="phone"
                 register={{
@@ -250,19 +223,6 @@ const App = () => {
               </FormInput>
               <ErrorMessage>{errors.address?.message}</ErrorMessage>
             </FormField>
-            <div>
-              <FormInput
-                type="textarea"
-                id="testValue"
-                register={{
-                  ...register("testValue", {
-                    required: "This field is required",
-                  }),
-                }}
-              >
-                Test value
-              </FormInput>
-            </div>
           </FormSection>
 
           {/* Educations START */}
@@ -367,7 +327,7 @@ const App = () => {
                   <button
                     type="button"
                     disabled={loading ? true : false}
-                    className="bg-c-blue-1 hover:cursor-pointer2 m-2 w-full rounded-b-sm px-3 py-2 text-center leading-5 font-semibold whitespace-nowrap text-white hover:bg-[rgb(17,112,205)] active:bg-[rgb(16,82,155)] md:col-span-2"
+                    className="bg-c-blue-1 m-2 w-full rounded-b-sm px-5 py-2.5 text-center leading-5 font-semibold whitespace-nowrap text-white hover:cursor-pointer hover:bg-[rgb(17,112,205)] active:bg-[rgb(16,82,155)] md:col-span-2 md:px-2.5 md:py-2"
                   >
                     Download form
                   </button>
@@ -376,7 +336,7 @@ const App = () => {
             ) : (
               <button
                 type="submit"
-                className="bg-c-blue-1 leading-5e m-2 w-full rounded-b-sm px-3 py-2 text-center font-semibold whitespace-nowrap text-white transition-colors duration-100 hover:cursor-pointer hover:bg-[rgb(17,112,205)] active:bg-[rgb(16,82,155)] md:col-span-2 md:w-2/3"
+                className="bg-c-blue-1 m-2 w-full rounded-b-sm px-5 py-2.5 text-center leading-5 font-semibold whitespace-nowrap text-white hover:cursor-pointer hover:bg-[rgb(17,112,205)] active:bg-[rgb(16,82,155)] md:col-span-2 md:px-2.5 md:py-2"
               >
                 Check form
               </button>

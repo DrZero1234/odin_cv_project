@@ -1,6 +1,4 @@
 import { NavLinks } from "./NavLinks";
-import "./NavBar.css";
-
 export const DesktopNavigation = () => {
   return (
     <nav className="Desktop--navigation font-Roboto-Bold hidden items-center lg:flex">

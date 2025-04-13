@@ -9,7 +9,7 @@ export const MobileNavigation = () => {
   const Hamburger = (
     <MdOutlineMenu
       className="hamburger--menu absolute right-[2%] cursor-pointer"
-      size="35px"
+      size="40px"
       color="#1a91f0"
       onClick={() => setClick(!click)}
     />
@@ -18,7 +18,7 @@ export const MobileNavigation = () => {
   const Close = (
     <MdClose
       className="hamburger--menu absolute right-[2%] cursor-pointer"
-      size="30px"
+      size="40px"
       color="#1a91f0"
       onClick={() => setClick(!click)}
     />
@@ -27,7 +27,7 @@ export const MobileNavigation = () => {
   const closeMenu = () => setClick(false);
 
   return (
-    <nav className="Mobile--navigation font-Roboto-Bold flex min-h-[15vh] items-center lg:hidden">
+    <nav className="Mobile--navigation font-Roboto-Bold flex min-h-[7vh] items-center lg:hidden">
       <a
         id="page--logo"
         className="text-4xl font-extrabold text-nowrap text-[#10529b]"

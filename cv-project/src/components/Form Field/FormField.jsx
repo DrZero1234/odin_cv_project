@@ -1,8 +1,8 @@
-export const FormField = ({ isRow, children }) => {
-  const rowClass = "";
-
+export const FormField = ({ isRow, additionalClass, children }) => {
   return (
-    <div className={`flex flex-col gap-1 ${isRow && "col-span-full"}`}>
+    <div
+      className={`flex ${additionalClass ? additionalClass : ""} flex-col gap-1 ${isRow ? "col-span-full" : ""}`}
+    >
       {children}
     </div>
   );

@@ -6,6 +6,9 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { getMonthName } from "../utils/getMonthName";
 
 import "./ListElement.css";
+import { FormSection } from "../Form Field/FormSection";
+import { FormField } from "../Form Field/FormField";
+import { FormInput } from "../Input/FormInput";
 
 // The added element
 
@@ -65,14 +68,14 @@ export const ListElement = ({
     <PiTrashLight
       size="25px"
       onClick={() => remove(index)}
-      className="remove--item--icon"
+      className="remove--item--icon text-c-gray-4 hover:text-c-blue-1 self-center opacity-0 group-hover/item:opacity-100"
     />
   );
 
   const OpenEdit = (
     <FaChevronDown
       size="20px"
-      className="edit--item--icon"
+      className="edit--item--icon text-c-gray-4 hover:text-c-blue-1 self-center"
       onClick={() => setIsEditing(true)}
     />
   );
@@ -80,7 +83,7 @@ export const ListElement = ({
   const CloseEdit = (
     <FaChevronUp
       size="20px"
-      className="close--edit--item--icon"
+      className="close--edit--item--icon text-c-gray-4 hover:text-c-blue-1 self-center"
       onClick={() => setIsEditing(false)}
     />
   );
@@ -93,9 +96,9 @@ export const ListElement = ({
     <IconContext.Provider value={{ className: "item--icon" }}>
       {arrayName === "educations" && (
         <>
-          <div className="list--item">
+          <div className="group/item mr-4 w-full min-w-full rounded-b-sm border-2 border-solid border-[rgb(231,234,244)] px-6 py-3 md:min-w-auto">
             <div
-              className="list--item__label"
+              className="group-hover/item:text-c-blue-1 inline-flex w-full items-center justify-between"
               onClick={() => setIsEditing(!isEditing)}
             >
               <div className="list--item__label__name">
@@ -117,58 +120,92 @@ export const ListElement = ({
             {isEditing && (
               // Editing
               <>
-                <div className="form--section edit--form">
-                  <div className="form--field">
-                    <label htmlFor="schoolName">School name</label>
-                    <input
-                      id="schoolName"
+                <FormSection additionalClass="mt-8">
+                  <FormField>
+                    <FormInput
                       type="text"
-                      {...register(`schoolName`)}
-                    />
-                  </div>
-                  <div className="form--field">
-                    <label htmlFor="degree">Degree</label>
-                    <input id="degree" type="text" {...register(`degree`)} />
-                  </div>
+                      id="schoolName"
+                      register={{ ...register(`schoolName`) }}
+                    >
+                      School name
+                    </FormInput>
+                  </FormField>
+                  <FormField>
+                    <FormInput
+                      id="degree"
+                      type="text"
+                      register={{ ...register(`degree`) }}
+                    >
+                      Degree
+                    </FormInput>
+                  </FormField>
 
-                  <div className="form--field">
-                    <label htmlFor="city">City</label>
-                    <input id="city" type="text" {...register(`city`)} />
-                  </div>
-                  <div className="double--field">
-                    <div className="form--field">
-                      <label htmlFor="schoolStartDate">School start date</label>
-                      <input
+                  <FormField>
+                    <FormInput
+                      id="city"
+                      type="text"
+                      register={{ ...register(`city`) }}
+                    >
+                      City
+                    </FormInput>
+                  </FormField>
+                  <div className="grid grid-cols-2 gap-1 md:justify-around">
+                    <FormField>
+                      <FormInput
                         id="schoolStartDate"
                         type="date"
-                        {...register(`schoolStartDate`, {
-                          valueAsDate: true,
-                        })}
-                      />
-                    </div>
+                        register={{
+                          ...register(`schoolStartDate`, {
+                            valueAsDate: true,
+                          }),
+                        }}
+                      >
+                        School start date
+                      </FormInput>
+                    </FormField>
 
-                    <div className="form--field">
-                      <label htmlFor="schoolEndDate">School end date</label>
-                      <input
+                    <FormField>
+                      <FormInput
                         id="schoolEndDate"
                         type="date"
-                        {...register(`schoolEndDate`, {
-                          valueAsDate: true,
-                        })}
-                      />
-                    </div>
+                        register={{
+                          ...register(`schoolEndDate`, {
+                            valueAsDate: true,
+                          }),
+                        }}
+                      >
+                        School end date
+                      </FormInput>
+                    </FormField>
                   </div>
+                  {errors.educations?.message && (
+                    <FormField isRow={true}>
+                      <p className="error__msg">{errors.educations?.message}</p>
+                    </FormField>
+                  )}
                   <button
                     type="button"
+                    className="mt-1.5 w-full min-w-2/3 rounded-2xl bg-green-600 py-2 text-amber-50 outline-transparent hover:cursor-pointer hover:bg-amber-50 hover:text-green-600 focus:outline-4 focus:outline-amber-600 active:bg-purple-600 md:w-auto"
                     onClick={handleSubmit((data) => {
                       update(index, data);
                     })}
                   >
                     Confirm
                   </button>
-                  <button onClick={() => setIsEditing(false)}>Cancel</button>
-                  <p className="error__msg">{errors.educations?.message}</p>
-                </div>
+                  <button
+                    type="button"
+                    className="mt-1.5 w-full min-w-2/3 rounded-2xl bg-white px-5 py-2.5 text-gray-900 outline outline-gray-200 hover:cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-4 focus:outline-amber-600 focus:outline-none active:bg-blue-500 md:w-auto dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+                    onClick={() => setIsEditing(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="mt-1.5 w-full min-w-2/3 rounded-2xl bg-red-600 py-2 text-amber-200 outline-transparent hover:cursor-pointer hover:bg-red-900 hover:text-red-500 focus:outline-4 focus:outline-yellow-500 active:bg-amber-400 active:text-zinc-700 md:hidden"
+                    onClick={() => remove(index)}
+                  >
+                    Delete
+                  </button>
+                </FormSection>
               </>
             )}
           </div>
@@ -178,9 +215,9 @@ export const ListElement = ({
 
       {arrayName === "jobExperience" && (
         <>
-          <div className="list--item">
+          <div className="group/item mr-4 w-full min-w-full rounded-b-sm border-2 border-solid border-[rgb(231,234,244)] px-6 py-3 md:min-w-auto">
             <div
-              className="list--item__label"
+              className="group-hover/item:text-c-blue-1 inline-flex w-full items-center justify-between"
               onClick={() => setIsEditing(!isEditing)}
             >
               <div className="list--item__label__name">
@@ -202,65 +239,85 @@ export const ListElement = ({
             {isEditing && (
               // Editing
               <>
-                <div className="form--section edit--form">
-                  <div className="form--field">
-                    <label htmlFor="companyName">Company name</label>
-                    <input
-                      id="companyName"
+                <FormSection additionalClass="mt-8">
+                  <FormField>
+                    <FormInput
                       type="text"
-                      {...register(`companyName`)}
-                    />
-                  </div>
-                  <div className="form--field">
-                    <label htmlFor="position">Position</label>
-                    <input
+                      id="companyName"
+                      register={{ ...register(`companyName`) }}
+                    >
+                      Company name
+                    </FormInput>
+                  </FormField>
+                  <FormField>
+                    <FormInput
                       id="position"
                       type="text"
-                      {...register(`position`)}
-                    />
-                  </div>
+                      register={{ ...register(`position`) }}
+                    >
+                      Position
+                    </FormInput>
+                  </FormField>
 
-                  <div className="double--field">
-                    <div className="form--field">
-                      <label htmlFor="jobStartDate">Job start date</label>
-                      <input
-                        id="jobStartDate"
-                        type="date"
-                        {...register(`jobStartDate`, {
+                  <FormField>
+                    <FormInput
+                      type="date"
+                      id="jobStartDate"
+                      register={{
+                        ...register(`jobStartDate`, {
                           valueAsDate: true,
-                        })}
-                      />
-                    </div>
+                        }),
+                      }}
+                    >
+                      Job start date
+                    </FormInput>
+                  </FormField>
 
-                    <div className="form--field">
-                      <label htmlFor="jobEndDate">Job end date</label>
-                      <input
-                        id="jobEndDate"
-                        type="date"
-                        {...register(`jobEndDate`, {
+                  <FormField>
+                    <FormInput
+                      id="jobEndDate"
+                      type="date"
+                      register={{
+                        ...register(`jobEndDate`, {
                           valueAsDate: true,
-                        })}
-                      />
-                    </div>
-                  </div>
-                  <div className="form--field">
-                    <label htmlFor="description">Description</label>
-                    <textarea
+                        }),
+                      }}
+                    >
+                      Job end date
+                    </FormInput>
+                  </FormField>
+                  <FormField isRow={true}>
+                    <FormInput
+                      type="textarea"
                       id="description"
-                      type="text"
-                      {...register(`description`)}
-                    />
-                  </div>
+                      register={{ ...register(`description`) }}
+                    >
+                      Description
+                    </FormInput>
+                  </FormField>
                   <button
                     type="button"
+                    className="mt-1.5 w-full min-w-2/3 rounded-2xl bg-green-600 py-2 text-amber-50 outline-transparent hover:cursor-pointer hover:bg-amber-50 hover:text-green-600 focus:outline-4 focus:outline-amber-600 active:bg-purple-600 md:w-auto"
                     onClick={handleSubmit((data) => {
                       update(index, data);
                     })}
                   >
                     Confirm
                   </button>
-                  <button onClick={() => setIsEditing(false)}>Cancel</button>
-                </div>
+                  <button
+                    type="button"
+                    className="mt-1.5 w-full min-w-2/3 rounded-2xl bg-white px-5 py-2.5 text-gray-900 outline outline-gray-200 hover:cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-4 focus:outline-amber-600 focus:outline-none active:bg-blue-500 md:w-auto dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+                    onClick={() => setIsEditing(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="mt-1.5 w-full min-w-2/3 rounded-2xl bg-red-600 py-2 text-amber-200 outline-transparent hover:cursor-pointer hover:bg-red-900 hover:text-red-500 focus:outline-4 focus:outline-yellow-500 active:bg-amber-400 active:text-zinc-700 md:hidden"
+                    onClick={() => remove(index)}
+                  >
+                    Delete
+                  </button>
+                </FormSection>
               </>
             )}
           </div>

@@ -1,5 +1,10 @@
 
 
+.list--item--wrapper:hover>.remove--item--icon,
+.list--item--wrapper:active>.remove--item--icon {
+    opacity: 100%;
+}
+
 /*
 .list--item{
     border: 1px solid rgb(231, 234, 244);
@@ -34,11 +39,8 @@
     opacity: 0;
 }
 
-.list--item--wrapper:hover>.remove--item--icon,
-.list--item--wrapper:active>.remove--item--icon,
-.remove--item--icon:hover {
-    opacity: 1;
-}
+
+
 
 .edit--form{
     margin-top: 2rem;

@@ -9,13 +9,14 @@ import { FormInput } from "./components/Input/FormInput";
 import { ErrorMessage } from "./components/Input/ErrorMessage";
 import { FormField } from "./components/Form Field/FormField";
 import { FormSection } from "./components/Form Field/FormSection";
+import { useState } from "react";
 
 // TEMPLATE LINK: https://resume.io/app/resumes/52176034/edit
 
 const pdfDocStyles = StyleSheet.create({
   viewer: {
-    width: "100%",
-    minHeight: "50%",
+    width: "75%",
+    minHeight: "50vh",
   },
 });
 const defaultValues = {
@@ -58,6 +59,8 @@ const App = () => {
     mode: "onBlur",
   });
 
+  const [showPreview, setShowPreview] = useState(false);
+
   console.log(watch());
 
   const { errors, isValid } = formState;
@@ -99,7 +102,7 @@ const App = () => {
   return (
     <>
       <header className="bg-header-bg selection:bg-c-blue-2 p-2 selection:text-black">
-        <div className="max-w-8x1 container m-auto w-[95%]">
+        <div className="container">
           <NavBar />
         </div>
       </header>
@@ -110,7 +113,7 @@ const App = () => {
           noValidate
         >
           <FormSection>
-            <FormField isRow={true}>
+            <FormField>
               <FormInput
                 type="text"
                 id="firstName"
@@ -144,7 +147,7 @@ const App = () => {
 
               <ErrorMessage>{errors.firstName?.message}</ErrorMessage>
             </FormField>
-            <FormField isRow={true}>
+            <FormField>
               <FormInput
                 id="lastName"
                 type="text"
@@ -162,7 +165,7 @@ const App = () => {
               </FormInput>
               <ErrorMessage>{errors.lastName?.message}</ErrorMessage>
             </FormField>
-            <FormField isRow={true}>
+            <FormField>
               <FormInput
                 id="birthDate"
                 type="date"
@@ -213,7 +216,7 @@ const App = () => {
               </FormInput>
               <ErrorMessage>{errors.profilePicture?.message}</ErrorMessage>
             </FormField>
-            <FormField isRow={true}>
+            <FormField>
               <FormInput
                 type="tel"
                 id="phone"
@@ -233,7 +236,7 @@ const App = () => {
               </FormInput>
               <ErrorMessage>{errors.phone?.message}</ErrorMessage>
             </FormField>
-            <FormField isRow={true}>
+            <FormField>
               <FormInput
                 id="address"
                 type="text"
@@ -264,13 +267,13 @@ const App = () => {
 
           {/* Educations START */}
           <h2>Education</h2>
-          <section className="form--section education">
+          <FormSection>
             <ul className="cv--list col-span-full grid list-none gap-1">
               {educationFields.map((field, index) => {
                 return (
                   <li
                     key={field.id}
-                    className="list--item--wrapper inline-flex hover:cursor-pointer"
+                    className="list--item--wrapper inline-flex items-center hover:cursor-pointer"
                   >
                     <ListElement
                       arrayName="educations"
@@ -295,26 +298,26 @@ const App = () => {
                     schoolEndDate: new Date(),
                   })
                 }
-                className="add--item--btn justify-self-[unset] text-c-blue-1 hover:bg-c-gray-3 mt-5 rounded-b-sm border-none bg-inherit px-4 py-2 text-left font-bold duration-150 hover:cursor-pointer"
+                className="add--item--btn justify-self-[unset] text-c-blue-1 hover:bg-c-gray-3 mt-5 w-full rounded-b-sm border-none bg-inherit px-4 py-2 text-center text-3xl font-bold duration-150 hover:cursor-pointer md:w-auto md:text-2xl"
               >
                 + Add education
               </button>
               {errors.educations?.message}
             </ul>
-          </section>
+          </FormSection>
 
           {/* Educations END */}
 
           {/*Job experience START*/}
 
           <h2>Job experience</h2>
-          <section className="form--section education">
-            <ul className="cv--list list-none">
+          <FormSection>
+            <ul className="cv--list col-span-full grid list-none gap-1">
               {jobFields.map((jobField, index) => {
                 return (
                   <li
                     key={jobField.id}
-                    className="list--item--wrapper inline-flex hover:cursor-pointer"
+                    className="list--item--wrapper inline-flex items-center hover:cursor-pointer"
                   >
                     <ListElement
                       arrayName="jobExperience"
@@ -339,58 +342,70 @@ const App = () => {
                     description: "",
                   })
                 }
-                className="add--item--btn justify-self-[unset] text-c-blue-1 hover:bg-c-gray-3 mt-5 rounded-b-sm border-none bg-inherit px-4 py-2 text-left font-bold duration-150 hover:cursor-pointer"
+                className="add--item--btn justify-self-[unset] text-c-blue-1 hover:bg-c-gray-3 mt-5 w-full rounded-b-sm border-none bg-inherit px-4 py-2 text-center text-3xl font-bold duration-150 hover:cursor-pointer md:w-auto md:text-2xl"
               >
                 + Add job experience
               </button>
               {errors.jobExperience?.message}
             </ul>
-          </section>
+          </FormSection>
 
           {/*Job experience END*/}
-          {isValid ? (
-            <PDFDownloadLink
-              document={
-                <MyDocument
-                  CvState={watch()}
-                  educationFields={educationFields}
-                  jobFields={jobFields}
-                />
-              }
-              fileName="myCV.pdf"
-            >
-              {({ blob, url, loading, error }) => (
-                <button type="button" disabled={loading ? true : false}>
-                  Download form
-                </button>
-              )}
-            </PDFDownloadLink>
-          ) : (
-            <button type="submit" className="col-span-full">
-              Check form
-            </button>
-          )}
+          <div className="grid grid-cols-none grid-rows-2 gap-4 md:grid-cols-3">
+            {isValid ? (
+              <PDFDownloadLink
+                document={
+                  <MyDocument
+                    CvState={watch()}
+                    educationFields={educationFields}
+                    jobFields={jobFields}
+                  />
+                }
+                fileName="myCV.pdf"
+              >
+                {({ blob, url, loading, error }) => (
+                  <button
+                    type="button"
+                    disabled={loading ? true : false}
+                    className="bg-c-blue-1 hover:cursor-pointer2 m-2 w-full rounded-b-sm px-3 py-2 text-center leading-5 font-semibold whitespace-nowrap text-white hover:bg-[rgb(17,112,205)] active:bg-[rgb(16,82,155)] md:col-span-2"
+                  >
+                    Download form
+                  </button>
+                )}
+              </PDFDownloadLink>
+            ) : (
+              <button
+                type="submit"
+                className="bg-c-blue-1 leading-5e m-2 w-full rounded-b-sm px-3 py-2 text-center font-semibold whitespace-nowrap text-white transition-colors duration-100 hover:cursor-pointer hover:bg-[rgb(17,112,205)] active:bg-[rgb(16,82,155)] md:col-span-2 md:w-2/3"
+              >
+                Check form
+              </button>
+            )}
 
-          <button
-            type="button"
-            className="col-span-full"
-            onClick={() => reset()}
-          >
-            Reset
-          </button>
-          <button
-            type="button"
-            className="col-span-full"
-            onClick={() => console.log(watch())}
-          >
-            Log form state
-          </button>
+            <button
+              type="button"
+              className="m-2 w-full bg-white px-5 py-2.5 text-gray-900 outline outline-gray-200 transition-colors duration-100 hover:cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-4 focus:outline-amber-600 focus:outline-none active:bg-stone-500 active:text-white md:w-2/3 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+              onClick={() => reset()}
+            >
+              Reset
+            </button>
+
+            <button
+              type="button"
+              className="bg-c-blue-1 col-span-full mt-20 grid w-full rounded-b-sm px-3 py-2 text-center font-semibold whitespace-nowrap text-white transition-colors duration-100 hover:cursor-pointer hover:bg-[rgb(17,112,205)] active:bg-[rgb(16,82,155)] md:w-2/3 xl:hidden"
+              onClick={() => setShowPreview(!showPreview)}
+            >
+              {showPreview ? "Hide preview" : "Show preview"}
+            </button>
+          </div>
         </form>
 
         <div className="container">
-          <div className="preview flex h-full flex-col items-center justify-center gap-y-8 p-[1.5em]">
-            <h2>CV preview</h2>
-            <PDFViewer style={pdfDocStyles.viewer} showToolbar={false}>
+          <div
+            className={`preview ${showPreview ? "flex" : "hidden"} mt-5 h-full flex-col items-center gap-y-4 p-[1.5em] xl:flex xl:gap-y-8`}
+          >
+            <h2 className="font-TTBold text-5xl font-extrabold">CV preview</h2>
+            <PDFViewer showToolbar={false} style={pdfDocStyles.viewer}>
               <MyDocument
                 CvState={watch()}
                 educationFields={educationFields}
